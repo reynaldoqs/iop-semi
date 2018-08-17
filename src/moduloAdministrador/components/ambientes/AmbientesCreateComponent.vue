@@ -15,7 +15,7 @@
             <v-flex xs8>
               <v-text-field :rules="[rules.req]" :disabled="!editable" v-model="ambientesModel.nombre"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -27,7 +27,7 @@
             <v-flex xs8>
               <v-text-field :rules="[rules.req, rules.url]" :disabled="!editable" v-model="ambientesModel.url"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -39,7 +39,7 @@
             <v-flex xs8>
               <v-text-field :rules="[rules.req]" :disabled="!editable" v-model="ambientesModel.ipServidor"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -51,7 +51,7 @@
             <v-flex xs8>
               <v-text-field :disabled="!editable" :rules="[rules.req]" v-model.number="ambientesModel.descripcion"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -89,9 +89,8 @@
                   <div class="iop-chips-form-container">
                     <v-chip v-for="(palabra, index) in ambientesModel.protocolos" :key="index" close @input="eliminarProtocolo(index)">
                       {{palabra}}</v-chip>
-                  </div> 
+                  </div>
             </v-flex>
-
 
             <v-flex xs12 style="text-align: right; padding:20px 16px 0 0;">
               <v-btn :disabled="!valid" :loading="loading" @click="guardar" flat round outline>Guardar<v-icon right small>save</v-icon></v-btn>
@@ -103,14 +102,14 @@
 </template>
 
 <script>
-import rules from "@/config/formRules";
-import ambientesApi from "@/services/ambientesService";
-import addProtocolos from "@/moduloAdministrador/components/shared/formComponents/addProtocolos";
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
-import EventBus from "@/utils/eventBus";
+import rules from '@/config/formRules'
+import ambientesApi from '@/services/ambientesService'
+import addProtocolos from '@/moduloAdministrador/components/shared/formComponents/addProtocolos'
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
+import EventBus from '@/utils/eventBus'
 export default {
-  name: "create-ambiente",
-  data() {
+  name: 'create-ambiente',
+  data () {
     return {
       valid: true,
       editable: true,
@@ -121,41 +120,41 @@ export default {
         url: null,
         ipServidor: null,
         descripcion: null,
-        token: "",
+        token: '',
         urlAdministrativa: null
       }
-    };
+    }
   },
   methods: {
-    guardar() {
-      this.editable = false;
-      this.loading = true;
+    guardar () {
+      this.editable = false
+      this.loading = true
       ambientesApi.postAmbiente(this.ambientesModel).then(resp => {
         if (resp !== undefined) {
-          this.closeCreateModal();
-          this.loading = false;
-          this.editable = true;
+          this.closeCreateModal()
+          this.loading = false
+          this.editable = true
         } else {
-          this.loading = false;
-          this.editable = true;
+          this.loading = false
+          this.editable = true
         }
-      });
+      })
     },
-    addProtocolo(protocolo) {
-      this.ambientesModel.protocolos.push(protocolo);
+    addProtocolo (protocolo) {
+      this.ambientesModel.protocolos.push(protocolo)
     },
-    eliminarProtocolo(key) {
-      this.ambientesModel.protocolos.splice(key, 1);
+    eliminarProtocolo (key) {
+      this.ambientesModel.protocolos.splice(key, 1)
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     }
   },
   components: {
     add: addProtocolos,
     formInformation
   }
-};
+}
 </script>

@@ -23,39 +23,39 @@
   </div>
 </template>
 <script>
-import iopTabs from "@/moduloAdministrador/components/shared/iopTabs";
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
-import ServicioRutasListaComponent from "@/moduloAdministrador/components/usersComponents/userServicios/ServicioRutasListComponent";
-import ServicioDetailComponent from "@/moduloAdministrador/components/usersComponents/userServicios/ServicioDetailComponent";
+import iopTabs from '@/moduloAdministrador/components/shared/iopTabs'
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
+import ServicioRutasListaComponent from '@/moduloAdministrador/components/usersComponents/userServicios/ServicioRutasListComponent'
+import ServicioDetailComponent from '@/moduloAdministrador/components/usersComponents/userServicios/ServicioDetailComponent'
 export default {
-  data() {
+  data () {
     return {
       tabItems: [
         {
-          title: "Detalles",
-          icon: "info"
+          title: 'Detalles',
+          icon: 'info'
         },
         {
-          title: "Rutas",
-          icon: "person"
+          title: 'Rutas',
+          icon: 'person'
         }
       ],
-      selectedComponent: "Detalles",
+      selectedComponent: 'Detalles',
       navigation: [
         {
-          text: "Dashboard",
+          text: 'Dashboard',
           disabled: false
         },
         {
-          text: "Servicios",
+          text: 'Servicios',
           disabled: false
         },
         {
-          text: "Detalles",
+          text: 'Detalles',
           disabled: true
         }
       ]
-    };
+    }
   },
   components: {
     iopTabs,
@@ -63,5 +63,5 @@ export default {
     Detalles: ServicioDetailComponent,
     formInformation
   }
-};
+}
 </script>

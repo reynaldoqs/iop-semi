@@ -19,41 +19,41 @@
 </template>
 
 <script>
-import InformationBar from "@/moduloAdministrador/components/shared/InformationBar";
-import ActionAndSearchBar from "@/moduloAdministrador/components/shared/ActionAndSearchBar";
-import rutasApi from "@/services/rutasService";
-import DataTableView from "@/moduloAdministrador/components/shared/DataTableView";
+import InformationBar from '@/moduloAdministrador/components/shared/InformationBar'
+import ActionAndSearchBar from '@/moduloAdministrador/components/shared/ActionAndSearchBar'
+import rutasApi from '@/services/rutasService'
+import DataTableView from '@/moduloAdministrador/components/shared/DataTableView'
 export default {
-  data() {
+  data () {
     return {
       spinner: true,
       requestData: {},
       information: {
-        title: "Rutas",
-        description: "Muestra todas las rutas registradas en la plataforma."
+        title: 'Rutas',
+        description: 'Muestra todas las rutas registradas en la plataforma.'
       },
       aditionals: {
         registrados: 0
       }
-    };
+    }
   },
   methods: {
-    updatePagination(pagination) {
-      //console.log(`Tienes que hacer funcionar la paginación: ${pagination}`);
+    updatePagination (pagination) {
+      // console.log(`Tienes que hacer funcionar la paginación: ${pagination}`);
     },
-    changeResults(value) {
-      this.loadRutas(value);
+    changeResults (value) {
+      this.loadRutas(value)
     },
-    search(query) {
-      this.spinner = true;
+    search (query) {
+      this.spinner = true
       rutasApi.searchRuta(query).then(data => {
-        this.requestData = this.formatData(data);
-        this.spinner = false;
-      });
+        this.requestData = this.formatData(data)
+        this.spinner = false
+      })
     },
-    formatData(data) {
-      //Formatea lo datos para enviarlos al data table(formato unico).
-      let headers = ["Nombre Ruta", "Versión", "URL base", "Método", "Acción"];
+    formatData (data) {
+      // Formatea lo datos para enviarlos al data table(formato unico).
+      let headers = ['Nombre Ruta', 'Versión', 'URL base', 'Método', 'Acción']
       return {
         totalItems: data.totalrutas,
         items: data.rutas.map(data => {
@@ -63,35 +63,35 @@ export default {
             data3: data.baseUrl,
             data4: data.metodo,
             id: data.id
-          };
-          return formated;
+          }
+          return formated
         }),
         headers: headers.map(data => {
           let header = {
             text: data,
-            align: "left",
+            align: 'left',
             sortable: true
-          };
-          return header;
+          }
+          return header
         })
-      };
+      }
     },
-    loadRutas(limite = 10) {
-      this.spinner = true;
+    loadRutas (limite = 10) {
+      this.spinner = true
       rutasApi.getRutas(limite).then(data => {
-        this.aditionals.registrados = data.totalrutas;
-        this.requestData = this.formatData(data);
-        this.spinner = false;
-      });
+        this.aditionals.registrados = data.totalrutas
+        this.requestData = this.formatData(data)
+        this.spinner = false
+      })
     }
   },
   components: {
-    "search-bar": ActionAndSearchBar,
+    'search-bar': ActionAndSearchBar,
     InformationBar,
     DataTableView
   },
-  mounted() {
-    this.loadRutas();
+  mounted () {
+    this.loadRutas()
   }
-};
+}
 </script>

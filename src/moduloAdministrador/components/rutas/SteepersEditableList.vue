@@ -9,7 +9,7 @@
         >
         <template slot="items" slot-scope="props">
           <tr @click="props.expanded = !props.expanded">
-          <td :style="{cursor:props.item.hijos?'pointer':'normal','min-width':'200px'}">{{ props.item.nombre }} <v-icon v-show="props.item.hijos" small>{{props.expanded?'expand_more':'chevron_right'}}</v-icon></td>    
+          <td :style="{cursor:props.item.hijos?'pointer':'normal','min-width':'200px'}">{{ props.item.nombre }} <v-icon v-show="props.item.hijos" small>{{props.expanded?'expand_more':'chevron_right'}}</v-icon></td>
           <td v-if="props.item.ubicacion " class="text-xs-left">{{ props.item.ubicacion }}</td>
           <td class="text-xs-left">{{ props.item.tipo }}</td>
           <td class="text-xs-left">{{ props.item.formato }}</td>
@@ -22,7 +22,7 @@
               <v-icon small >delete</v-icon>
             </v-btn>
           </td>
-          </tr> 
+          </tr>
         </template>
      <template slot="expand" slot-scope="props">
       <v-card flat v-if="props.item.hijos">
@@ -38,40 +38,40 @@
   </div>
 </template>
 <script>
-import nestedList from "@/moduloAdministrador/components/rutas/nestedList";
-import formaterApi from "@/utils/formatJson";
-import EventBus from "@/utils/eventBus";
+import nestedList from '@/moduloAdministrador/components/rutas/nestedList'
+import formaterApi from '@/utils/formatJson'
+import EventBus from '@/utils/eventBus'
 export default {
-  name: "steepers-list-1",
+  name: 'steepers-list-1',
   methods: {
-    deleteIt(id) {
+    deleteIt (id) {
       if (id) {
-        EventBus.$emit("deleteParametro", id);
+        EventBus.$emit('deleteParametro', id)
       }
     },
-    editIt(id) {
+    editIt (id) {
       if (id) {
-        EventBus.$emit("editParametro", id);
+        EventBus.$emit('editParametro', id)
       }
     }
   },
   computed: {
-    headersFormated() {
+    headersFormated () {
       return this.headers.map(data => {
         let newHeader = {
           text: data,
-          align: "left",
+          align: 'left',
           sortable: true,
           value: data
-        };
-        return newHeader;
-      });
+        }
+        return newHeader
+      })
     },
-    itemsFormated() {
-      //eliminar de la BD y luego hacer un splice de this items => formaterApi
+    itemsFormated () {
+      // eliminar de la BD y luego hacer un splice de this items => formaterApi
       return this.isV2
         ? formaterApi.toNestedJsonV2(this.items)
-        : formaterApi.toNestedJson(this.items);
+        : formaterApi.toNestedJson(this.items)
     }
   },
   props: {
@@ -86,7 +86,7 @@ export default {
     editable: {
       type: Boolean,
       default: true
-    }, //parche feo para usar la segunda funcion de formatJson
+    }, // parche feo para usar la segunda funcion de formatJson
     isV2: {
       type: Boolean,
       default: false
@@ -95,7 +95,7 @@ export default {
   components: {
     nestedList
   }
-};
+}
 </script>
 <style>
 #rutas-list .application,

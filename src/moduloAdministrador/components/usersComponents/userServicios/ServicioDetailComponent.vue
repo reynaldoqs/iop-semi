@@ -82,7 +82,7 @@
         </div>
       </v-flex>
       <v-flex xs8 class="bat-padding">
-        <div class="bat-container">    
+        <div class="bat-container">
           {{servicio.datosEntidad.siglaEntidad}} - {{servicio.datosEntidad.descripcionEntidad}}
         </div>
       </v-flex>
@@ -90,27 +90,27 @@
   </div>
 </template>
 <script>
-import serviciosApi from "@/services/serviciosService";
+import serviciosApi from '@/services/serviciosService'
 export default {
-  data() {
+  data () {
     return {
       spinner: true,
       servicio: {}
-    };
-  },
-  methods: {
-    loadServicio() {
-      this.spinner = true;
-      serviciosApi.getServicio(this.$route.params.id).then(data => {
-        this.servicio = data;
-        this.spinner = false;
-      });
     }
   },
-  mounted() {
-    this.loadServicio();
+  methods: {
+    loadServicio () {
+      this.spinner = true
+      serviciosApi.getServicio(this.$route.params.id).then(data => {
+        this.servicio = data
+        this.spinner = false
+      })
+    }
+  },
+  mounted () {
+    this.loadServicio()
   }
-};
+}
 </script>
 <style scoped>
 .servicios-detail-user {

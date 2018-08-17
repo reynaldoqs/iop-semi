@@ -15,7 +15,7 @@
           <v-flex xs8>
             <v-text-field :rules="[rules.req]" :disabled="!editable" v-model="userModel.nombres"></v-text-field>
           </v-flex>
-  
+
           <v-flex xs4>
             <v-subheader>
               <div class="inter-subheader">
@@ -27,7 +27,7 @@
           <v-flex xs8>
             <v-text-field :disabled="!editable" v-model="userModel.primerApellido"></v-text-field>
           </v-flex>
-  
+
           <v-flex xs4>
             <v-subheader>
               <div class="inter-subheader">
@@ -39,7 +39,7 @@
           <v-flex xs8>
             <v-text-field :disabled="!editable" v-model="userModel.segundoApellido"></v-text-field>
           </v-flex>
-  
+
           <v-flex xs4>
             <v-subheader>
               <div class="inter-subheader">
@@ -65,21 +65,21 @@
           </v-flex>
 
         </v-layout>
-    </v-form> 
+    </v-form>
   </div>
 </template>
 <script>
-import EventBus from "@/utils/eventBus";
-import rules from "@/config/formRules";
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
+import EventBus from '@/utils/eventBus'
+import rules from '@/config/formRules'
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
 export default {
-  data() {
+  data () {
     return {
       editedModel: this.userModel,
       hasExtension: false,
       valid: true,
       showClave: false
-    };
+    }
   },
   props: {
     userModel: {
@@ -90,19 +90,19 @@ export default {
     }
   },
   watch: {
-    valid() {
-      EventBus.$emit("personalValid", this.valid);
+    valid () {
+      EventBus.$emit('personalValid', this.valid)
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     }
   },
   components: {
     formInformation
   }
-};
+}
 </script>
 <style>
 .extension {

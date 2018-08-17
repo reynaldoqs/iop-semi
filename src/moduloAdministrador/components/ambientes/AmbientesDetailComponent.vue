@@ -14,33 +14,33 @@
   </div>
 </template>
 <script>
-import iopTabs from "@/moduloAdministrador/components/shared/iopTabs";
-import InformationBar from "@/moduloAdministrador/components/shared/InformationBar";
-import AmbientesDetailViewComponent from "@/moduloAdministrador/components/ambientes/AmbientesDetailViewComponent";
-import AmbientesDetailListComponent from "@/moduloAdministrador/components/ambientes/AmbientesDetailListComponent";
+import iopTabs from '@/moduloAdministrador/components/shared/iopTabs'
+import InformationBar from '@/moduloAdministrador/components/shared/InformationBar'
+import AmbientesDetailViewComponent from '@/moduloAdministrador/components/ambientes/AmbientesDetailViewComponent'
+import AmbientesDetailListComponent from '@/moduloAdministrador/components/ambientes/AmbientesDetailListComponent'
 export default {
-  data() {
+  data () {
     return {
       tabItems: [
         {
-          title: "Detalles",
-          icon: "styles"
+          title: 'Detalles',
+          icon: 'styles'
         },
         {
-          title: "Servicios",
-          icon: "cloud"
+          title: 'Servicios',
+          icon: 'cloud'
         }
       ],
       information: {
-        title: "ambiente?",
-        description: "sin descripcion"
+        title: 'ambiente?',
+        description: 'sin descripcion'
       },
       aditionals: {
-        Vista: "Administrador"
+        Vista: 'Administrador'
       },
       spinner: true,
-      selectedComponent: "Detalles"
-    };
+      selectedComponent: 'Detalles'
+    }
   },
   components: {
     iopTabs,
@@ -48,5 +48,5 @@ export default {
     Servicios: AmbientesDetailListComponent,
     InformationBar
   }
-};
+}
 </script>

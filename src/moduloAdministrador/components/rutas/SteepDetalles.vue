@@ -42,10 +42,10 @@
             placeholder="Método HTTP"
             solo
             flat
-            single-line 
+            single-line
             v-model="model.metodo"
             :rules="[rules.req]"
-            :disabled="hasId" 
+            :disabled="hasId"
           ></v-select>
         </v-flex>
          <v-text-field class="iop-right-spacer"
@@ -97,27 +97,27 @@
   </div>
 </template>
 <script>
-import addPalabra from "@/moduloAdministrador/components/shared/formComponents/addPalabras";
-import SteepersEditableChips from "@/moduloAdministrador/components/rutas/SteepersEditableChips";
-import rules from "@/config/formRules";
-import EventBus from "@/utils/eventBus";
+import addPalabra from '@/moduloAdministrador/components/shared/formComponents/addPalabras'
+import SteepersEditableChips from '@/moduloAdministrador/components/rutas/SteepersEditableChips'
+import rules from '@/config/formRules'
+import EventBus from '@/utils/eventBus'
 export default {
-  data() {
+  data () {
     return {
       editable: true,
       valid: true,
       model: {
         nombre: null,
-        metodo: "GET",
+        metodo: 'GET',
         baseUrl: null,
         descripcion: null,
         version: null,
         prefijoOperacion: null,
-        seguridad: "JWT",
+        seguridad: 'JWT',
         palabrasClave: []
       },
-      metodosOtp: ["GET", "POST", "PATCH", "DELETE", /* "OPTIONS",  */ "PUT"]
-    };
+      metodosOtp: ['GET', 'POST', 'PATCH', 'DELETE', /* "OPTIONS",  */ 'PUT']
+    }
   },
   props: {
     idRuta: {
@@ -126,14 +126,14 @@ export default {
     }
   },
   methods: {
-    emitirDatos() {
-      this.$emit("answerDetalles", this.model);
+    emitirDatos () {
+      this.$emit('answerDetalles', this.model)
     },
-    addPalabra(val) {
-      this.model.palabrasClave.push(val);
+    addPalabra (val) {
+      this.model.palabrasClave.push(val)
     },
-    resetForm() {
-      this.$refs.formDetalles.reset();
+    resetForm () {
+      this.$refs.formDetalles.reset()
     }
   },
   components: {
@@ -141,22 +141,22 @@ export default {
     SteepersEditableChips
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     },
-    hasId() {
-      return this.idRuta ? true : false;
+    hasId () {
+      return !!this.idRuta
     }
   },
-  mounted() {
-    EventBus.$on("askDetalles", () => {
-      this.emitirDatos();
-    });
+  mounted () {
+    EventBus.$on('askDetalles', () => {
+      this.emitirDatos()
+    })
   },
-  beforeDestroy() {
-    EventBus.$off("askDetalles");
+  beforeDestroy () {
+    EventBus.$off('askDetalles')
   }
-};
+}
 </script>
 <style scoped>
 .list-container {

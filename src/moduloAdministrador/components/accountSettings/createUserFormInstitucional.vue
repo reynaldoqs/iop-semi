@@ -71,22 +71,22 @@
           </v-flex>
         </v-layout>
 
-    </v-form> 
+    </v-form>
   </div>
 </template>
 <script>
-import EntidadesComboBox from "@/moduloAdministrador/components/shared/EntidadesComboBox";
-import EventBus from "@/utils/eventBus";
-import rules from "@/config/formRules";
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
+import EntidadesComboBox from '@/moduloAdministrador/components/shared/EntidadesComboBox'
+import EventBus from '@/utils/eventBus'
+import rules from '@/config/formRules'
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
 export default {
-  data() {
+  data () {
     return {
       editedModel: this.userModel,
       hasExtension: false,
       valid: true,
       showClave: false
-    };
+    }
   },
   props: {
     userModel: {
@@ -97,25 +97,25 @@ export default {
     }
   },
   watch: {
-    valid() {
-      EventBus.$emit("InstitucionalValid", this.valid);
+    valid () {
+      EventBus.$emit('InstitucionalValid', this.valid)
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     }
   },
   methods: {
-    cambiarEntidad(entidad) {
-      this.userModel.datosEntidad = entidad;
+    cambiarEntidad (entidad) {
+      this.userModel.datosEntidad = entidad
     }
   },
   components: {
     EntidadesComboBox,
     formInformation
   }
-};
+}
 </script>
 <style>
 .extension {

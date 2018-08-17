@@ -14,7 +14,7 @@
         </div>
         <v-form ref="formUsiarioInstitucional" class="iop-form-container" v-model="valid" v-else>
           <v-layout row wrap>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -26,7 +26,7 @@
             <v-flex xs8>
               <v-text-field v-model="userModel.correoElectronico" :disabled="!editable" :rules="[rules.req, rules.email]"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -42,9 +42,9 @@
                   <v-icon left>phone</v-icon>
                   {{numero}}</v-chip>
               </div>
-  
+
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -56,7 +56,7 @@
             <v-flex xs8>
               <v-text-field :disabled="!editable" :rules="[rules.req]" v-model="userModel.usuario"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -68,7 +68,7 @@
             <v-flex xs8>
               <v-text-field :append-icon="showClave ? 'visibility_off' : 'visibility'" :type="showClave ? 'text' : 'password'" :disabled="!editable" v-model="userModel.clave" @click:append="showClave=!showClave"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -80,12 +80,11 @@
             <v-flex xs8>
               <EntidadesComboBox :disabled="!editable" v-if="userModel.datosEntidad" :idEntidad="userModel.datosEntidad.idEntidad" v-on:entidadChange="cambioEntidad" />
             </v-flex>
-  
-  
+
             <v-flex xs12 style="text-align: right; padding:20px 16px 0 0;">
               <v-btn v-show="editable" :disabled="!valid" :loading="loading" @click="guardarUsuario" flat round outline>Guardar<v-icon right small>save</v-icon></v-btn>
             </v-flex>
-  
+
           </v-layout>
         </v-form>
       </v-flex>
@@ -94,15 +93,15 @@
 </template>
 
 <script>
-import usuariosApi from "@/services/usuariosService";
-import addNumbers from "@/moduloAdministrador/components/shared/formComponents/addNumbers";
-import EntidadesComboBox from "@/moduloAdministrador/components/shared/EntidadesComboBox";
-import rules from "@/config/formRules";
-import check from "@/utils/checkChanges";
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
+import usuariosApi from '@/services/usuariosService'
+import addNumbers from '@/moduloAdministrador/components/shared/formComponents/addNumbers'
+import EntidadesComboBox from '@/moduloAdministrador/components/shared/EntidadesComboBox'
+import rules from '@/config/formRules'
+import check from '@/utils/checkChanges'
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
 export default {
-  name: "Usuario-personal",
-  data() {
+  name: 'Usuario-personal',
+  data () {
     return {
       spinner: false,
       loading: false,
@@ -117,20 +116,20 @@ export default {
         datosEntidad: null
       },
       userOldModel: {}
-    };
+    }
   },
-  mounted() {
-    this.spinner = true;
+  mounted () {
+    this.spinner = true
     usuariosApi.getUsuario(this.$route.params.id).then(data => {
-      this.spinner = false;
-      this.userModel = data;
-      this.userOldModel = JSON.parse(JSON.stringify(data));
-    });
+      this.spinner = false
+      this.userModel = data
+      this.userOldModel = JSON.parse(JSON.stringify(data))
+    })
   },
   methods: {
-    guardarUsuario() {
-      this.editable = false;
-      this.loading = true;
+    guardarUsuario () {
+      this.editable = false
+      this.loading = true
       usuariosApi
         .patchUsuario(
           this.$route.params.id,
@@ -138,32 +137,32 @@ export default {
         )
         .then(resp => {
           if (resp !== undefined) {
-            this.$router.go(-1);
+            this.$router.go(-1)
           } else {
-            this.loading = false;
-            this.editable = true;
+            this.loading = false
+            this.editable = true
           }
-        });
+        })
     },
-    addTelefonos(telefono) {
-      this.userModel.telefonoCelular.push(telefono);
+    addTelefonos (telefono) {
+      this.userModel.telefonoCelular.push(telefono)
     },
-    eliminarTelefono(key) {
-      this.userModel.telefonoCelular.splice(key, 1);
+    eliminarTelefono (key) {
+      this.userModel.telefonoCelular.splice(key, 1)
     },
-    cambioEntidad(data) {
-      this.userModel.datosEntidad = data;
+    cambioEntidad (data) {
+      this.userModel.datosEntidad = data
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     }
   },
   components: {
-    "add-telefono": addNumbers,
+    'add-telefono': addNumbers,
     EntidadesComboBox,
     formInformation
   }
-};
+}
 </script>

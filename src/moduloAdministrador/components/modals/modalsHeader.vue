@@ -26,20 +26,20 @@
   </div>
 </template>
 <script>
-import EventBus from "@/utils/eventBus";
+import EventBus from '@/utils/eventBus'
 export default {
-  name: "modals-header",
-  data() {
+  name: 'modals-header',
+  data () {
     return {
       json: {
-        msg: "demo of jsoneditor"
+        msg: 'demo of jsoneditor'
       }
-    };
+    }
   },
   props: {
     icon: {
       type: String,
-      default: "description"
+      default: 'description'
     },
     loading: {
       type: Boolean,
@@ -47,11 +47,11 @@ export default {
     },
     title: {
       type: String,
-      default: ""
+      default: ''
     },
     description: {
       type: String,
-      default: ""
+      default: ''
     },
     isNested: {
       type: Boolean,
@@ -59,11 +59,11 @@ export default {
     }
   },
   methods: {
-    close() {
-      this.$emit("onClose");
+    close () {
+      this.$emit('onClose')
     }
   }
-};
+}
 </script>
 <style scoped>
 .modals-header {

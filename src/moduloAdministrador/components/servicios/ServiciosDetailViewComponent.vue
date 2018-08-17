@@ -16,7 +16,7 @@
           ></v-progress-circular>
         </div>
         <v-form ref="formUpdateServicios" class="iop-form-container" v-model="valid" v-else>
-        
+
           <v-layout row wrap>
             <v-flex xs4>
               <v-subheader>
@@ -29,7 +29,7 @@
             <v-flex xs8>
               <v-text-field :rules="[rules.req]" :disabled="!editable" v-model="servicioModel.nombre"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -41,7 +41,7 @@
             <v-flex xs8>
               <v-text-field :rules="[rules.req, rules.noSpace]" :disabled="!editable" v-model="servicioModel.codigo"></v-text-field>
             </v-flex>
-            
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -65,7 +65,7 @@
           <v-flex xs8>
             <v-select :disabled="!editable" :items="estados" v-model="servicioModel.estado"></v-select>
           </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -98,7 +98,7 @@
                 <v-date-picker v-model="servicioModel.fechaInicioDisponibilidad" @input="$refs.menu1.save(servicioModel.fechaInicioDisponibilidad)"></v-date-picker>
               </v-menu>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -143,7 +143,7 @@
             <v-flex xs8>
               <v-text-field :disabled="!editable" :rules="[rules.req]" v-model="servicioModel.descripcion"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -157,7 +157,7 @@
                   <div class="iop-chips-form-container">
                     <v-chip v-for="(palabra, index) in servicioModel.palabrasClave" :key="index" close @input="editable?eliminarPalabra(index):''">
                       {{palabra}}</v-chip>
-                  </div> 
+                  </div>
             </v-flex>
 
             <v-flex xs4>
@@ -185,9 +185,8 @@
                 <div class="iop-chips-form-container">
                     <v-chip v-for="(ambiente, index) in servicioModel.ambientes" :key="index" close @input="editable?eliminarAmbiente(index):''">
                       {{ambiente.pathServicio}}</v-chip>
-                </div> 
+                </div>
             </v-flex>
-
 
             <v-flex xs12 style="text-align: right; padding:20px 16px 0 0;">
               <v-btn v-show="editable" :disabled="!valid || !editable" :loading="loading" @click="guardar" flat round outline>Guardar<v-icon right small>save</v-icon></v-btn>
@@ -195,23 +194,23 @@
 
           </v-layout>
         </v-form>
-         <modal-component :dialog="modal" :disabled="!editable"></modal-component> 
+         <modal-component :dialog="modal" :disabled="!editable"></modal-component>
       </v-flex>
     </v-layout>
   </div>
 </template>
 
 <script>
-import rules from "@/config/formRules";
-import EntidadesComboBox from "@/moduloAdministrador/components/shared/EntidadesComboBox";
-import serviciosApi from "@/services/serviciosService";
-import addPalabras from "@/moduloAdministrador/components/shared/formComponents/addPalabras";
-import EventBus from "@/utils/eventBus";
-import modalComponent from "@/moduloAdministrador/components/servicios/ServiciosCreateModalComponent";
-import check from "@/utils/checkChanges";
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
+import rules from '@/config/formRules'
+import EntidadesComboBox from '@/moduloAdministrador/components/shared/EntidadesComboBox'
+import serviciosApi from '@/services/serviciosService'
+import addPalabras from '@/moduloAdministrador/components/shared/formComponents/addPalabras'
+import EventBus from '@/utils/eventBus'
+import modalComponent from '@/moduloAdministrador/components/servicios/ServiciosCreateModalComponent'
+import check from '@/utils/checkChanges'
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
 export default {
-  data() {
+  data () {
     return {
       spinner: false,
       valid: true,
@@ -230,21 +229,21 @@ export default {
         datosEntidad: {}
       },
       servicioOldModel: {},
-      menu1: "",
-      menu2: "",
+      menu1: '',
+      menu2: '',
       estados: [
-        "REGISTRADO",
-        "ACTIVO",
-        "INACTIVO",
-        "OBSOLETO",
-        "EN MANTENIMIENTO"
+        'REGISTRADO',
+        'ACTIVO',
+        'INACTIVO',
+        'OBSOLETO',
+        'EN MANTENIMIENTO'
       ]
-    };
+    }
   },
   methods: {
-    guardar() {
-      this.editable = false;
-      this.loading = true;
+    guardar () {
+      this.editable = false
+      this.loading = true
       serviciosApi
         .patchServicio(
           this.$route.params.id,
@@ -252,73 +251,73 @@ export default {
         )
         .then(resp => {
           if (resp !== undefined) {
-            this.loading = false;
+            this.loading = false
           } else {
-            this.loading = false;
-            this.editable = true;
+            this.loading = false
+            this.editable = true
           }
-        });
+        })
     },
-    addPalabra(palabra) {
-      this.servicioModel.palabrasClave.push(palabra);
+    addPalabra (palabra) {
+      this.servicioModel.palabrasClave.push(palabra)
     },
-    eliminarPalabra(key) {
-      this.servicioModel.palabrasClave.splice(key, 1);
+    eliminarPalabra (key) {
+      this.servicioModel.palabrasClave.splice(key, 1)
     },
-    eliminarAmbiente(key) {
-      this.servicioModel.ambientes.splice(key, 1);
+    eliminarAmbiente (key) {
+      this.servicioModel.ambientes.splice(key, 1)
     },
-    cambioEntidad(entidad) {
+    cambioEntidad (entidad) {
       this.servicioModel.datosEntidad = {
         id: entidad.idEntidad,
         numeroEntidad: entidad.numeroEntidad,
         descripcionEntidad: entidad.descripcionEntidad,
         siglaEntidad: entidad.siglaEntidad
-      };
+      }
     },
-    isAmbienteValid(obj = {}) {
-      let flag = 0;
+    isAmbienteValid (obj = {}) {
+      let flag = 0
       Object.values(obj).map(obj => {
-        obj === null || obj === undefined ? flag++ : "";
-        return obj;
-      });
-      return flag > 0 ? false : true;
+        obj === null || obj === undefined ? flag++ : ''
+        return obj
+      })
+      return !(flag > 0)
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     }
   },
   components: {
-    "add-palabra": addPalabras,
+    'add-palabra': addPalabras,
     EntidadesComboBox,
     modalComponent,
     formInformation
   },
-  mounted() {
-    this.spinner = true;
+  mounted () {
+    this.spinner = true
     serviciosApi.getServicio(this.$route.params.id).then(servicio => {
-      this.servicioModel = servicio;
-      this.servicioOldModel = JSON.parse(JSON.stringify(servicio));
-      this.spinner = false;
-      this.$emit("selectedComp", {
+      this.servicioModel = servicio
+      this.servicioOldModel = JSON.parse(JSON.stringify(servicio))
+      this.spinner = false
+      this.$emit('selectedComp', {
         titulo: servicio.nombre,
         subtitulo: servicio.descripcion
-      });
-    });
-    EventBus.$on("saveServiceModal", ambiente => {
+      })
+    })
+    EventBus.$on('saveServiceModal', ambiente => {
       this.isAmbienteValid(ambiente)
         ? this.servicioModel.ambientes.push(ambiente)
-        : "";
-    });
-    EventBus.$on("cancelServiceModal", () => {
-      this.modal = false;
-    });
+        : ''
+    })
+    EventBus.$on('cancelServiceModal', () => {
+      this.modal = false
+    })
   },
-  beforeDestroy() {
-    EventBus.$off("saveServiceModal");
-    EventBus.$off("cancelServiceModal");
+  beforeDestroy () {
+    EventBus.$off('saveServiceModal')
+    EventBus.$off('cancelServiceModal')
   }
-};
+}
 </script>

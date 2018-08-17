@@ -16,8 +16,8 @@
 </template>
 <script>
 export default {
-  name: "iop-paginator",
-  data: () => ({ current: "center" }),
+  name: 'iop-paginator',
+  data: () => ({ current: 'center' }),
   props: {
     pagina: {
       type: Number,
@@ -37,9 +37,9 @@ export default {
     }
   },
   methods: {
-    next() {}
+    next () {}
   }
-};
+}
 </script>
 <style scoped>
 #iop-paginator button {

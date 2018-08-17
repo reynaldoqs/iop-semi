@@ -14,39 +14,39 @@
   </div>
 </template>
 <script>
-import iopTabs from "@/moduloAdministrador/components/shared/iopTabs";
-import InformationBar from "@/moduloAdministrador/components/shared/InformationBar";
-import RutasDetail1 from "@/moduloAdministrador/components/rutas/RutasDetailDetalles";
-import RutasDetail3 from "@/moduloAdministrador/components/rutas/RutasDetailParametros";
-import RutasDetail4 from "@/moduloAdministrador/components/rutas/RutasDetailRespuestas";
+import iopTabs from '@/moduloAdministrador/components/shared/iopTabs'
+import InformationBar from '@/moduloAdministrador/components/shared/InformationBar'
+import RutasDetail1 from '@/moduloAdministrador/components/rutas/RutasDetailDetalles'
+import RutasDetail3 from '@/moduloAdministrador/components/rutas/RutasDetailParametros'
+import RutasDetail4 from '@/moduloAdministrador/components/rutas/RutasDetailRespuestas'
 
 export default {
-  data() {
+  data () {
     return {
       tabItems: [
         {
-          title: "Detalles",
-          icon: "styles"
+          title: 'Detalles',
+          icon: 'styles'
         },
         {
-          title: "Parametros",
-          icon: "keyboard_capslock"
+          title: 'Parametros',
+          icon: 'keyboard_capslock'
         },
         {
-          title: "Respuestas",
-          icon: "keyboard_return"
+          title: 'Respuestas',
+          icon: 'keyboard_return'
         }
       ],
       information: {
-        title: "Ruta?",
-        description: "Sin descripción"
+        title: 'Ruta?',
+        description: 'Sin descripción'
       },
       aditionals: {
-        Vista: "Administrador"
+        Vista: 'Administrador'
       },
       spinner: true,
-      selectedComponent: "Detalles"
-    };
+      selectedComponent: 'Detalles'
+    }
   },
   components: {
     iopTabs,
@@ -55,5 +55,5 @@ export default {
     Respuestas: RutasDetail4,
     InformationBar
   }
-};
+}
 </script>

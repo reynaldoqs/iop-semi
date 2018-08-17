@@ -12,7 +12,7 @@
         </div>
         <v-form ref="formAmbientes" class="iop-form-container" v-model="valid" v-else>
           <v-layout row wrap>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -24,7 +24,7 @@
             <v-flex xs8>
               <v-text-field :rules="[rules.req, rules.max50]" :disabled="!editable" v-model="ambientesModel.nombre"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -36,7 +36,7 @@
             <v-flex xs8>
               <v-text-field :rules="[rules.req, rules.url]" :disabled="!editable" v-model="ambientesModel.url"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -48,7 +48,7 @@
             <v-flex xs8>
               <v-text-field :rules="[rules.req, rules.ip]" :disabled="!editable" v-model="ambientesModel.ipServidor"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -60,7 +60,7 @@
             <v-flex xs8>
               <v-text-field :disabled="!editable" :rules="[rules.req, rules.max500]" v-model.number="ambientesModel.descripcion"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -72,7 +72,7 @@
             <v-flex xs8>
               <v-text-field :disabled="!editable" v-model="ambientesModel.token"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -84,7 +84,7 @@
             <v-flex xs8>
               <v-text-field :disabled="!editable" :rules="[rules.req, rules.url]" v-model="ambientesModel.urlAdministrativa"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -100,11 +100,11 @@
                   {{palabra}}</v-chip>
               </div>
             </v-flex>
-  
+
             <v-flex xs12 style="text-align: right; padding:20px 16px 0 0;">
               <v-btn v-show="editable" :disabled="!valid || !editable" :loading="loading" @click="guardar" flat round outline>Guardar <v-icon right small>save</v-icon></v-btn>
             </v-flex>
-  
+
           </v-layout>
         </v-form>
       </v-flex>
@@ -113,13 +113,13 @@
 </template>
 
 <script>
-import rules from "@/config/formRules";
-import ambientesApi from "@/services/ambientesService";
-import addProtocolos from "@/moduloAdministrador/components/shared/formComponents/addProtocolos";
-import check from "@/utils/checkChanges";
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
+import rules from '@/config/formRules'
+import ambientesApi from '@/services/ambientesService'
+import addProtocolos from '@/moduloAdministrador/components/shared/formComponents/addProtocolos'
+import check from '@/utils/checkChanges'
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
 export default {
-  data() {
+  data () {
     return {
       spinner: false,
       valid: true,
@@ -134,12 +134,12 @@ export default {
         urlAdministrativa: null
       },
       ambientesOldModel: null
-    };
+    }
   },
   methods: {
-    guardar() {
-      this.editable = false;
-      this.loading = true;
+    guardar () {
+      this.editable = false
+      this.loading = true
       ambientesApi
         .patchAmbiente(
           this.$route.params.id,
@@ -147,42 +147,42 @@ export default {
         )
         .then(resp => {
           if (resp !== undefined) {
-            this.ambientesModel = resp;
-            this.loading = false;
-            this.editable = false;
+            this.ambientesModel = resp
+            this.loading = false
+            this.editable = false
           } else {
-            this.loading = false;
-            this.editable = true;
+            this.loading = false
+            this.editable = true
           }
-        });
+        })
     },
-    addProtocolo(protocolo) {
-      this.ambientesModel.protocolos.push(protocolo);
+    addProtocolo (protocolo) {
+      this.ambientesModel.protocolos.push(protocolo)
     },
-    eliminarProtocolo(key) {
-      this.ambientesModel.protocolos.splice(key, 1);
+    eliminarProtocolo (key) {
+      this.ambientesModel.protocolos.splice(key, 1)
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     }
   },
   components: {
     add: addProtocolos,
     formInformation
   },
-  mounted() {
-    this.spinner = true;
+  mounted () {
+    this.spinner = true
     ambientesApi.getAmbiente(this.$route.params.id).then(data => {
-      this.ambientesModel = data;
-      this.ambientesOldModel = JSON.parse(JSON.stringify(data));
-      this.spinner = false;
-      this.$emit("selectedComp", {
+      this.ambientesModel = data
+      this.ambientesOldModel = JSON.parse(JSON.stringify(data))
+      this.spinner = false
+      this.$emit('selectedComp', {
         titulo: data.nombre,
         subtitulo: data.descripcion
-      });
-    });
+      })
+    })
   }
-};
+}
 </script>

@@ -12,7 +12,7 @@
             flat
             single-line
             :rules="[rules.req, rules.integer]"
-            :disabled="!hasId"  
+            :disabled="!hasId"
           ></v-text-field>
         </v-flex>
         <v-flex xs6 md2 class="iop-left-spacer iop-right-spacer">
@@ -62,13 +62,13 @@
   </div>
 </template>
 <script>
-import SteepersChips from "@/moduloAdministrador/components/rutas/SteepersChips";
-import rules from "@/config/formRules";
-import rutasApi from "@/services/rutasService";
-import SteepRespuestasParametros from "@/moduloAdministrador/components/rutas/SteepRespuestasParametros";
-import answersModule from "@/utils/responseManager";
+import SteepersChips from '@/moduloAdministrador/components/rutas/SteepersChips'
+import rules from '@/config/formRules'
+import rutasApi from '@/services/rutasService'
+import SteepRespuestasParametros from '@/moduloAdministrador/components/rutas/SteepRespuestasParametros'
+import answersModule from '@/utils/responseManager'
 export default {
-  data() {
+  data () {
     return {
       isMain: true,
       loading: false,
@@ -76,12 +76,12 @@ export default {
       model: {
         descripcion: null,
         codigoHttp: null,
-        tipoContenido: "aplication/json"
+        tipoContenido: 'aplication/json'
       },
       items: [],
       selectedCodigo: -1,
       selectedRespId: -1
-    };
+    }
   },
   props: {
     idRuta: {
@@ -90,52 +90,52 @@ export default {
     }
   },
   methods: {
-    async agregar() {
+    async agregar () {
       try {
-        this.loading = true;
-        let fromForm = Object.assign({}, this.model);
-        let respuesta = await rutasApi.postCodRespuesta(this.idRuta, fromForm);
+        this.loading = true
+        let fromForm = Object.assign({}, this.model)
+        let respuesta = await rutasApi.postCodRespuesta(this.idRuta, fromForm)
         if (answersModule.verifyPetition(respuesta).isOk) {
-          let nuevoCodigo = answersModule.verifyPetition(respuesta).answer;
-          this.items.push(nuevoCodigo);
-          this.resetForm();
+          let nuevoCodigo = answersModule.verifyPetition(respuesta).answer
+          this.items.push(nuevoCodigo)
+          this.resetForm()
         }
-        this.loading = false;
+        this.loading = false
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
     },
-    editar(val) {
+    editar (val) {
       if (val) {
-        this.selectedCodigo = val.codigoHttp;
-        this.selectedRespId = val.idRespuesta;
-        this.isMain = false;
+        this.selectedCodigo = val.codigoHttp
+        this.selectedRespId = val.idRespuesta
+        this.isMain = false
       } else {
-        this.selectedCodigo = -1;
-        this.selectedRespId = -1;
+        this.selectedCodigo = -1
+        this.selectedRespId = -1
       }
     },
-    resetForm() {
-      this.$refs.formRespuestas.reset();
-      this.model.tipoContenido = "aplication/json";
+    resetForm () {
+      this.$refs.formRespuestas.reset()
+      this.model.tipoContenido = 'aplication/json'
     },
-    back() {
-      this.isMain = true;
+    back () {
+      this.isMain = true
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     },
-    hasId() {
-      return this.idRuta ? true : false;
+    hasId () {
+      return !!this.idRuta
     }
   },
   components: {
     SteepersChips,
     SteepRespuestasParametros
   }
-};
+}
 </script>
 <style scoped>
 .s-chips-container {

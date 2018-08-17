@@ -15,7 +15,7 @@
             single-line
             autofocus
             :rules="[rules.req, rules.noSpace]"
-            :disabled="!hasId" 
+            :disabled="!hasId"
           ></v-text-field>
         </v-flex>
 
@@ -26,10 +26,10 @@
             placeholder="Tipo"
             solo
             flat
-            single-line 
+            single-line
             @change="changeFormato"
             :rules="[rules.req]"
-            :disabled="!hasId" 
+            :disabled="!hasId"
           ></v-select>
         </v-flex>
 
@@ -126,12 +126,12 @@
   </div>
 </template>
 <script>
-import SteepersEditableList from "@/moduloAdministrador/components/rutas/SteepersEditableList";
-import rules from "@/config/formRules";
-import rutasApi from "@/services/rutasService";
-import answersModule from "@/utils/responseManager";
+import SteepersEditableList from '@/moduloAdministrador/components/rutas/SteepersEditableList'
+import rules from '@/config/formRules'
+import rutasApi from '@/services/rutasService'
+import answersModule from '@/utils/responseManager'
 export default {
-  data() {
+  data () {
     return {
       valid: true,
       loading: false,
@@ -144,19 +144,19 @@ export default {
         valorEjemplo: null
       },
       tipos: [
-        "string",
-        "boolean",
-        "array",
-        "object",
-        "integer",
-        "number",
-        "date",
-        "datetime"
+        'string',
+        'boolean',
+        'array',
+        'object',
+        'integer',
+        'number',
+        'date',
+        'datetime'
       ],
-      ubicaciones: ["query", "header", "path", "body", "cookie"],
-      headers: ["nombre", "tipo", "formato", "Acciones"],
+      ubicaciones: ['query', 'header', 'path', 'body', 'cookie'],
+      headers: ['nombre', 'tipo', 'formato', 'Acciones'],
       items: []
-    };
+    }
   },
   props: {
     idRespuesta: {
@@ -169,90 +169,91 @@ export default {
     }
   },
   methods: {
-    guardar() {
-      alert(this.model);
+    guardar () {
+      alert(this.model)
     },
-    async agregar() {
+    async agregar () {
       try {
-        this.loading = true;
+        this.loading = true
         this.model.idParametroRespuestaPadre =
-          typeof this.model.idParametroRespuestaPadre === "undefined"
+          typeof this.model.idParametroRespuestaPadre === 'undefined'
             ? null
-            : this.model.idParametroRespuestaPadre;
-        let fromForm = Object.assign({}, this.model);
+            : this.model.idParametroRespuestaPadre
+        let fromForm = Object.assign({}, this.model)
 
         let respuesta = await rutasApi.postRespuesta(
           this.idRespuesta,
           Object.assign(fromForm, { idRespuesta: this.idRespuesta })
-        );
+        )
         if (answersModule.verifyPetition(respuesta).isOk) {
-          let nuevoParametro = answersModule.verifyPetition(respuesta).answer;
-          this.items.push(nuevoParametro);
-          this.resetForm();
+          let nuevoParametro = answersModule.verifyPetition(respuesta).answer
+          this.items.push(nuevoParametro)
+          this.resetForm()
         }
-        this.loading = false;
+        this.loading = false
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
     },
-    changeFormato() {
+    changeFormato () {
       if (this.model.tipo) {
-        this.model.formato = this.formato(this.model.tipo);
+        this.model.formato = this.formato(this.model.tipo)
       }
     },
-    resetForm() {
-      this.$refs.formRespParametros.reset();
-      if (this.model.requerido) this.model.requerido = false;
-      this.model.valorEjemplo = null;
+    resetForm () {
+      this.$refs.formRespParametros.reset()
+      if (this.model.requerido) this.model.requerido = false
+      this.model.valorEjemplo = null
     },
-    goBack() {
-      this.$emit("onBack");
+    goBack () {
+      this.$emit('onBack')
     },
-    async loadRespuestas() {
-      let respuesta = await rutasApi.getRespuestas(this.idRespuesta);
-      if (answersModule.verifyPetition(respuesta).isOk)
+    async loadRespuestas () {
+      let respuesta = await rutasApi.getRespuestas(this.idRespuesta)
+      if (answersModule.verifyPetition(respuesta).isOk) {
         this.items = answersModule.verifyPetition(
           respuesta
-        ).answer.parametroRespuesta;
+        ).answer.parametroRespuesta
+      }
     },
-    formato(tipo) {
+    formato (tipo) {
       switch (tipo) {
-        case "string":
-          return "UFT-8";
-        case "boolean":
-          return "true/false";
-        case "array":
-          return "any";
-        case "object":
-          return "any";
-        case "integer":
-          return "int-32";
-        case "number":
-          return "int-32";
-        case "date":
-          return "DD/MM/YYYY";
-        case "datetime":
-          return "00:00";
+        case 'string':
+          return 'UFT-8'
+        case 'boolean':
+          return 'true/false'
+        case 'array':
+          return 'any'
+        case 'object':
+          return 'any'
+        case 'integer':
+          return 'int-32'
+        case 'number':
+          return 'int-32'
+        case 'date':
+          return 'DD/MM/YYYY'
+        case 'datetime':
+          return '00:00'
         default:
-          return "";
+          return ''
       }
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     },
-    hasId() {
-      return this.idRespuesta ? true : false;
+    hasId () {
+      return !!this.idRespuesta
     }
   },
   components: {
     SteepersEditableList
   },
-  mounted() {
-    this.loadRespuestas();
+  mounted () {
+    this.loadRespuestas()
   }
-};
+}
 </script>
 <style scoped>
 .list-container {

@@ -69,16 +69,16 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import EventBus from "@/utils/eventBus";
-import serviciosApi from "@/services/serviciosService";
-import usuariosApi from "@/services/usuariosService";
-import RoutesSelector from "@/moduloAdministrador/components/shared/normalUserComponents/RutesSelector";
-import AmbientesSelector from "@/moduloAdministrador/components/shared/normalUserComponents/AmbientesSelector";
-import check from "@/utils/checkChanges";
+import { mapGetters } from 'vuex'
+import EventBus from '@/utils/eventBus'
+import serviciosApi from '@/services/serviciosService'
+import usuariosApi from '@/services/usuariosService'
+import RoutesSelector from '@/moduloAdministrador/components/shared/normalUserComponents/RutesSelector'
+import AmbientesSelector from '@/moduloAdministrador/components/shared/normalUserComponents/AmbientesSelector'
+import check from '@/utils/checkChanges'
 export default {
-  name: "modal-add-rutas-user",
-  data() {
+  name: 'modal-add-rutas-user',
+  data () {
     return {
       currentServicio: {},
       rutasDelServicio: [],
@@ -89,90 +89,90 @@ export default {
       idSelectedAmbiente: null,
       arrayRutasSelected: [],
       loading: false
-    };
+    }
   },
   props: {
     idServicio: String
   },
   methods: {
-    guardar() {
-      this.loading = true;
+    guardar () {
+      this.loading = true
       if (this.user.id === undefined || this.user.id === null) {
-        this.$store.dispatch("notification", {
-          message: "Error con la identidad del usuario",
+        this.$store.dispatch('notification', {
+          message: 'Error con la identidad del usuario',
           dangerous: true,
           time: 3000
-        });
-        this.loading = false;
+        })
+        this.loading = false
       } else {
-        let oldArray = this.formatArrayWOactives(this.rutasDelUsuario);
-        let newArray = this.formatArrayActives(this.arrayRutasSelected);
+        let oldArray = this.formatArrayWOactives(this.rutasDelUsuario)
+        let newArray = this.formatArrayActives(this.arrayRutasSelected)
         usuariosApi
           .patchUsuario(this.user.id, {
             rutas: check.checkArray(oldArray, newArray)
           })
           .then(data => {
-            this.loading = false;
-            EventBus.$emit("close-lg-modal");
-          });
+            this.loading = false
+            EventBus.$emit('close-lg-modal')
+          })
       }
     },
-    formatArrayActives(Arry = []) {
+    formatArrayActives (Arry = []) {
       let arrayResult = Arry.map(data => {
         let newArray = {
           idRuta: data.idRuta,
           idAmbiente: this.idSelectedAmbiente,
           idNormaTecnica: null,
           active: data.active
-        };
-        return newArray;
-      });
-      return arrayResult;
+        }
+        return newArray
+      })
+      return arrayResult
     },
-    formatArrayWOactives(Arry = []) {
+    formatArrayWOactives (Arry = []) {
       let arrayResult = Arry.map(data => {
         let newArray = {
           idRuta: data.idRuta,
           idAmbiente: this.idSelectedAmbiente,
           idNormaTecnica: null
-        };
-        return newArray;
-      });
+        }
+        return newArray
+      })
 
-      return arrayResult;
+      return arrayResult
     },
-    selectAmbiente(ambiente) {
-      this.idSelectedAmbiente = ambiente;
-      this.arrayRutasSelected = [];
+    selectAmbiente (ambiente) {
+      this.idSelectedAmbiente = ambiente
+      this.arrayRutasSelected = []
     },
-    selectRutas(rutas) {
-      this.arrayRutasSelected = rutas;
+    selectRutas (rutas) {
+      this.arrayRutasSelected = rutas
     }
   },
-  mounted() {
+  mounted () {
     serviciosApi.getServicio(this.idServicio).then(servicio => {
       this.arrayIdAmbientes = servicio.ambientes.map(
         ambiente => ambiente.idAmbiente
-      );
-      this.currentServicio = servicio;
-      this.sSpinner = false;
-    });
+      )
+      this.currentServicio = servicio
+      this.sSpinner = false
+    })
     serviciosApi.getRutas(this.idServicio).then(data => {
-      this.rutasDelServicio = data.rutas;
-      this.rSpinner = false;
-    });
+      this.rutasDelServicio = data.rutas
+      this.rSpinner = false
+    })
     usuariosApi.getUsuario(this.user.id).then(user => {
-      this.rutasDelUsuario = user.rutas;
-    });
+      this.rutasDelUsuario = user.rutas
+    })
   },
   components: {
     RoutesSelector,
     AmbientesSelector
   },
   computed: {
-    ...mapGetters(["user"])
+    ...mapGetters(['user'])
   }
-};
+}
 </script>
 
 <style>

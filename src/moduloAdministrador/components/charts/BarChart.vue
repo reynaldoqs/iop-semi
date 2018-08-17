@@ -1,5 +1,5 @@
 <script>
-import { Bar } from "vue-chartjs";
+import { Bar } from 'vue-chartjs'
 export default {
   extends: Bar,
   props: {
@@ -12,7 +12,7 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {
       options: {
         scales: {
@@ -37,22 +37,22 @@ export default {
         legend: {
           display: true,
           labels: {
-            fontColor: "white"
+            fontColor: 'white'
           }
         },
         responsive: true,
         maintainAspectRatio: false
       }
-    };
+    }
   },
-  mounted() {
+  mounted () {
     this.renderChart(
       {
         labels: this.chartLabels,
         datasets: this.chartData
       },
       this.options
-    );
+    )
   }
-};
+}
 </script>

@@ -13,16 +13,16 @@
 </template>
 <script>
 export default {
-  name: "add-telefono",
-  data() {
+  name: 'add-telefono',
+  data () {
     return {
       numero: null
-    };
+    }
   },
   methods: {
-    addNumber() {
-      this.$emit("numbersArray", this.numero);
-      this.numero = null;
+    addNumber () {
+      this.$emit('numbersArray', this.numero)
+      this.numero = null
     }
   },
   props: {
@@ -36,5 +36,5 @@ export default {
       type: Boolean
     }
   }
-};
+}
 </script>

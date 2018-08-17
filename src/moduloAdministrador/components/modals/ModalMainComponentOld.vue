@@ -8,48 +8,48 @@
   </div>
 </template>
 <script>
-import EventBus from "@/utils/eventBus";
-import UserAddRuta from "@/moduloAdministrador/components/modals/UserAddRuta";
+import EventBus from '@/utils/eventBus'
+import UserAddRuta from '@/moduloAdministrador/components/modals/UserAddRuta'
 export default {
-  data() {
+  data () {
     return {
       dialog: false,
-      currentComponent: "",
+      currentComponent: '',
       idServicio: null
-    };
+    }
   },
   computed: {
-    currentProperties() {
-      if (this.currentComponent === "select-ruta") {
+    currentProperties () {
+      if (this.currentComponent === 'select-ruta') {
         return {
           idServicio: this.idServicio
-        };
+        }
       }
     }
   },
   components: {
-    "select-ruta": UserAddRuta
+    'select-ruta': UserAddRuta
   },
   watch: {
-    dialog() {
+    dialog () {
       if (!this.dialog) {
-        this.currentComponent = "";
+        this.currentComponent = ''
       }
     }
   },
-  mounted() {
-    EventBus.$on("modal", (type, id) => {
-      this.idServicio = id;
-      this.currentComponent = type;
-      this.dialog = true;
-    });
-    EventBus.$on("closeModal", () => {
-      this.dialog = false;
-    });
+  mounted () {
+    EventBus.$on('modal', (type, id) => {
+      this.idServicio = id
+      this.currentComponent = type
+      this.dialog = true
+    })
+    EventBus.$on('closeModal', () => {
+      this.dialog = false
+    })
   },
-  beforeDestroy() {
-    EventBus.$off("modal");
-    EventBus.$off("closeModal");
+  beforeDestroy () {
+    EventBus.$off('modal')
+    EventBus.$off('closeModal')
   }
-};
+}
 </script>

@@ -19,59 +19,59 @@
 </template>
 
 <script>
-import InformationBar from "@/moduloAdministrador/components/shared/InformationBar";
-import ActionAndSearchBar from "@/moduloAdministrador/components/shared/ActionAndSearchBar";
-import serviciosApi from "@/services/serviciosService";
-import DataTableView from "@/moduloAdministrador/components/shared/DataTableView";
-import EventBus from "@/utils/eventBus";
+import InformationBar from '@/moduloAdministrador/components/shared/InformationBar'
+import ActionAndSearchBar from '@/moduloAdministrador/components/shared/ActionAndSearchBar'
+import serviciosApi from '@/services/serviciosService'
+import DataTableView from '@/moduloAdministrador/components/shared/DataTableView'
+import EventBus from '@/utils/eventBus'
 export default {
-  data() {
+  data () {
     return {
       spinner: true,
       requestData: {},
       information: {
-        title: "Servicios",
-        description: "Muestra todos los servicios registrados en la plataforma."
+        title: 'Servicios',
+        description: 'Muestra todos los servicios registrados en la plataforma.'
       },
       aditionals: {
         registrados: 0
       }
-    };
+    }
   },
   methods: {
-    modalAddServicio() {
-      EventBus.$emit("open-modal");
+    modalAddServicio () {
+      EventBus.$emit('open-modal')
       EventBus.$emit(
-        "set-modal-data",
+        'set-modal-data',
         {
-          icon: "cloud_queue"
+          icon: 'cloud_queue'
         },
-        "Registrar servicio",
+        'Registrar servicio',
         600
-      );
+      )
     },
-    updatePagination(pagination) {
-      //console.log(`Tienes que hacer funcionar la paginación: ${pagination}`);
+    updatePagination (pagination) {
+      // console.log(`Tienes que hacer funcionar la paginación: ${pagination}`);
     },
-    changeResults(value) {
-      this.loadServicios(value);
+    changeResults (value) {
+      this.loadServicios(value)
     },
-    search(query) {
-      this.spinner = true;
+    search (query) {
+      this.spinner = true
       serviciosApi.searchServicio(query).then(data => {
-        this.requestData = this.formatData(data);
-        this.spinner = false;
-      });
+        this.requestData = this.formatData(data)
+        this.spinner = false
+      })
     },
-    formatData(data) {
-      //Formatea lo datos para enviarlos al data table(formato unico).
+    formatData (data) {
+      // Formatea lo datos para enviarlos al data table(formato unico).
       let headers = [
-        "Nombre del Servicio",
-        "Sigla Entidad",
-        "Código",
-        "Estado",
-        "Dar de Baja"
-      ];
+        'Nombre del Servicio',
+        'Sigla Entidad',
+        'Código',
+        'Estado',
+        'Dar de Baja'
+      ]
       return {
         totalItems: data.totalServicios,
         items: data.servicios.map(data => {
@@ -81,41 +81,41 @@ export default {
             data3: data.codigo,
             data4: data.estado,
             id: data.id
-          };
-          return formated;
+          }
+          return formated
         }),
         headers: headers.map(data => {
           let header = {
             text: data,
-            align: "left",
+            align: 'left',
             sortable: true
-          };
-          return header;
+          }
+          return header
         })
-      };
+      }
     },
-    loadServicios(limite = 10) {
-      this.spinner = true;
+    loadServicios (limite = 10) {
+      this.spinner = true
       serviciosApi.getServicios().then(data => {
-        this.aditionals.registrados = data.totalServicios;
-        this.requestData = this.formatData(data);
-        this.spinner = false;
-      });
+        this.aditionals.registrados = data.totalServicios
+        this.requestData = this.formatData(data)
+        this.spinner = false
+      })
     }
   },
   components: {
-    "search-bar": ActionAndSearchBar,
+    'search-bar': ActionAndSearchBar,
     InformationBar,
     DataTableView
   },
-  mounted() {
-    this.loadServicios();
-    EventBus.$on("refresh-from-modal", () => {
-      this.loadServicios();
-    });
+  mounted () {
+    this.loadServicios()
+    EventBus.$on('refresh-from-modal', () => {
+      this.loadServicios()
+    })
   },
-  beforeDestroy() {
-    EventBus.$off("refresh-from-modal");
+  beforeDestroy () {
+    EventBus.$off('refresh-from-modal')
   }
-};
+}
 </script>

@@ -11,92 +11,92 @@
 </template>
 
 <script>
-import EventBus from "@/utils/eventBus";
-import ActionAndSearchBar from "@/moduloAdministrador/components/shared/ActionAndSearchBar";
-import UsuariosDataTableView from "@/moduloAdministrador/components/usuarios/UsuariosDataTableView";
-import usuariosApi from "@/services/usuariosService";
-import iopToolTip from "@/moduloAdministrador/components/shared/iopToolTip";
+import EventBus from '@/utils/eventBus'
+import ActionAndSearchBar from '@/moduloAdministrador/components/shared/ActionAndSearchBar'
+import UsuariosDataTableView from '@/moduloAdministrador/components/usuarios/UsuariosDataTableView'
+import usuariosApi from '@/services/usuariosService'
+import iopToolTip from '@/moduloAdministrador/components/shared/iopToolTip'
 export default {
-  data() {
+  data () {
     return {
       spinner: false,
       usuarios: [],
       usuarioHeaders: [
         {
-          title: "Usuario",
-          type: "user"
+          title: 'Usuario',
+          type: 'user'
         },
         {
-          title: "Correo Electrónico",
-          type: "user"
+          title: 'Correo Electrónico',
+          type: 'user'
         },
         {
-          title: "Carnet de Identidad",
-          type: "user"
+          title: 'Carnet de Identidad',
+          type: 'user'
         },
         {
-          title: "Teléfonos",
-          type: "user"
+          title: 'Teléfonos',
+          type: 'user'
         },
         {
-          title: "Estado",
-          type: "user"
+          title: 'Estado',
+          type: 'user'
         },
         {
-          title: "Acciones",
-          type: "user"
+          title: 'Acciones',
+          type: 'user'
         }
       ]
-    };
+    }
   },
   components: {
-    "inter-table": UsuariosDataTableView,
-    "search-bar": ActionAndSearchBar,
+    'inter-table': UsuariosDataTableView,
+    'search-bar': ActionAndSearchBar,
     iopToolTip
   },
   methods: {
-    modalCreateUser() {
-      EventBus.$emit("open-modal");
+    modalCreateUser () {
+      EventBus.$emit('open-modal')
       EventBus.$emit(
-        "set-modal-data",
+        'set-modal-data',
         {
-          icon: "person_add",
-          description: "Formulario para crear un nuevo usuario"
+          icon: 'person_add',
+          description: 'Formulario para crear un nuevo usuario'
         },
-        "Registrar usuario",
+        'Registrar usuario',
         600
-      );
+      )
     },
-    search(query) {
-      this.spinner = true;
+    search (query) {
+      this.spinner = true
       usuariosApi.searchUsuario(query).then(data => {
-        this.usuarios = data.usuarios;
-        this.spinner = false;
-      });
+        this.usuarios = data.usuarios
+        this.spinner = false
+      })
     },
-    changeResults(size) {
-      this.spinner = true;
+    changeResults (size) {
+      this.spinner = true
       usuariosApi.getUsuarios(size).then(data => {
-        this.usuarios = data.usuarios;
-        this.spinner = false;
-      });
+        this.usuarios = data.usuarios
+        this.spinner = false
+      })
     },
-    loadUsuarios() {
-      this.spinner = true;
+    loadUsuarios () {
+      this.spinner = true
       usuariosApi.getUsuarios().then(data => {
-        this.usuarios = data.usuarios;
-        this.spinner = false;
-      });
+        this.usuarios = data.usuarios
+        this.spinner = false
+      })
     }
   },
-  mounted() {
-    this.loadUsuarios();
-    EventBus.$on("refresh-from-modal", () => {
-      this.loadUsuarios();
-    });
+  mounted () {
+    this.loadUsuarios()
+    EventBus.$on('refresh-from-modal', () => {
+      this.loadUsuarios()
+    })
   },
-  beforeDestroy() {
-    EventBus.$off("refresh-from-modal");
+  beforeDestroy () {
+    EventBus.$off('refresh-from-modal')
   }
-};
+}
 </script>

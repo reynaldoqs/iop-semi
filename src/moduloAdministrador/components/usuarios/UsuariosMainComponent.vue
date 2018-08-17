@@ -12,25 +12,25 @@
 </template>
 
 <script>
-import InformationBar from "@/moduloAdministrador/components/shared/InformationBar";
-import UsuariosDataTable from "@/moduloAdministrador/components/usuarios/UsuariosDataTable";
+import InformationBar from '@/moduloAdministrador/components/shared/InformationBar'
+import UsuariosDataTable from '@/moduloAdministrador/components/usuarios/UsuariosDataTable'
 export default {
-  name: "lista-usuarios",
-  data() {
+  name: 'lista-usuarios',
+  data () {
     return {
       information: {
-        title: "Usuarios",
+        title: 'Usuarios',
         description:
-          "El objeto Consumer representa un consumidor, o un usuario, de una API. Puede confiar en Kong como el almacén de datos primario, o puede mapear la lista de consumidores con su base de datos para mantener la coherencia entre Kong y su almacén de datos principal existente."
+          'El objeto Consumer representa un consumidor, o un usuario, de una API. Puede confiar en Kong como el almacén de datos primario, o puede mapear la lista de consumidores con su base de datos para mantener la coherencia entre Kong y su almacén de datos principal existente.'
       },
       aditionals: {
-        vista: "Administrador"
+        vista: 'Administrador'
       }
-    };
+    }
   },
   components: {
-    "usuarios-data-table": UsuariosDataTable,
+    'usuarios-data-table': UsuariosDataTable,
     InformationBar
   }
-};
+}
 </script>

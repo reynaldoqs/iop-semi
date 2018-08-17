@@ -16,16 +16,16 @@
 </template>
 <script>
 export default {
-  name: "add-telefono",
-  data() {
+  name: 'add-telefono',
+  data () {
     return {
       palabra: null
-    };
+    }
   },
   methods: {
-    addPalabra() {
-      this.$emit("palabrasArray", this.palabra);
-      this.palabra = null;
+    addPalabra () {
+      this.$emit('palabrasArray', this.palabra)
+      this.palabra = null
     }
   },
   props: {
@@ -50,5 +50,5 @@ export default {
       type: String
     }
   }
-};
+}
 </script>

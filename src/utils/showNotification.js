@@ -1,17 +1,17 @@
-import store from '@/store/index';
+import store from '@/store/index'
 export default {
-  showError(error) {
+  showError (error) {
     store.dispatch('notification', {
       message: error,
       dangerous: true,
       time: 5000
-    });
+    })
   },
-  showSuccessful(message) {
+  showSuccessful (message) {
     store.dispatch('notification', {
       message: message,
       dangerous: false,
       time: 1500
-    });
+    })
   }
-};
+}

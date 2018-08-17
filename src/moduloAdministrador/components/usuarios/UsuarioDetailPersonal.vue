@@ -5,7 +5,7 @@
       <form-information title="Datos personales" description="Muestra los datos personales de un usuario registrado." />
       <v-form ref="formUsiarioPeronal" class="iop-form-container">
           <v-layout row wrap>
-            
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -17,7 +17,7 @@
             <v-flex xs8>
               <v-text-field  disabled v-model="selectedUser.nombres"></v-text-field>
             </v-flex>
-    
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -67,19 +67,19 @@
             </v-flex>
 
           </v-layout>
-        </v-form> 
+        </v-form>
       </v-flex>
     </v-layout>
   </div>
 </template>
 <script>
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
 export default {
-  name: "Usuario-personal",
-  data() {
+  name: 'Usuario-personal',
+  data () {
     return {
       editable: false
-    };
+    }
   },
   props: {
     selectedUser: {
@@ -90,5 +90,5 @@ export default {
   components: {
     formInformation
   }
-};
+}
 </script>

@@ -30,7 +30,7 @@
             solo
             flat
             single-line
-            :rules="[rules.req]"  
+            :rules="[rules.req]"
           ></v-text-field>
         </v-flex>
         <v-flex xs6 md3 class="iop-left-spacer iop-right-spacer">
@@ -69,17 +69,15 @@
         </v-flex>
 
         <v-flex xs12 style="text-align:right; padding-right:20px">
-    
 
     <v-dialog
       v-model="dialog"
       width="600"
-      hide-overlay 
+      hide-overlay
     >
     <modalsHeader icon="code" isNested v-on:onClose="dialog = false"/>
           <vue-json-editor v-model="validJson" :show-btns="false" @json-change="onJsonChange"></vue-json-editor>
     </v-dialog>
-
 
               <v-btn
                 :disabled="!valid"
@@ -104,13 +102,13 @@
   </div>
 </template>
 <script>
-import modalsHeader from "@/moduloAdministrador/components/modals/modalsHeader";
-import vueJsonEditor from "vue-json-editor";
-import SteepersEditableList from "@/moduloAdministrador/components/rutas/SteepersEditableList";
-import rules from "@/config/formRules";
-import formatJson from "@/utils/formatJson";
+import modalsHeader from '@/moduloAdministrador/components/modals/modalsHeader'
+import vueJsonEditor from 'vue-json-editor'
+import SteepersEditableList from '@/moduloAdministrador/components/rutas/SteepersEditableList'
+import rules from '@/config/formRules'
+import formatJson from '@/utils/formatJson'
 export default {
-  data() {
+  data () {
     return {
       dialog: false,
       valid: true,
@@ -118,7 +116,7 @@ export default {
         nombre: null,
         descripcion: null,
         codigoHttp: null,
-        tipoContenido: "aplication/json",
+        tipoContenido: 'aplication/json',
         estructura: null,
         idServicio: null,
         ejemplo: null
@@ -126,50 +124,50 @@ export default {
       validJson: null,
       nonFormatedJson: null,
       tipos: [
-        "string",
-        "boolean",
-        "array",
-        "object",
-        "integer",
-        "number",
-        "date",
-        "datetime"
+        'string',
+        'boolean',
+        'array',
+        'object',
+        'integer',
+        'number',
+        'date',
+        'datetime'
       ],
-      ubicaciones: ["query", "header", "path", "cookie"],
-      headers: ["nombre", "ubicación", "tipo", "resquerido", "Acciones"],
+      ubicaciones: ['query', 'header', 'path', 'cookie'],
+      headers: ['nombre', 'ubicación', 'tipo', 'resquerido', 'Acciones'],
       items: []
-    };
+    }
   },
 
   methods: {
-    openModal() {
-      this.dialog = !this.dialog;
+    openModal () {
+      this.dialog = !this.dialog
     },
-    guardar() {
-      console.log("guardar detalles");
+    guardar () {
+      console.log('guardar detalles')
     },
-    agregar() {
-      let nuevoObjecto = Object.assign({}, this.model);
-      this.items.push(nuevoObjecto);
-      this.resetForm();
+    agregar () {
+      let nuevoObjecto = Object.assign({}, this.model)
+      this.items.push(nuevoObjecto)
+      this.resetForm()
     },
-    resetForm() {
-      this.$refs.formRespuestas.reset();
+    resetForm () {
+      this.$refs.formRespuestas.reset()
     },
-    verifyJson() {
+    verifyJson () {
       if (formatJson.toJson(this.nonFormatedJson)) {
-        this.validJson = formatJson.toJson(this.nonFormatedJson);
+        this.validJson = formatJson.toJson(this.nonFormatedJson)
       }
     },
-    onJsonChange(value) {
-      this.model.ejemplo = Object.assign({}, value);
-      this.validJson = Object.assign({}, value);
-      console.log("value:", value);
+    onJsonChange (value) {
+      this.model.ejemplo = Object.assign({}, value)
+      this.validJson = Object.assign({}, value)
+      console.log('value:', value)
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     }
   },
   components: {
@@ -177,7 +175,7 @@ export default {
     vueJsonEditor,
     modalsHeader
   }
-};
+}
 </script>
 <style scoped>
 .list-container {

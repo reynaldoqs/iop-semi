@@ -5,7 +5,7 @@
       <div class="settings-modal-mid-container">
         <v-form @submit.prevent="save" ref="changeForm" v-model="valid">
           <v-layout row wrap>
-  
+
             <v-flex xs12>
               <v-text-field :disabled="!editable" :rules="[rules.req]" v-model="oldpass" label="Contraseña antigua" box></v-text-field>
             </v-flex>
@@ -18,7 +18,7 @@
             <v-flex xs12>
               <v-text-field :disabled="!editable" :rules="[rules.req]" v-model="pass1" label="Contraseña nueva" box></v-text-field>
             </v-flex>
-  
+
             <v-flex xs12>
               <v-text-field :disabled="!editable" :rules="[rules.req]" v-model="pass2" label="Repita contraseña" box></v-text-field>
             </v-flex>
@@ -38,12 +38,12 @@
 </template>
 
 <script>
-import usuariosApi from "@/services/usuariosService";
-import rules from "@/config/formRules";
-import EventBus from "@/utils/eventBus";
-import settingsHeader from "@/moduloAdministrador/components/accountSettings/settingsHeader";
+import usuariosApi from '@/services/usuariosService'
+import rules from '@/config/formRules'
+import EventBus from '@/utils/eventBus'
+import settingsHeader from '@/moduloAdministrador/components/accountSettings/settingsHeader'
 export default {
-  data() {
+  data () {
     return {
       valid: true,
       currentUser: {},
@@ -51,62 +51,62 @@ export default {
       pass1: null,
       pass2: null,
       editable: true,
-      error: "",
+      error: '',
       btnLoading: false
-    };
+    }
   },
   methods: {
-    showError(err) {
-      this.error = err;
+    showError (err) {
+      this.error = err
     },
-    save() {
-      this.editable = false;
-      this.btnLoading = true;
+    save () {
+      this.editable = false
+      this.btnLoading = true
       setTimeout(() => {
         usuariosApi
           .patchUsuario(this.currentUser.id, { clave: this.pass1 })
           .then(() => {
-            this.editable = true;
-            this.btnLoading = false;
-            this.$refs.changeForm.reset();
-            EventBus.$emit("closeModal");
-          });
-      }, 1000);
+            this.editable = true
+            this.btnLoading = false
+            this.$refs.changeForm.reset()
+            EventBus.$emit('closeModal')
+          })
+      }, 1000)
     }
   },
   watch: {
-    pass1() {
+    pass1 () {
       if (this.pass2 !== null) {
         this.pass1 === this.pass2
-          ? this.showError("")
-          : this.showError("Las contraseñas no coinciden");
+          ? this.showError('')
+          : this.showError('Las contraseñas no coinciden')
       }
     },
-    pass2() {
+    pass2 () {
       if (this.pass1 !== null) {
         this.pass1 === this.pass2
-          ? this.showError("")
-          : this.showError("Las contraseñas no coinciden");
+          ? this.showError('')
+          : this.showError('Las contraseñas no coinciden')
       }
     }
   },
-  mounted() {
-    //ver el mejor lugar para sacar los datos del usuario (localstorage or vuex state)
+  mounted () {
+    // ver el mejor lugar para sacar los datos del usuario (localstorage or vuex state)
     usuariosApi
-      .getUsuario(JSON.parse(localStorage.getItem("user")).idUsuario)
+      .getUsuario(JSON.parse(localStorage.getItem('user')).idUsuario)
       .then(user => {
-        this.currentUser = user;
-      });
+        this.currentUser = user
+      })
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     }
   },
   components: {
     settingsHeader
   }
-};
+}
 </script>
 
 <style scoped>
@@ -151,4 +151,3 @@ header {
   padding: 16px 36px;
 }
 </style>
-

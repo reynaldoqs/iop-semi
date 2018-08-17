@@ -8,7 +8,7 @@
     @update:pagination="pagUpdate"
     class="elevation-12"
     >
-  
+
       <template slot="headers" slot-scope="props">
               <tr :active="props.selected">
                 <th class="text-xs-left" v-for="(column, index) in props.headers" :key="index">
@@ -37,17 +37,17 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       pagination: {
         page: 1,
         rowsPerPage: 10
       }
-    };
+    }
   },
   methods: {
-    pagUpdate() {
-      this.$emit("onUpdatePagination", this.pagination);
+    pagUpdate () {
+      this.$emit('onUpdatePagination', this.pagination)
     }
   },
   props: {
@@ -65,7 +65,7 @@ export default {
       default: false
     }
   }
-};
+}
 </script>
 <style>
 .inter-headers {

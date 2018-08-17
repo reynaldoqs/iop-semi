@@ -13,16 +13,16 @@
 </template>
 <script>
 export default {
-  name: "add-protocolo",
-  data() {
+  name: 'add-protocolo',
+  data () {
     return {
       protocolo: null
-    };
+    }
   },
   methods: {
-    addProtocolo() {
-      this.$emit("protocolosArray", this.protocolo);
-      this.protocolo = null;
+    addProtocolo () {
+      this.$emit('protocolosArray', this.protocolo)
+      this.protocolo = null
     }
   },
   props: {
@@ -36,5 +36,5 @@ export default {
       type: Boolean
     }
   }
-};
+}
 </script>

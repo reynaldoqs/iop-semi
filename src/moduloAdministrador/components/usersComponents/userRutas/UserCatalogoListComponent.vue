@@ -1,7 +1,7 @@
 <template>
   <div>
       <div class="inter-card-container inter-container">
-        
+
         <search-bar isSearch isPaginationControl v-on:onSearch="search" v-on:changeSize="changeResults">
           <formInformation title="Lista de servicios habilitados" description="Muestra la lista de servicios habilitados en la plataforma."/>
         </search-bar>
@@ -11,9 +11,9 @@
         </div>
         <div class="catalogos-container" v-else>
           <div class="iop-ficha" v-for="(ficha, index) in fichas" :key="index">
-            
+
             <div @click="$router.push({ name: 'detail-catalogo', params: { num: `${ficha.datosGenerales.identificador}` }})" class="iop-ficha-contend">
-              
+
               <div class="avatar-container" :style="{backgroundColor:assingColor(ficha.datosGenerales.propietario)}">
                 <v-avatar
                 size="45"
@@ -26,61 +26,61 @@
               <p>{{ficha.datosGenerales.descripcion}}</p>
             </div>
           </div>
-     
+
         </div>
       </div>
   </div>
 </template>
 <script>
-import ActionAndSearchBar from "@/moduloAdministrador/components/shared/ActionAndSearchBar";
-import catalogosApi from "@/services/catalogosService";
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
-import colors from "@/utils/getColors";
+import ActionAndSearchBar from '@/moduloAdministrador/components/shared/ActionAndSearchBar'
+import catalogosApi from '@/services/catalogosService'
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
+import colors from '@/utils/getColors'
 
 export default {
-  data() {
+  data () {
     return {
       spinner: true,
       fichas: {}
-    };
-  },
-  methods: {
-    search(query) {
-      this.spinner = true;
-      catalogosApi.searchCatalogo(query).then(data => {
-        if (data) {
-          this.fichas = data.fichas;
-          this.spinner = false;
-        }
-      });
-    },
-    changeResults(value) {
-      this.loadCatalogos(value);
-    },
-    loadCatalogos(limite = 10) {
-      this.spinner = true;
-      catalogosApi.getCatalogos(limite).then(data => {
-        if (data) {
-          this.fichas = data.fichas;
-          this.spinner = false;
-        }
-      });
-    },
-    assingColor(name) {
-      return colors.getRgba(name, 0.9);
-    },
-    formatCatalogo(catalogo) {
-      return Object.assign({ catalogo }, { imgUrl: "" });
     }
   },
-  mounted() {
-    this.loadCatalogos();
+  methods: {
+    search (query) {
+      this.spinner = true
+      catalogosApi.searchCatalogo(query).then(data => {
+        if (data) {
+          this.fichas = data.fichas
+          this.spinner = false
+        }
+      })
+    },
+    changeResults (value) {
+      this.loadCatalogos(value)
+    },
+    loadCatalogos (limite = 10) {
+      this.spinner = true
+      catalogosApi.getCatalogos(limite).then(data => {
+        if (data) {
+          this.fichas = data.fichas
+          this.spinner = false
+        }
+      })
+    },
+    assingColor (name) {
+      return colors.getRgba(name, 0.9)
+    },
+    formatCatalogo (catalogo) {
+      return Object.assign({ catalogo }, { imgUrl: '' })
+    }
+  },
+  mounted () {
+    this.loadCatalogos()
   },
   components: {
     formInformation,
-    "search-bar": ActionAndSearchBar
+    'search-bar': ActionAndSearchBar
   }
-};
+}
 </script>
 <style scoped>
 .catalogos-container {

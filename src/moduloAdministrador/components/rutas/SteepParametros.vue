@@ -22,7 +22,7 @@
             single-line
             autofocus
             :rules="[rules.req, rules.noSpace]"
-            :disabled="!hasId" 
+            :disabled="!hasId"
           ></v-text-field>
         </v-flex>
         <v-flex xs6 md4 class="iop-left-spacer">
@@ -80,7 +80,7 @@
             flat
             single-line
             :rules="[rules.req]"
-            :disabled="!hasId || typeof model.idParametroPadre === 'string'"  
+            :disabled="!hasId || typeof model.idParametroPadre === 'string'"
           ></v-select>
         </v-flex>
         <v-flex xs6 md2 class="iop-left-spacer iop-right-spacer">
@@ -90,10 +90,10 @@
             placeholder="Tipo"
             solo
             flat
-            single-line 
+            single-line
             @change="changeFormato"
             :rules="[rules.req]"
-            :disabled="!hasId" 
+            :disabled="!hasId"
           ></v-select>
         </v-flex>
         <v-flex xs6 md3 class="iop-left-spacer iop-right-spacer">
@@ -142,12 +142,12 @@
   </div>
 </template>
 <script>
-import SteepersEditableList from "@/moduloAdministrador/components/rutas/SteepersEditableList";
-import rules from "@/config/formRules";
-import rutasApi from "@/services/rutasService";
-import answersModule from "@/utils/responseManager";
+import SteepersEditableList from '@/moduloAdministrador/components/rutas/SteepersEditableList'
+import rules from '@/config/formRules'
+import rutasApi from '@/services/rutasService'
+import answersModule from '@/utils/responseManager'
 export default {
-  data() {
+  data () {
     return {
       valid: true,
       loading: false,
@@ -162,19 +162,19 @@ export default {
         valorEjemplo: null
       },
       tipos: [
-        "string",
-        "boolean",
-        "array",
-        "object",
-        "integer",
-        "number",
-        "date",
-        "datetime"
+        'string',
+        'boolean',
+        'array',
+        'object',
+        'integer',
+        'number',
+        'date',
+        'datetime'
       ],
-      ubicaciones: ["query", "header", "path", "body"],
-      headers: ["nombre", "ubicación", "tipo", "formato", "Acciones"],
+      ubicaciones: ['query', 'header', 'path', 'body'],
+      headers: ['nombre', 'ubicación', 'tipo', 'formato', 'Acciones'],
       items: []
-    };
+    }
   },
   props: {
     idRuta: {
@@ -183,87 +183,87 @@ export default {
     }
   },
   watch: {
-    "model.idParametroPadre"() {
+    'model.idParametroPadre' () {
       if (this.model.idParametroPadre) {
-        this.model.ubicacion = "body";
+        this.model.ubicacion = 'body'
       }
     }
   },
   methods: {
-    guardar() {
-      alert(this.model);
+    guardar () {
+      alert(this.model)
     },
-    async agregar() {
+    async agregar () {
       try {
-        this.loading = true;
+        this.loading = true
         this.model.idParametroPadre =
-          typeof this.model.idParametroPadre === "undefined"
+          typeof this.model.idParametroPadre === 'undefined'
             ? null
-            : this.model.idParametroPadre;
-        let fromForm = Object.assign({}, this.model);
+            : this.model.idParametroPadre
+        let fromForm = Object.assign({}, this.model)
 
         // peticion al servicor
         let respuesta = await rutasApi.postParametro(
           this.idRuta,
           Object.assign(fromForm, { idRuta: this.idRuta })
-        );
+        )
         // evaluacion a la respuesta
         if (answersModule.verifyPetition(respuesta).isOk) {
-          let nuevoObjecto = answersModule.verifyPetition(respuesta).answer;
-          this.items.push(nuevoObjecto);
-          this.resetForm();
+          let nuevoObjecto = answersModule.verifyPetition(respuesta).answer
+          this.items.push(nuevoObjecto)
+          this.resetForm()
         }
 
-        this.loading = false;
+        this.loading = false
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
     },
-    changeFormato() {
+    changeFormato () {
       if (this.model.tipo) {
-        this.model.formato = this.formato(this.model.tipo);
+        this.model.formato = this.formato(this.model.tipo)
       }
     },
-    resetForm() {
-      this.$refs.formParametros.reset();
-      if (this.model.requerido) this.model.requerido = false;
-      this.model.valorEjemplo = null;
+    resetForm () {
+      this.$refs.formParametros.reset()
+      if (this.model.requerido) this.model.requerido = false
+      this.model.valorEjemplo = null
     },
-    formato(tipo) {
+    formato (tipo) {
       switch (tipo) {
-        case "string":
-          return "UFT-8";
-        case "boolean":
-          return "true/false";
-        case "array":
-          return "any";
-        case "object":
-          return "any";
-        case "integer":
-          return "int-32";
-        case "number":
-          return "int-32";
-        case "date":
-          return "DD/MM/YYYY";
-        case "datetime":
-          return "00:00";
+        case 'string':
+          return 'UFT-8'
+        case 'boolean':
+          return 'true/false'
+        case 'array':
+          return 'any'
+        case 'object':
+          return 'any'
+        case 'integer':
+          return 'int-32'
+        case 'number':
+          return 'int-32'
+        case 'date':
+          return 'DD/MM/YYYY'
+        case 'datetime':
+          return '00:00'
         default:
-          return "";
+          return ''
       }
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     },
-    hasId() {
-      return this.idRuta ? true : false;
+    hasId () {
+      return !!this.idRuta
     }
   },
   components: {
     SteepersEditableList
   }
-};
+}
 </script>
 <style scoped>
 .list-container {

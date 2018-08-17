@@ -5,16 +5,15 @@
 </template>
 
 <script>
-import SideBarView from "./SideBarView";
+import SideBarView from './SideBarView'
 export default {
-  data() {
+  data () {
     return {
-      user: "asd"
-    };
+      user: 'asd'
+    }
   },
   components: {
     SideBarView
   }
-};
+}
 </script>
-

@@ -6,35 +6,35 @@
 </template>
 
 <script>
-import ambientesApi from "@/services/ambientesService";
-import DataTableView from "@/moduloAdministrador/components/shared/DataTableView";
-import EventBus from "@/utils/eventBus";
+import ambientesApi from '@/services/ambientesService'
+import DataTableView from '@/moduloAdministrador/components/shared/DataTableView'
+import EventBus from '@/utils/eventBus'
 
 export default {
-  data() {
+  data () {
     return {
       requestData: {},
       loading: true
-    };
+    }
   },
   components: {
     DataTableView
   },
   methods: {
-    callApi() {
-      this.loading = true;
+    callApi () {
+      this.loading = true
       ambientesApi
         .getServicios(this.$route.params.id)
-        .then(data => this.formatData(data));
+        .then(data => this.formatData(data))
     },
-    formatData(data) {
+    formatData (data) {
       let headers = [
-        "Nombre del Servicio",
-        "Sigla Entidad",
-        "Código",
-        "Estado",
-        "Acción"
-      ];
+        'Nombre del Servicio',
+        'Sigla Entidad',
+        'Código',
+        'Estado',
+        'Acción'
+      ]
       this.requestData = {
         totalItems: data.totalServicios,
         items: data.servicios.map(data => {
@@ -44,32 +44,32 @@ export default {
             data3: data.codigo,
             data4: data.estado,
             id: data.id
-          };
-          return formated;
+          }
+          return formated
         }),
         headers: headers.map(data => {
           let header = {
             text: data,
-            align: "left",
+            align: 'left',
             sortable: true
-          };
-          return header;
+          }
+          return header
         })
-      };
-      this.loading = false;
+      }
+      this.loading = false
     },
-    modalCreateServicio() {
-      EventBus.$emit("open-lg-modal", "create-servicio");
+    modalCreateServicio () {
+      EventBus.$emit('open-lg-modal', 'create-servicio')
     }
   },
-  mounted() {
-    this.callApi();
-    EventBus.$on("refresh-from-modal", () => {
-      this.callApi();
-    });
+  mounted () {
+    this.callApi()
+    EventBus.$on('refresh-from-modal', () => {
+      this.callApi()
+    })
   },
-  beforeDestroy() {
-    EventBus.$off("refresh-from-modal");
+  beforeDestroy () {
+    EventBus.$off('refresh-from-modal')
   }
-};
+}
 </script>

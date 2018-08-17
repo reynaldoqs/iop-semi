@@ -51,7 +51,6 @@
 
             </v-flex>
 
-
             <v-flex xs4>
               <v-subheader>Path del servicio</v-subheader>
             </v-flex>
@@ -108,23 +107,23 @@
 </template>
 
 <script>
-import rules from "@/config/formRules";
-import ambientesApi from "@/services/ambientesService";
-import EventBus from "@/utils/eventBus";
+import rules from '@/config/formRules'
+import ambientesApi from '@/services/ambientesService'
+import EventBus from '@/utils/eventBus'
 export default {
-  name: "servicios-modal",
-  data() {
+  name: 'servicios-modal',
+  data () {
     return {
       validModal: true,
       ambienteModel: {
-        protocolo: "http",
+        protocolo: 'http',
         acl: false,
         jwt: false,
         exp: false
       },
       ambientes: [],
-      protocolos: ["https", "http"]
-    };
+      protocolos: ['https', 'http']
+    }
   },
   props: {
     dialog: {
@@ -132,35 +131,35 @@ export default {
     }
   },
   methods: {
-    save() {
-      let newAmbiente = Object.assign({}, this.ambienteModel);
-      EventBus.$emit("saveServiceModal", newAmbiente);
-      this.ownReset();
-      EventBus.$emit("cancelServiceModal");
+    save () {
+      let newAmbiente = Object.assign({}, this.ambienteModel)
+      EventBus.$emit('saveServiceModal', newAmbiente)
+      this.ownReset()
+      EventBus.$emit('cancelServiceModal')
     },
-    cancel() {
-      this.$refs.formModal.reset();
-      this.ownReset();
-      EventBus.$emit("cancelServiceModal");
+    cancel () {
+      this.$refs.formModal.reset()
+      this.ownReset()
+      EventBus.$emit('cancelServiceModal')
     },
-    ownReset() {
-      this.$refs.formModal.reset();
-      this.ambienteModel.acl = false;
-      this.ambienteModel.jwt = false;
-      this.ambienteModel.exp = false;
+    ownReset () {
+      this.$refs.formModal.reset()
+      this.ambienteModel.acl = false
+      this.ambienteModel.jwt = false
+      this.ambienteModel.exp = false
     }
   },
-  mounted() {
+  mounted () {
     ambientesApi.getAmbientes().then(data => {
-      this.ambientes = data.ambientes;
-    });
+      this.ambientes = data.ambientes
+    })
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     }
   }
-};
+}
 </script>
 <style scoped>
 .instructions {

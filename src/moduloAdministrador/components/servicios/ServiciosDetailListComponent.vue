@@ -6,39 +6,39 @@
 </template>
 
 <script>
-import serviciosApi from "@/services/serviciosService";
-import DataTableView from "@/moduloAdministrador/components/shared/DataTableView";
-import EventBus from "@/utils/eventBus";
+import serviciosApi from '@/services/serviciosService'
+import DataTableView from '@/moduloAdministrador/components/shared/DataTableView'
+import EventBus from '@/utils/eventBus'
 
 export default {
-  data() {
+  data () {
     return {
       requestData: {},
       loading: true
-    };
+    }
   },
   components: {
     DataTableView
   },
   methods: {
-    abrirSteeper() {
-      EventBus.$emit("open-modal");
+    abrirSteeper () {
+      EventBus.$emit('open-modal')
       EventBus.$emit(
-        "set-modal-data",
-        { icon: "directions", description: "Proceso para crear una ruta" },
-        "Crear ruta"
-      );
+        'set-modal-data',
+        { icon: 'directions', description: 'Proceso para crear una ruta' },
+        'Crear ruta'
+      )
     },
-    callApi() {
-      this.loading = true;
-      //para obtener las rutas asociadas al servicio
+    callApi () {
+      this.loading = true
+      // para obtener las rutas asociadas al servicio
       serviciosApi.getRutas(this.$route.params.id).then(data => {
-        this.formatData(data);
-      });
+        this.formatData(data)
+      })
     },
-    formatData(data) {
-      //mejorar con graphql...
-      let headers = ["Nombre Ruta", "Versión", "URL base", "Método", "Acción"];
+    formatData (data) {
+      // mejorar con graphql...
+      let headers = ['Nombre Ruta', 'Versión', 'URL base', 'Método', 'Acción']
       this.requestData = {
         totalItems: data.totalrutas,
         items: data.rutas.map(data => {
@@ -48,29 +48,29 @@ export default {
             data3: data.baseUrl,
             data4: data.metodo,
             id: data.id
-          };
-          return formated;
+          }
+          return formated
         }),
         headers: headers.map(data => {
           let header = {
             text: data,
-            align: "left",
+            align: 'left',
             sortable: true
-          };
-          return header;
+          }
+          return header
         })
-      };
-      this.loading = false;
+      }
+      this.loading = false
     }
   },
-  mounted() {
-    this.callApi();
-    EventBus.$on("refresh-from-modal", () => {
-      this.callApi();
-    });
+  mounted () {
+    this.callApi()
+    EventBus.$on('refresh-from-modal', () => {
+      this.callApi()
+    })
   },
-  beforeDestroy() {
-    EventBus.$off("refresh-from-modal");
+  beforeDestroy () {
+    EventBus.$off('refresh-from-modal')
   }
-};
+}
 </script>

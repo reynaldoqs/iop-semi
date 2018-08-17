@@ -20,7 +20,7 @@
     <div class="modal-selection-subtitle">
       {{ data.item.url}}
     </div>
-  
+
   </div>
 </template>
                         </v-autocomplete>
@@ -28,32 +28,32 @@
 </template>
 
 <script>
-import ambientesApi from "@/services/ambientesService";
+import ambientesApi from '@/services/ambientesService'
 export default {
-  data() {
+  data () {
     return {
       selectedAmbiente: {},
       ambientesArray: []
-    };
+    }
   },
-  name: "selector-ambientes",
+  name: 'selector-ambientes',
   props: {
     idAmbientes: Array,
     rules: Array
   },
   watch: {
-    selectedAmbiente() {
-      this.$emit("onSelect", this.selectedAmbiente);
+    selectedAmbiente () {
+      this.$emit('onSelect', this.selectedAmbiente)
     }
   },
-  mounted() {
+  mounted () {
     ambientesApi.getAmbientes().then(data => {
       this.idAmbientes.length > 0
         ? (this.ambientesArray = data.ambientes.filter(ambiente => {
-            return ambiente.id.includes(this.idAmbientes);
-          }))
-        : "";
-    });
+          return ambiente.id.includes(this.idAmbientes)
+        }))
+        : ''
+    })
   }
-};
+}
 </script>

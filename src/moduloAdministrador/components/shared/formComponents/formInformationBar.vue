@@ -17,7 +17,7 @@ export default {
     title: String,
     description: String
   }
-};
+}
 </script>
 <style scoped>
 .main-form-container {

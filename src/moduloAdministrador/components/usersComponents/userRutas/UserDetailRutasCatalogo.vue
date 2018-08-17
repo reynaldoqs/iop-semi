@@ -185,24 +185,24 @@
   </div>
 </template>
 <script>
-import catalogosApi from "@/services/catalogosService";
+import catalogosApi from '@/services/catalogosService'
 export default {
-  name: "catalogo-detail-route",
-  data() {
+  name: 'catalogo-detail-route',
+  data () {
     return {
       spinner: true,
       catalogo: {}
-    };
+    }
   },
-  mounted() {
+  mounted () {
     catalogosApi.getCatalogo(this.$route.params.num).then(data => {
       if (data) {
-        this.catalogo = data;
-        this.spinner = false;
+        this.catalogo = data
+        this.spinner = false
       }
-    });
+    })
   }
-};
+}
 </script>
 
 <style scoped>

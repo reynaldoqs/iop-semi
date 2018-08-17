@@ -41,11 +41,11 @@
 </div>
 </template>
 <script>
-import serviciosApi from "@/services/serviciosService";
+import serviciosApi from '@/services/serviciosService'
 export default {
   data: () => ({
     states: [],
-    model: "",
+    model: '',
     loading: false
   }),
   props: {
@@ -58,19 +58,19 @@ export default {
     disabled: Boolean
   },
   watch: {
-    model() {
-      this.$emit("updateIdServicio", this.model);
+    model () {
+      this.$emit('updateIdServicio', this.model)
     }
   },
-  mounted() {
-    this.loading = true;
+  mounted () {
+    this.loading = true
     serviciosApi.getServicios(500).then(data => {
-      this.states = data.servicios;
-      this.model = this.idServicio;
-      this.loading = false;
-    });
+      this.states = data.servicios
+      this.model = this.idServicio
+      this.loading = false
+    })
   }
-};
+}
 </script>
 <style scoped>
 .combo-box-title {

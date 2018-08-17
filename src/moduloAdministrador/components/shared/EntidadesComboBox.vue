@@ -41,13 +41,13 @@
 </div>
 </template>
 <script>
-import entidadesApi from "@/services/entidadesService";
+import entidadesApi from '@/services/entidadesService'
 export default {
-  name: "entidades-combo-box",
+  name: 'entidades-combo-box',
   data: () => ({
     isEditing: false,
     states: [],
-    model: "",
+    model: '',
     loading: false
   }),
   props: {
@@ -62,34 +62,34 @@ export default {
     }
   },
   watch: {
-    model() {
-      let entidadFormateado = this.getInformation(this.model);
+    model () {
+      let entidadFormateado = this.getInformation(this.model)
       if (entidadFormateado !== undefined) {
-        this.$emit("entidadChange", {
+        this.$emit('entidadChange', {
           idEntidad: entidadFormateado.id,
           numeroEntidad: entidadFormateado.entidad,
           descripcionEntidad: entidadFormateado.desEntidad,
           siglaEntidad: entidadFormateado.siglaEntidad
-        });
+        })
       }
     }
   },
-  mounted() {
-    this.loading = true;
+  mounted () {
+    this.loading = true
     entidadesApi.getEntidades(1000).then(data => {
-      this.states = data.entidades;
-      this.model = this.idEntidad;
-      this.loading = false;
-    });
+      this.states = data.entidades
+      this.model = this.idEntidad
+      this.loading = false
+    })
   },
   methods: {
-    getInformation(id) {
+    getInformation (id) {
       return this.states.find(value => {
-        return value.id === id;
-      });
+        return value.id === id
+      })
     }
   }
-};
+}
 </script>
 <style scoped>
 .combo-box-title {

@@ -18,7 +18,7 @@
 </template>
 <script>
 export default {
-  name: "iop-toolTip",
+  name: 'iop-toolTip',
   props: {
     title: {
       type: String,
@@ -44,7 +44,7 @@ export default {
       default: false
     }
   }
-};
+}
 </script>
 <style>
 .iop-tooltip-container {
@@ -81,4 +81,3 @@ export default {
   font-weight: 300;
 }
 </style>
-

@@ -14,32 +14,32 @@
   </div>
 </template>
 <script>
-import iopTabs from "@/moduloAdministrador/components/shared/iopTabs";
-import InformationBar from "@/moduloAdministrador/components/shared/InformationBar";
-import ServiciosDetailView from "@/moduloAdministrador/components/servicios/ServiciosDetailViewComponent";
-import ServiciosDetailRoutes from "@/moduloAdministrador/components/servicios/ServiciosDetailListComponent";
+import iopTabs from '@/moduloAdministrador/components/shared/iopTabs'
+import InformationBar from '@/moduloAdministrador/components/shared/InformationBar'
+import ServiciosDetailView from '@/moduloAdministrador/components/servicios/ServiciosDetailViewComponent'
+import ServiciosDetailRoutes from '@/moduloAdministrador/components/servicios/ServiciosDetailListComponent'
 export default {
-  data() {
+  data () {
     return {
       tabItems: [
         {
-          title: "Detalles",
-          icon: "styles"
+          title: 'Detalles',
+          icon: 'styles'
         },
         {
-          title: "Rutas",
-          icon: "call_split"
+          title: 'Rutas',
+          icon: 'call_split'
         }
       ],
       information: {
-        title: "Servicio?",
-        description: "Sin descripcion"
+        title: 'Servicio?',
+        description: 'Sin descripcion'
       },
       aditionals: {
-        Vista: "Administrador"
+        Vista: 'Administrador'
       },
-      selectedComponent: "Detalles"
-    };
+      selectedComponent: 'Detalles'
+    }
   },
   components: {
     iopTabs,
@@ -47,5 +47,5 @@ export default {
     Rutas: ServiciosDetailRoutes,
     InformationBar
   }
-};
+}
 </script>

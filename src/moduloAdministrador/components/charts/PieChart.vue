@@ -1,5 +1,5 @@
 <script>
-import { Pie } from "vue-chartjs";
+import { Pie } from 'vue-chartjs'
 export default {
   extends: Pie,
   props: {
@@ -8,7 +8,7 @@ export default {
       required: false
     }
   },
-  data() {
+  data () {
     return {
       options: {
         scales: {
@@ -33,27 +33,27 @@ export default {
         legend: {
           display: true,
           labels: {
-            fontColor: "white"
+            fontColor: 'white'
           }
         },
         responsive: true,
         maintainAspectRatio: false
       }
-    };
+    }
   },
-  mounted() {
+  mounted () {
     this.renderChart(
       {
-        labels: ["Red", "Yellow", "Blue"],
+        labels: ['Red', 'Yellow', 'Blue'],
         datasets: [
           {
-            backgroundColor: ["red", "blue", "green"],
+            backgroundColor: ['red', 'blue', 'green'],
             data: [30, 20, 30]
           }
         ]
       },
       this.options
-    );
+    )
   }
-};
+}
 </script>

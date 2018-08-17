@@ -18,10 +18,10 @@
       </div>
     </div>
 <transition-group name="slide-fade" tag="div">
-    <nested-list 
+    <nested-list
       v-if="showChildren"
-      v-for="(node,i) in nodes" 
-      :nodes="node.hijos" 
+      v-for="(node,i) in nodes"
+      :nodes="node.hijos"
       :label="node"
       :depth="depth + 1"
       :key="i"
@@ -32,27 +32,27 @@
 </template>
 
 <script>
-import rutasApi from "@/services/rutasService";
+import rutasApi from '@/services/rutasService'
 export default {
-  props: ["label", "nodes", "depth"],
-  data() {
-    return { showChildren: false };
+  props: ['label', 'nodes', 'depth'],
+  data () {
+    return { showChildren: false }
   },
-  name: "nested-list",
+  name: 'nested-list',
   computed: {
-    indent() {
-      return { transform: `translate(${this.depth * 30}px)` };
+    indent () {
+      return { transform: `translate(${this.depth * 30}px)` }
     }
   },
   methods: {
-    toggleChildren() {
-      this.showChildren = !this.showChildren;
+    toggleChildren () {
+      this.showChildren = !this.showChildren
     },
-    deleteChildren(id) {
-      alert(id);
+    deleteChildren (id) {
+      alert(id)
     }
   }
-};
+}
 </script>
 
 <style>

@@ -76,7 +76,7 @@
             label="Ubicación"
             outline
             :rules="[rules.req]"
-            :disabled="!editable || !hasId || typeof model.idParametroPadre === 'string'"  
+            :disabled="!editable || !hasId || typeof model.idParametroPadre === 'string'"
           ></v-select>
         </v-flex>
         <v-flex xs6 md2 class="iop-left-spacer iop-right-spacer">
@@ -142,15 +142,15 @@
   </div>
 </template>
 <script>
-import SteepersEditableList from "@/moduloAdministrador/components/rutas/SteepersEditableList";
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
-import rules from "@/config/formRules";
-import rutasApi from "@/services/rutasService";
-import EventBus from "@/utils/eventBus";
-import answersModule from "@/utils/responseManager";
-import checkModule from "@/utils/checkChanges";
+import SteepersEditableList from '@/moduloAdministrador/components/rutas/SteepersEditableList'
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
+import rules from '@/config/formRules'
+import rutasApi from '@/services/rutasService'
+import EventBus from '@/utils/eventBus'
+import answersModule from '@/utils/responseManager'
+import checkModule from '@/utils/checkChanges'
 export default {
-  data() {
+  data () {
     return {
       selectedId: null,
       editable: true,
@@ -169,167 +169,165 @@ export default {
       },
       oldModel: null,
       tipos: [
-        "string",
-        "boolean",
-        "array",
-        "object",
-        "integer",
-        "number",
-        "date",
-        "datetime"
+        'string',
+        'boolean',
+        'array',
+        'object',
+        'integer',
+        'number',
+        'date',
+        'datetime'
       ],
-      ubicaciones: ["query", "header", "path", "body"],
-      headers: ["nombre", "ubicación", "tipo", "formato", "Acciones"],
+      ubicaciones: ['query', 'header', 'path', 'body'],
+      headers: ['nombre', 'ubicación', 'tipo', 'formato', 'Acciones'],
       items: []
-    };
+    }
   },
   watch: {
-    "model.idParametroPadre"() {
+    'model.idParametroPadre' () {
       if (this.model.idParametroPadre) {
-        this.model.ubicacion = "body";
+        this.model.ubicacion = 'body'
       }
     }
   },
   methods: {
-    addSettings() {
-      this.selectedId = null;
-      this.resetForm();
+    addSettings () {
+      this.selectedId = null
+      this.resetForm()
     },
-    async actualizar() {
+    async actualizar () {
       try {
-        this.loading = true;
+        this.loading = true
         this.model.idParametroPadre =
-          typeof this.model.idParametroPadre === "undefined"
+          typeof this.model.idParametroPadre === 'undefined'
             ? null
-            : this.model.idParametroPadre;
-        let fromForm = checkModule.checkIt(this.oldModel, this.model);
+            : this.model.idParametroPadre
+        let fromForm = checkModule.checkIt(this.oldModel, this.model)
         let respuesta = await rutasApi.patchParametro(
           this.idRuta,
           this.selectedId,
           fromForm
-        );
+        )
         if (answersModule.verifyPetition(respuesta).isOk) {
-          this.resetForm();
-          this.loadParametros();
+          this.resetForm()
+          this.loadParametros()
         }
 
-        this.loading = false;
+        this.loading = false
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
     },
-    async agregar() {
+    async agregar () {
       try {
-        this.loading = true;
+        this.loading = true
         this.model.idParametroPadre =
-          typeof this.model.idParametroPadre === "undefined"
+          typeof this.model.idParametroPadre === 'undefined'
             ? null
-            : this.model.idParametroPadre;
-        let fromForm = Object.assign({}, this.model);
+            : this.model.idParametroPadre
+        let fromForm = Object.assign({}, this.model)
 
         // peticion al servicor
         let respuesta = await rutasApi.postParametro(
           this.idRuta,
           Object.assign(fromForm, { idRuta: this.idRuta })
-        );
+        )
         // evaluacion a la respuesta
         if (answersModule.verifyPetition(respuesta).isOk) {
-          let nuevoObjecto = answersModule.verifyPetition(respuesta).answer;
-          this.items.push(nuevoObjecto);
-          this.resetForm();
+          let nuevoObjecto = answersModule.verifyPetition(respuesta).answer
+          this.items.push(nuevoObjecto)
+          this.resetForm()
         }
 
-        this.loading = false;
+        this.loading = false
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
     },
-    changeFormato() {
+    changeFormato () {
       if (this.model.tipo) {
-        this.model.formato = this.formato(this.model.tipo);
+        this.model.formato = this.formato(this.model.tipo)
       }
     },
-    resetForm() {
-      this.$refs.formParametros.reset();
-      //fix: hacer la mejor manera de quitar los parametros adiconales al hacer reset
-      //temp
-      if (this.model.id) delete this.model.id;
-      if (this.model.fechaModificacion) delete this.model.fechaModificacion;
-      if (this.model.fechaRegistro) delete this.model.fechaRegistro;
-      //end temp
-      if (this.model.requerido) this.model.requerido = false;
-      this.model.valorEjemplo = null;
-      this.selectedId = null;
+    resetForm () {
+      this.$refs.formParametros.reset()
+      // fix: hacer la mejor manera de quitar los parametros adiconales al hacer reset
+      // temp
+      if (this.model.id) delete this.model.id
+      if (this.model.fechaModificacion) delete this.model.fechaModificacion
+      if (this.model.fechaRegistro) delete this.model.fechaRegistro
+      // end temp
+      if (this.model.requerido) this.model.requerido = false
+      this.model.valorEjemplo = null
+      this.selectedId = null
     },
-    formato(tipo) {
+    formato (tipo) {
       switch (tipo) {
-        case "string":
-          return "UFT-8";
-        case "boolean":
-          return "true/false";
-        case "array":
-          return "any";
-        case "object":
-          return "any";
-        case "integer":
-          return "int-32";
-        case "number":
-          return "int-32";
-        case "date":
-          return "DD/MM/YYYY";
-        case "datetime":
-          return "00:00";
+        case 'string':
+          return 'UFT-8'
+        case 'boolean':
+          return 'true/false'
+        case 'array':
+          return 'any'
+        case 'object':
+          return 'any'
+        case 'integer':
+          return 'int-32'
+        case 'number':
+          return 'int-32'
+        case 'date':
+          return 'DD/MM/YYYY'
+        case 'datetime':
+          return '00:00'
         default:
-          return "";
+          return ''
       }
     },
-    loadParametro(data) {
-      this.selectedId = data.id;
-      this.model = Object.assign({}, data);
-      this.oldModel = Object.assign({}, data);
+    loadParametro (data) {
+      this.selectedId = data.id
+      this.model = Object.assign({}, data)
+      this.oldModel = Object.assign({}, data)
     },
-    async loadParametros() {
-      let respuesta = await rutasApi.getParametros(this.idRuta);
-      if (answersModule.verifyPetition(respuesta).isOk)
-        this.items = answersModule.verifyPetition(respuesta).answer.parametros;
+    async loadParametros () {
+      let respuesta = await rutasApi.getParametros(this.idRuta)
+      if (answersModule.verifyPetition(respuesta).isOk) { this.items = answersModule.verifyPetition(respuesta).answer.parametros }
     },
-    async deleteParametroDB(id) {
-      let respuesta = await rutasApi.deleteParametro(this.idRuta, id);
-      if (answersModule.verifyPetition(respuesta).isOk) this.loadParametros();
+    async deleteParametroDB (id) {
+      let respuesta = await rutasApi.deleteParametro(this.idRuta, id)
+      if (answersModule.verifyPetition(respuesta).isOk) this.loadParametros()
     },
-    async loadParametroDB(id) {
-      let respuesta = await rutasApi.getParametro(this.idRuta, id);
-      if (answersModule.verifyPetition(respuesta).isOk)
-        this.loadParametro(answersModule.verifyPetition(respuesta).answer);
+    async loadParametroDB (id) {
+      let respuesta = await rutasApi.getParametro(this.idRuta, id)
+      if (answersModule.verifyPetition(respuesta).isOk) { this.loadParametro(answersModule.verifyPetition(respuesta).answer) }
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     },
-    hasId() {
-      return this.idRuta ? true : false;
+    hasId () {
+      return !!this.idRuta
     }
   },
   components: {
     SteepersEditableList,
     formInformation
   },
-  mounted() {
-    this.idRuta = this.$route.params.id;
-    this.loadParametros();
-    EventBus.$on("deleteParametro", id => {
-      this.deleteParametroDB(id);
-    });
-    EventBus.$on("editParametro", id => {
-      this.loadParametroDB(id);
-    });
+  mounted () {
+    this.idRuta = this.$route.params.id
+    this.loadParametros()
+    EventBus.$on('deleteParametro', id => {
+      this.deleteParametroDB(id)
+    })
+    EventBus.$on('editParametro', id => {
+      this.loadParametroDB(id)
+    })
   },
-  beforeDestroy() {
-    EventBus.$off("deleteParametro");
-    EventBus.$off("editParametro");
+  beforeDestroy () {
+    EventBus.$off('deleteParametro')
+    EventBus.$off('editParametro')
   }
-};
+}
 </script>
 <style scoped>
 .list-container {

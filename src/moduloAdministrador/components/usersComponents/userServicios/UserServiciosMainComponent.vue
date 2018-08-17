@@ -14,36 +14,36 @@
   </div>
 </template>
 <script>
-import dataTable from "@/moduloAdministrador/components/usersComponents/userServicios/UserServiciosDataTableView";
-import serviciosApi from "@/services/serviciosService";
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
+import dataTable from '@/moduloAdministrador/components/usersComponents/userServicios/UserServiciosDataTableView'
+import serviciosApi from '@/services/serviciosService'
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
 
 export default {
-  data() {
+  data () {
     return {
       notifications: false,
       spinner: false,
       servicios: [],
       headers: [
-        { title: "Servicio" },
-        { title: "Entidad propietaria" },
-        { title: "Código" },
-        { title: "Estado" },
-        { title: "Ambientes" },
-        { title: "Acciones" }
+        { title: 'Servicio' },
+        { title: 'Entidad propietaria' },
+        { title: 'Código' },
+        { title: 'Estado' },
+        { title: 'Ambientes' },
+        { title: 'Acciones' }
       ]
-    };
+    }
   },
-  mounted() {
-    this.spinner = true;
+  mounted () {
+    this.spinner = true
     serviciosApi.getServicios().then(data => {
-      this.servicios = data.servicios;
-      this.spinner = false;
-    });
+      this.servicios = data.servicios
+      this.spinner = false
+    })
   },
   components: {
     dataTable,
     formInformation
   }
-};
+}
 </script>

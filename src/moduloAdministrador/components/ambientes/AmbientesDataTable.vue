@@ -4,24 +4,24 @@
   </div>
 </template>
 <script>
-import AmbientesDataTableView from "@/moduloAdministrador/components/ambientes/AmbientesDataTableView";
+import AmbientesDataTableView from '@/moduloAdministrador/components/ambientes/AmbientesDataTableView'
 export default {
-  data() {
+  data () {
     return {
       ambientesHeaders: [
-        { title: "Nombre del Ambiente", type: "user" },
-        { title: "Ubicación", type: "user" },
-        { title: "Protocolos", type: "user" },
-        { title: "Estado", type: "user" },
-        { title: "Acciones", type: "user" }
+        { title: 'Nombre del Ambiente', type: 'user' },
+        { title: 'Ubicación', type: 'user' },
+        { title: 'Protocolos', type: 'user' },
+        { title: 'Estado', type: 'user' },
+        { title: 'Acciones', type: 'user' }
       ]
-    };
+    }
   },
   props: {
     ambientes: Array
   },
   components: {
-    "ambientes-table": AmbientesDataTableView
+    'ambientes-table': AmbientesDataTableView
   }
-};
+}
 </script>

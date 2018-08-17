@@ -74,73 +74,73 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import usuariosApi from "@/services/usuariosService";
-import serviciosApi from "@/services/serviciosService";
-import StatesButton from "@/moduloAdministrador/components/shared/StatesButton";
-import EventBus from "@/utils/eventBus";
+import { mapGetters } from 'vuex'
+import usuariosApi from '@/services/usuariosService'
+import serviciosApi from '@/services/serviciosService'
+import StatesButton from '@/moduloAdministrador/components/shared/StatesButton'
+import EventBus from '@/utils/eventBus'
 export default {
-  name: "user-servicios-datatable",
-  data() {
+  name: 'user-servicios-datatable',
+  data () {
     return {
       userRoutes: [],
       selectedServicio: null
-    };
+    }
   },
   props: {
     headers: Array,
     items: Array
   },
   methods: {
-    addRuta(id, indice = -1) {
-      //hacer un selector de ambientes *eventbus <=> eventbus
-      let ambiente = this.selectedServicio.ambientes[0].idAmbiente;
+    addRuta (id, indice = -1) {
+      // hacer un selector de ambientes *eventbus <=> eventbus
+      let ambiente = this.selectedServicio.ambientes[0].idAmbiente
       if (ambiente) {
         this.userRoutes.push({
           idRuta: id,
           idAmbiente: ambiente,
           idNormaTecnica: null
-        });
-        usuariosApi.patchUsuario(this.user.id, { rutas: this.userRoutes });
+        })
+        usuariosApi.patchUsuario(this.user.id, { rutas: this.userRoutes })
       }
     },
-    removeRuta(id, indice = -1) {
-      let index = this.userRoutes.map(ruta => ruta.idRuta).indexOf(id);
-      this.userRoutes.splice(index, 1);
+    removeRuta (id, indice = -1) {
+      let index = this.userRoutes.map(ruta => ruta.idRuta).indexOf(id)
+      this.userRoutes.splice(index, 1)
       usuariosApi
         .patchUsuario(this.user.id, { rutas: this.userRoutes })
     },
-    goCatalogo(num) {
-      this.$router.push({ path: `/dashboard/catalogo/${num}` });
+    goCatalogo (num) {
+      this.$router.push({ path: `/dashboard/catalogo/${num}` })
     },
-    openWindow(id) {
-      window.open("https://www.materialui.co/colors");
+    openWindow (id) {
+      window.open('https://www.materialui.co/colors')
     },
-    checkActive(id) {
-      return this.userRoutes.map(ruta => ruta.idRuta).includes(id);
+    checkActive (id) {
+      return this.userRoutes.map(ruta => ruta.idRuta).includes(id)
     },
-    loadRutasUsuario() {
+    loadRutasUsuario () {
       usuariosApi.getUsuario(this.user.id).then(data => {
-        this.userRoutes = data.rutas;
-      });
+        this.userRoutes = data.rutas
+      })
     }
   },
   computed: {
-    ...mapGetters(["user"])
+    ...mapGetters(['user'])
   },
-  mounted() {
-    this.loadRutasUsuario();
+  mounted () {
+    this.loadRutasUsuario()
     serviciosApi.getServicio(this.$route.params.id).then(data => {
       if (data) {
-        console.log(data);
-        this.selectedServicio = data;
+        console.log(data)
+        this.selectedServicio = data
       }
-    });
+    })
   },
   components: {
     StatesButton
   }
-};
+}
 </script>
 
 <style scoped>

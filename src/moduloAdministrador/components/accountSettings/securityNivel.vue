@@ -11,53 +11,53 @@
 
 <script>
 export default {
-  name: "sec-nivel",
+  name: 'sec-nivel',
   props: {
     nivel: Number
   },
   computed: {
-    nivelSeguridad() {
+    nivelSeguridad () {
       switch (this.nivel) {
         case 0:
           return {
-            title: "Nada seguro",
-            icon: "sentiment_very_dissatisfied",
-            color: "#f44336"
-          };
+            title: 'Nada seguro',
+            icon: 'sentiment_very_dissatisfied',
+            color: '#f44336'
+          }
         case 1:
           return {
-            title: "Muy poco seguro",
-            icon: "mood_bad",
-            color: "#FF7043"
-          };
+            title: 'Muy poco seguro',
+            icon: 'mood_bad',
+            color: '#FF7043'
+          }
         case 2:
           return {
-            title: "Poco seguro",
-            icon: "sentiment_dissatisfied",
-            color: "FF9800"
-          };
+            title: 'Poco seguro',
+            icon: 'sentiment_dissatisfied',
+            color: 'FF9800'
+          }
         case 3:
           return {
-            title: "Seguro",
-            icon: "sentiment_satisfied",
-            color: "#8BC34A"
-          };
+            title: 'Seguro',
+            icon: 'sentiment_satisfied',
+            color: '#8BC34A'
+          }
         case 4:
           return {
-            title: "Muy seguro",
-            icon: "sentiment_very_satisfied",
-            color: "#4CAF50"
-          };
+            title: 'Muy seguro',
+            icon: 'sentiment_very_satisfied',
+            color: '#4CAF50'
+          }
         default:
           return {
-            title: "Nada seguro",
-            icon: "sentiment_very_dissatisfied",
-            color: "#f44336"
-          };
+            title: 'Nada seguro',
+            icon: 'sentiment_very_dissatisfied',
+            color: '#f44336'
+          }
       }
     }
   }
-};
+}
 </script>
 
 <style scoped>

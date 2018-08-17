@@ -8,50 +8,50 @@
   </div>
 </template>
 <script>
-import EventBus from "@/utils/eventBus";
-import CreateUser from "@/moduloAdministrador/components/accountSettings/createUser";
+import EventBus from '@/utils/eventBus'
+import CreateUser from '@/moduloAdministrador/components/accountSettings/createUser'
 export default {
-  name: "medium-modal",
-  data() {
+  name: 'medium-modal',
+  data () {
     return {
       dialog: false,
-      currentComponent: "",
+      currentComponent: '',
       someId: null
-    };
+    }
   },
   computed: {
-    currentProperties() {
-      if (this.currentComponent === "select-ruta") {
+    currentProperties () {
+      if (this.currentComponent === 'select-ruta') {
         return {
           idServicio: this.someId
-        };
+        }
       }
     }
   },
   components: {
-    "create-user": CreateUser
+    'create-user': CreateUser
   },
   watch: {
-    dialog() {
+    dialog () {
       if (!this.dialog) {
-        //para destruir el componente
-        this.currentComponent = "";
+        // para destruir el componente
+        this.currentComponent = ''
       }
     }
   },
-  mounted() {
-    EventBus.$on("open-md-modal", (type, id = "") => {
-      this.idServicio = id;
-      this.currentComponent = type;
-      this.dialog = true;
-    });
-    EventBus.$on("close-md-modal", () => {
-      this.dialog = false;
-    });
+  mounted () {
+    EventBus.$on('open-md-modal', (type, id = '') => {
+      this.idServicio = id
+      this.currentComponent = type
+      this.dialog = true
+    })
+    EventBus.$on('close-md-modal', () => {
+      this.dialog = false
+    })
   },
-  beforeDestroy() {
-    EventBus.$off("open-md-modal");
-    EventBus.$off("close-md-modal");
+  beforeDestroy () {
+    EventBus.$off('open-md-modal')
+    EventBus.$off('close-md-modal')
   }
-};
+}
 </script>

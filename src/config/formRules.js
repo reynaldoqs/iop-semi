@@ -1,21 +1,21 @@
-//const expRegUrl = /^(http[s]?:\/\/(www\.)?|ftp:\/\/(www\.)?|www\.){1}([0-9A-Za-z-\.@:%_\+~#=]+)+((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?/g;
+// const expRegUrl = /^(http[s]?:\/\/(www\.)?|ftp:\/\/(www\.)?|www\.){1}([0-9A-Za-z-\.@:%_\+~#=]+)+((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?/g;
 export default {
   req: v => !!v || 'Campo requerido',
   noSpace: v => {
-    const expReg = /^\S+$/;
-    return expReg.test(v) || 'No debe tener espacios en blanco.';
+    const expReg = /^\S+$/
+    return expReg.test(v) || 'No debe tener espacios en blanco.'
   },
   ip: v => {
-    const expRegIp = /^(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
-    return expRegIp.test(v) || 'Ip no válida';
+    const expRegIp = /^(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/
+    return expRegIp.test(v) || 'Ip no válida'
   },
   email: v => {
-    const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return pattern.test(v) || 'Correo no válido';
+    const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return pattern.test(v) || 'Correo no válido'
   },
   url: v => {
-    const expRegUrl = /^([0-9A-Za-z-\.@:%_\+~#=]+)?/g;
-    return expRegUrl.test(v) || 'URL no válido';
+    const expRegUrl = /^([0-9A-Za-z-\.@:%_\+~#=]+)?/g
+    return expRegUrl.test(v) || 'URL no válido'
   },
   min3: v =>
     typeof v !== 'object'
@@ -55,4 +55,4 @@ export default {
       ? v.length <= 500 || 'El tamaño máximo es de 500 caracteres'
       : 'Dato nulo',
   integer: v => typeof v === 'number' || 'Tiene que ser un número'
-};
+}

@@ -43,7 +43,7 @@
                 <v-icon small>view_list</v-icon>
                 </v-btn>
               <small style="line-height:.1rem">Servicios</small>
-        </div>    
+        </div>
           </div>
             <div class="service-check" @click.stop="servicio.active = !servicio.active" v-for="(servicio, index) in dates" :key="index">
               <div class="check-container">
@@ -64,57 +64,57 @@
   </div>
 </template>
 <script>
-import estadisticasApi from "@/services/estadisticasService";
-import LineChart from "@/moduloAdministrador/components/charts/LineChart";
-import colors from "@/utils/getColors";
-import fechas from "@/utils/getFechas";
+import estadisticasApi from '@/services/estadisticasService'
+import LineChart from '@/moduloAdministrador/components/charts/LineChart'
+import colors from '@/utils/getColors'
+import fechas from '@/utils/getFechas'
 export default {
-  data() {
+  data () {
     return {
       date: null,
       menu: false,
       labels: [],
       dates: []
-    };
-  },
-  watch: {
-    date() {
-      this.loadEstadisticas(fechas.formatDate(this.date));
     }
   },
-  mounted() {
-    this.loadEstadisticas();
+  watch: {
+    date () {
+      this.loadEstadisticas(fechas.formatDate(this.date))
+    }
+  },
+  mounted () {
+    this.loadEstadisticas()
   },
   methods: {
-    loadEstadisticas(fecha = "") {
+    loadEstadisticas (fecha = '') {
       estadisticasApi.getLine(fecha).then(data => {
         if (data) {
           this.labels = data.totalPorHoras.map(date => {
-            let hora = date.hora;
-            return this.getHora(hora);
-          });
+            let hora = date.hora
+            return this.getHora(hora)
+          })
           // hacer q haga push
           this.dates[0] = {
-            nombre: "Total de consumos",
+            nombre: 'Total de consumos',
             recurencia: data.totalPorHoras.map(date => {
-              let total = date.total;
-              return total;
+              let total = date.total
+              return total
             }),
             active: true,
-            color: colors.getRgba("Total de consumos", 0.8)
-          };
+            color: colors.getRgba('Total de consumos', 0.8)
+          }
         }
-      });
+      })
     },
-    getHora(hora) {
-      return hora < 10 ? `0${hora}:00` : `${hora}:00`;
+    getHora (hora) {
+      return hora < 10 ? `0${hora}:00` : `${hora}:00`
     }
   },
   computed: {
-    today() {
-      return fechas.today();
+    today () {
+      return fechas.today()
     },
-    servicios() {
+    servicios () {
       return {
         labels: this.labels,
         datasets: this.dates
@@ -122,29 +122,29 @@ export default {
             let elemento = {
               label: servicio.nombre,
               borderColor: colors.getRgba(servicio.nombre),
-              pointBackgroundColor: "white",
+              pointBackgroundColor: 'white',
               borderDash: [3],
               borderDashOffset: 4,
-              borderJoinStyle: "miter",
+              borderJoinStyle: 'miter',
               borderWidth: 1,
-              pointBorderColor: "#249ebf",
+              pointBorderColor: '#249ebf',
               pointRadius: 4,
               steppedLine: false,
               backgroundColor: colors.getRgba(servicio.nombre, 0.3),
               fill: true,
               data: servicio.recurencia,
               active: servicio.active
-            };
-            return elemento;
+            }
+            return elemento
           })
           .filter(servicio => servicio.active)
-      };
+      }
     }
   },
   components: {
     LineChart
   }
-};
+}
 </script>
 <style scoped>
 .estadisticas-selector {

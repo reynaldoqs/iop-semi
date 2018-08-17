@@ -12,7 +12,7 @@
           <div class="static-modal-form">
               <security-nivel :nivel="nivel"></security-nivel>
             <h3>Constraseña nueva</h3>
-            <password v-model="password1" placeholder="Nueva contraseña" 
+            <password v-model="password1" placeholder="Nueva contraseña"
             :toggle="toggle"
             @score="showScore"
             name="pass 1"
@@ -21,7 +21,7 @@
             :showStrengthMeter="strMeter"
             />
             <h3>Repita la contraseña</h3>
-          <password v-model="password2" placeholder="Repita contraseña" 
+          <password v-model="password2" placeholder="Repita contraseña"
             :toggle="toggle"
             name="pass 2"
             id="pass2"
@@ -40,9 +40,9 @@
 </template>
 
 <script>
-import Password from "vue-password-strength-meter";
-import securityNivel from "@/moduloAdministrador/components/accountSettings/securityNivel";
-import loginApi from "@/services/loginService";
+import Password from 'vue-password-strength-meter'
+import securityNivel from '@/moduloAdministrador/components/accountSettings/securityNivel'
+import loginApi from '@/services/loginService'
 export default {
   data: () => ({
     password1: null,
@@ -51,17 +51,17 @@ export default {
     score: null,
     strMeter: false,
     nivel: 0,
-    errorMessage: ""
+    errorMessage: ''
   }),
   methods: {
-    showScore(score) {
-      this.nivel = score;
+    showScore (score) {
+      this.nivel = score
     },
-    guardar() {
+    guardar () {
       loginApi.serviceRestPassword(this.$route.params.clave, {
         clave: this.password1,
         confirmacionClave: this.password2
-      });
+      })
     }
   },
   components: {
@@ -69,22 +69,22 @@ export default {
     securityNivel
   },
   watch: {
-    password1() {
+    password1 () {
       if (this.password2 !== null) {
         this.password1 === this.password2
-          ? (this.errorMessage = "")
-          : (this.errorMessage = "Las contraseñas no coinciden");
+          ? (this.errorMessage = '')
+          : (this.errorMessage = 'Las contraseñas no coinciden')
       }
     },
-    password2() {
+    password2 () {
       if (this.password1 !== null) {
         this.password1 === this.password2
-          ? (this.errorMessage = "")
-          : (this.errorMessage = "Las contraseñas no coinciden");
+          ? (this.errorMessage = '')
+          : (this.errorMessage = 'Las contraseñas no coinciden')
       }
     }
   }
-};
+}
 </script>
 
 <style scoped>

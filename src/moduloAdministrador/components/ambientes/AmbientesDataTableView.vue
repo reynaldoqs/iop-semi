@@ -61,15 +61,15 @@
 </template>
 
 <script>
-import StatesButton from "@/moduloAdministrador/components/shared/StatesButton";
-import ambientesApi from "@/services/ambientesService";
+import StatesButton from '@/moduloAdministrador/components/shared/StatesButton'
+import ambientesApi from '@/services/ambientesService'
 
 export default {
-  name: "ambientes-datatable",
-  data() {
+  name: 'ambientes-datatable',
+  data () {
     return {
-      icon: "cached"
-    };
+      icon: 'cached'
+    }
   },
   props: {
     headers: {
@@ -83,64 +83,64 @@ export default {
     StatesButton
   },
   methods: {
-    verificar(ambienteId, index) {
-      this.items[index].loading = true;
+    verificar (ambienteId, index) {
+      this.items[index].loading = true
       setTimeout(() => {
-        if (this.items[index].estado === "VERIFICADO") {
+        if (this.items[index].estado === 'VERIFICADO') {
           ambientesApi
-            .patchAmbiente(ambienteId, { estado: "HABILITADO" })
+            .patchAmbiente(ambienteId, { estado: 'HABILITADO' })
             .then(data => {
               if (data) {
-                this.items[index].estado = "HABILITADO";
-                //console.log("verificado");
+                this.items[index].estado = 'HABILITADO'
+                // console.log("verificado");
               } else {
-                //console.log("no verificado");
+                // console.log("no verificado");
               }
-            });
+            })
         } else {
           ambientesApi.verificarAmbiente(ambienteId).then(data => {
             if (data) {
-              this.items[index].estado = "VERIFICADO";
-              //console.log("verificado");
+              this.items[index].estado = 'VERIFICADO'
+              // console.log("verificado");
             } else {
-              //console.log("no verificado");
+              // console.log("no verificado");
             }
-          });
+          })
         }
 
-        this.items[index].loading = false;
-      }, 500);
+        this.items[index].loading = false
+      }, 500)
     },
-    operation(estado) {
+    operation (estado) {
       switch (estado) {
-        case "REGISTRADO":
-          return { action: "Verificar", icon: "check", color: "#90A4AE" };
-          break;
+        case 'REGISTRADO':
+          return { action: 'Verificar', icon: 'check', color: '#90A4AE' }
+          break
 
-        case "VERIFICADO":
+        case 'VERIFICADO':
           return {
-            action: "Habilitar",
-            icon: "verified_user",
-            color: "#90A4AE"
-          };
-          break;
+            action: 'Habilitar',
+            icon: 'verified_user',
+            color: '#90A4AE'
+          }
+          break
 
-        case "HABILITADO":
-          return { action: "Inhabilitar", icon: "block", color: "#90A4AE" };
-          break;
+        case 'HABILITADO':
+          return { action: 'Inhabilitar', icon: 'block', color: '#90A4AE' }
+          break
 
-        case "INHABILITADO":
-          return { action: "Habilitar", icon: "pan_tool", color: "#90A4AE" };
-          break;
+        case 'INHABILITADO':
+          return { action: 'Habilitar', icon: 'pan_tool', color: '#90A4AE' }
+          break
 
         default:
-          return "No states";
-          break;
+          return 'No states'
+          break
       }
     }
   },
   computed: {}
-};
+}
 </script>
 
 <style scoped>

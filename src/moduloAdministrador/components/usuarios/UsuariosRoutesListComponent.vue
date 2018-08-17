@@ -30,54 +30,54 @@
   </div>
 </template>
 <script>
-import usuariosApi from "@/services/usuariosService";
+import usuariosApi from '@/services/usuariosService'
 export default {
   data: () => ({
     dialog: false,
     loading: false,
     headers: [
       {
-        text: "Nombre",
-        align: "left",
+        text: 'Nombre',
+        align: 'left',
         sortable: false,
-        value: "nombre"
+        value: 'nombre'
       },
-      { text: "URL base", value: "baseUrl" },
-      { text: "Prefijo", value: "prefijoOperacion" },
-      { text: "Versión", value: "version" },
-      { text: "Método", value: "metodo" },
-      { text: "Actions", value: "name", sortable: false }
+      { text: 'URL base', value: 'baseUrl' },
+      { text: 'Prefijo', value: 'prefijoOperacion' },
+      { text: 'Versión', value: 'version' },
+      { text: 'Método', value: 'metodo' },
+      { text: 'Actions', value: 'name', sortable: false }
     ],
     rutas: []
   }),
-  mounted() {
-    this.loading = true;
+  mounted () {
+    this.loading = true
     if (this.$route.params.id) {
       usuariosApi.getRutas(this.$route.params.id).then(data => {
-        this.rutas = data.rutas;
-        this.loading = false;
-      });
+        this.rutas = data.rutas
+        this.loading = false
+      })
     } else {
-      this.$store.dispatch("notification", {
-        message: "Error con el usuario",
+      this.$store.dispatch('notification', {
+        message: 'Error con el usuario',
         dangerous: true
-      });
+      })
     }
   },
   methods: {
-    async deleteItem(item) {
-      const index = this.rutas.indexOf(item);
-      confirm("¿Esta seguro de eliminar la ruta?") &&
-        this.rutas.splice(index, 1);
-      this.loading = true;
-      let rutasUsuario = await usuariosApi.getUsuario(this.$route.params.id);
-      rutasUsuario.rutas.splice(index, 1);
+    async deleteItem (item) {
+      const index = this.rutas.indexOf(item)
+      confirm('¿Esta seguro de eliminar la ruta?') &&
+        this.rutas.splice(index, 1)
+      this.loading = true
+      let rutasUsuario = await usuariosApi.getUsuario(this.$route.params.id)
+      rutasUsuario.rutas.splice(index, 1)
       usuariosApi
         .patchUsuario(this.$route.params.id, { rutas: rutasUsuario.rutas })
         .then(() => {
-          this.loading = false;
-        });
+          this.loading = false
+        })
     }
   }
-};
+}
 </script>

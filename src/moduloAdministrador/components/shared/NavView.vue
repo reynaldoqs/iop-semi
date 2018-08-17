@@ -5,7 +5,7 @@
       <!-- Aqui las opciones del menu-->
     </v-toolbar-items>
     <v-spacer></v-spacer>
-  
+
       <div  v-if="isLoggedIn" class="user-container">
         <div class="user-notifications">
           <news-component></news-component>
@@ -52,38 +52,38 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import EventBus from "@/utils/eventBus";
-import NewsComponent from "@/moduloAdministrador/components/notificaciones/NewsComponent";
+import { mapGetters } from 'vuex'
+import EventBus from '@/utils/eventBus'
+import NewsComponent from '@/moduloAdministrador/components/notificaciones/NewsComponent'
 export default {
-  data() {
+  data () {
     return {
       avatarSize: 45,
       tile: false
-    };
+    }
   },
-  props: ["isLoggedIn"],
+  props: ['isLoggedIn'],
   methods: {
-    settings(item) {
-      EventBus.$emit("settings", item);
+    settings (item) {
+      EventBus.$emit('settings', item)
     },
-    changeDrawer() {
-      this.$emit("changeDrawer");
+    changeDrawer () {
+      this.$emit('changeDrawer')
     },
-    logout() {
-      this.$emit("onLogout");
+    logout () {
+      this.$emit('onLogout')
     },
-    toLoginPage() {
-      this.$emit("toLoginPage");
+    toLoginPage () {
+      this.$emit('toLoginPage')
     }
   },
   computed: {
-    ...mapGetters(["user"])
+    ...mapGetters(['user'])
   },
   components: {
     NewsComponent
   }
-};
+}
 </script>
 
 <style scoped>

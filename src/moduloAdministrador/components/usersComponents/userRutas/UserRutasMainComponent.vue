@@ -13,25 +13,25 @@
   </div>
 </template>
 <script>
-import iopTabs from "@/moduloAdministrador/components/shared/iopTabs";
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
-import UserDetailRutasCatalogo from "@/moduloAdministrador/components/usersComponents/userRutas/UserDetailRutasCatalogo";
+import iopTabs from '@/moduloAdministrador/components/shared/iopTabs'
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
+import UserDetailRutasCatalogo from '@/moduloAdministrador/components/usersComponents/userRutas/UserDetailRutasCatalogo'
 export default {
-  data() {
+  data () {
     return {
       tabItems: [
         {
-          title: "Detalles",
-          icon: "info"
+          title: 'Detalles',
+          icon: 'info'
         }
       ],
-      selectedComponent: "Detalles"
-    };
+      selectedComponent: 'Detalles'
+    }
   },
   components: {
     iopTabs,
     Detalles: UserDetailRutasCatalogo,
     formInformation
   }
-};
+}
 </script>

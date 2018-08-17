@@ -21,41 +21,41 @@
   </div>
 </template>
 <script>
-import iopTabs from "@/moduloAdministrador/components/shared/iopTabs";
-import usuariosApi from "@/services/usuariosService";
-import InformationBar from "@/moduloAdministrador/components/shared/InformationBar";
-import usuarioDetailPersonal from "@/moduloAdministrador/components/usuarios/UsuarioDetailPersonal";
-import usuarioDetailInstitucional from "@/moduloAdministrador/components/usuarios/UsuarioDetailInstitucional";
-import usuariosRoutesListComponent from "@/moduloAdministrador/components/usuarios/UsuariosRoutesListComponent";
+import iopTabs from '@/moduloAdministrador/components/shared/iopTabs'
+import usuariosApi from '@/services/usuariosService'
+import InformationBar from '@/moduloAdministrador/components/shared/InformationBar'
+import usuarioDetailPersonal from '@/moduloAdministrador/components/usuarios/UsuarioDetailPersonal'
+import usuarioDetailInstitucional from '@/moduloAdministrador/components/usuarios/UsuarioDetailInstitucional'
+import usuariosRoutesListComponent from '@/moduloAdministrador/components/usuarios/UsuariosRoutesListComponent'
 export default {
-  data() {
+  data () {
     return {
       tabItems: [
         {
-          title: "Personal",
-          icon: "person"
+          title: 'Personal',
+          icon: 'person'
         },
         {
-          title: "Institucional",
-          icon: "public"
+          title: 'Institucional',
+          icon: 'public'
         },
         {
-          title: "Rutas",
-          icon: "call_split"
+          title: 'Rutas',
+          icon: 'call_split'
         }
       ],
       information: {
-        title: "user?",
+        title: 'user?',
         description:
-          "El objeto Consumer representa un consumidor, o un usuario, de una API."
+          'El objeto Consumer representa un consumidor, o un usuario, de una API.'
       },
       aditionals: {
         rutas: 0,
-        entidad: "n/a"
+        entidad: 'n/a'
       },
       spinner: true,
-      selectedComponent: "Personal"
-    };
+      selectedComponent: 'Personal'
+    }
   },
   components: {
     iopTabs,
@@ -64,15 +64,15 @@ export default {
     Rutas: usuariosRoutesListComponent,
     InformationBar
   },
-  mounted() {
-    this.spinner = true;
+  mounted () {
+    this.spinner = true
     usuariosApi.getUsuario(this.$route.params.id).then(data => {
-      this.information.title = data.usuario;
-      this.aditionals.rutas = data.rutas !== null ? data.rutas.length : 0;
-      this.aditionals.entidad = data.datosEntidad.siglaEntidad;
-      this.selectedUser = data;
-      this.spinner = false;
-    });
+      this.information.title = data.usuario
+      this.aditionals.rutas = data.rutas !== null ? data.rutas.length : 0
+      this.aditionals.entidad = data.datosEntidad.siglaEntidad
+      this.selectedUser = data
+      this.spinner = false
+    })
   }
-};
+}
 </script>

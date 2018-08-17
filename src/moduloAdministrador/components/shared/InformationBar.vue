@@ -23,10 +23,10 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
-      busqueda: ""
-    };
+      busqueda: ''
+    }
   },
   props: {
     information: {
@@ -38,7 +38,7 @@ export default {
       required: false
     }
   }
-};
+}
 </script>
 
 <style scoped>

@@ -74,39 +74,39 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import usuariosApi from "@/services/usuariosService";
-import StatesButton from "@/moduloAdministrador/components/shared/StatesButton";
-import EventBus from "@/utils/eventBus";
+import { mapGetters } from 'vuex'
+import usuariosApi from '@/services/usuariosService'
+import StatesButton from '@/moduloAdministrador/components/shared/StatesButton'
+import EventBus from '@/utils/eventBus'
 export default {
-  name: "user-servicios-datatable",
+  name: 'user-servicios-datatable',
   props: {
     headers: Array,
     items: Array
   },
   methods: {
-    openModal(id) {
-      EventBus.$emit("open-lg-modal", "select-ruta-user", id);
+    openModal (id) {
+      EventBus.$emit('open-lg-modal', 'select-ruta-user', id)
     },
-    openWindow(id) {
-      window.open("https://www.materialui.co/colors");
+    openWindow (id) {
+      window.open('https://www.materialui.co/colors')
     },
-    openRutas(idServicio) {
-      this.$router.push({ path: `servicios/${idServicio}` });
+    openRutas (idServicio) {
+      this.$router.push({ path: `servicios/${idServicio}` })
     }
   },
   computed: {
-    ...mapGetters(["user"])
+    ...mapGetters(['user'])
   },
-  mounted() {
+  mounted () {
     usuariosApi.getUsuario(this.user.id).then(data => {
-      //console.log(data);
-    });
+      // console.log(data);
+    })
   },
   components: {
     StatesButton
   }
-};
+}
 </script>
 
 <style scoped>

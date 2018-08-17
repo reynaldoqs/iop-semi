@@ -1,6 +1,6 @@
 <template>
   <div >
-    
+
     <div class="inter-card-container inter-container">
       <information-bar style="margin-bottom:30px"
       :information="information"
@@ -20,75 +20,75 @@
 </template>
 
 <script>
-import InformationBar from "@/moduloAdministrador/components/shared/InformationBar";
-import ActionAndSearchBar from "@/moduloAdministrador/components/shared/ActionAndSearchBar";
-import AmbientesDataTable from "@/moduloAdministrador/components/ambientes/AmbientesDataTable";
-import ambientesApi from "@/services/ambientesService";
-import EventBus from "@/utils/eventBus";
+import InformationBar from '@/moduloAdministrador/components/shared/InformationBar'
+import ActionAndSearchBar from '@/moduloAdministrador/components/shared/ActionAndSearchBar'
+import AmbientesDataTable from '@/moduloAdministrador/components/ambientes/AmbientesDataTable'
+import ambientesApi from '@/services/ambientesService'
+import EventBus from '@/utils/eventBus'
 
 export default {
-  data() {
+  data () {
     return {
       spinner: true,
       ambientes: [],
       information: {
-        title: "Ambientes",
-        description: "Crea conexionesa los nodos y activa el que quieras usar."
+        title: 'Ambientes',
+        description: 'Crea conexionesa los nodos y activa el que quieras usar.'
       },
       aditionals: {
         registrados: 0
       }
-    };
+    }
   },
   methods: {
-    modalAddAmbiente() {
-      EventBus.$emit("open-modal");
+    modalAddAmbiente () {
+      EventBus.$emit('open-modal')
       EventBus.$emit(
-        "set-modal-data",
+        'set-modal-data',
         {
-          icon: "cast"
+          icon: 'cast'
         },
-        "Registrar ambiente",
+        'Registrar ambiente',
         600
-      );
+      )
     },
-    search(query) {
-      this.spinner = true;
+    search (query) {
+      this.spinner = true
       ambientesApi.searchAmbiente(query).then(data => {
-        this.ambientes = data.ambientes;
-        this.spinner = false;
-      });
+        this.ambientes = data.ambientes
+        this.spinner = false
+      })
     },
-    changeResults(size) {
-      this.spinner = true;
+    changeResults (size) {
+      this.spinner = true
       ambientesApi.getAmbientes(size).then(data => {
-        this.ambientes = data.ambientes;
-        this.spinner = false;
-      });
+        this.ambientes = data.ambientes
+        this.spinner = false
+      })
     },
-    loadAmbientes() {
-      this.spinner = true;
+    loadAmbientes () {
+      this.spinner = true
       ambientesApi.getAmbientes().then(data => {
         this.ambientes = data.ambientes.map(ambiente => {
-          return Object.assign(ambiente, { loading: false });
-        });
-        this.spinner = false;
-      });
+          return Object.assign(ambiente, { loading: false })
+        })
+        this.spinner = false
+      })
     }
   },
   components: {
-    "search-bar": ActionAndSearchBar,
+    'search-bar': ActionAndSearchBar,
     InformationBar,
     AmbientesDataTable
   },
-  mounted() {
-    this.loadAmbientes();
-    EventBus.$on("refresh-from-modal", () => {
-      this.loadAmbientes();
-    });
+  mounted () {
+    this.loadAmbientes()
+    EventBus.$on('refresh-from-modal', () => {
+      this.loadAmbientes()
+    })
   },
-  beforeDestroy() {
-    EventBus.$off("refresh-from-modal");
+  beforeDestroy () {
+    EventBus.$off('refresh-from-modal')
   }
-};
+}
 </script>

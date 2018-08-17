@@ -35,52 +35,52 @@
         <v-flex xs12 md8>
          <user-rutas />
         </v-flex>
-        
+
       </v-layout> -->
     </div><!-- cambiar a <v-container></v-container> para toda la pantall-->
   </div>
 </template>
 
 <script>
-import EstadisticasLineComponent from "@/moduloAdministrador/components/estadisticas/EstadisticasLineComponent";
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
-import LineChart from "@/moduloAdministrador/components/charts/LineChart";
-import PieChart from "@/moduloAdministrador/components/charts/PieChart";
-import userRutas from "@/moduloAdministrador/components/usersComponents/userRutas/UserRutasMainComponent";
-import colors from "@/utils/getColors";
+import EstadisticasLineComponent from '@/moduloAdministrador/components/estadisticas/EstadisticasLineComponent'
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
+import LineChart from '@/moduloAdministrador/components/charts/LineChart'
+import PieChart from '@/moduloAdministrador/components/charts/PieChart'
+import userRutas from '@/moduloAdministrador/components/usersComponents/userRutas/UserRutasMainComponent'
+import colors from '@/utils/getColors'
 export default {
-  data() {
+  data () {
     return {
       topServicios: [
         {
-          nombre: "RUAT",
+          nombre: 'RUAT',
           recurencia: [120, 12, 23, 64, 312],
           active: true
         },
         {
-          nombre: "SICOES",
+          nombre: 'SICOES',
           recurencia: [220, 82, 79, 164, 212],
           active: true
         },
         {
-          nombre: "XTR",
+          nombre: 'XTR',
           recurencia: [120, 56, 123, 64, 142],
           active: true
         },
         {
-          nombre: "SENASAG",
+          nombre: 'SENASAG',
           recurencia: [190, 200, 200, 202, 200],
           active: true
         },
         {
-          nombre: "BUSS",
+          nombre: 'BUSS',
           recurencia: [12, 372, 23, 64, 12],
           active: true
         }
       ],
-      iopLabels: ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      iopLabels: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes'],
       itemsSize: [5, 10]
-    };
+    }
   },
   components: {
     EstadisticasLineComponent,
@@ -91,7 +91,7 @@ export default {
   },
   methods: {},
   computed: {
-    servicios() {
+    servicios () {
       return {
         labels: this.iopLabels,
         datasets: this.topServicios
@@ -99,43 +99,43 @@ export default {
             let elemento = {
               label: servicio.nombre,
               borderColor: colors.getRgba(servicio.nombre),
-              pointBackgroundColor: "white",
+              pointBackgroundColor: 'white',
               borderDash: [3],
               borderDashOffset: 4,
-              borderJoinStyle: "miter",
+              borderJoinStyle: 'miter',
               borderWidth: 1,
-              pointBorderColor: "#249ebf",
+              pointBorderColor: '#249ebf',
               pointRadius: 4,
               steppedLine: false,
               backgroundColor: colors.getRgba(servicio.nombre, 0.3),
               fill: true,
               data: servicio.recurencia,
               active: servicio.active
-            };
-            return elemento;
+            }
+            return elemento
           })
           .filter(servicio => servicio.active)
-      };
+      }
     },
-    pieDatos() {
-      let size = 5;
-      let elementos = [];
+    pieDatos () {
+      let size = 5
+      let elementos = []
       for (let i = 0; i < size; i++) {
         let elemento = {
-          label: "Servicio 3",
-          borderColor: "#ff9eff",
-          pointBackgroundColor: "white",
+          label: 'Servicio 3',
+          borderColor: '#ff9eff',
+          pointBackgroundColor: 'white',
           borderWidth: 0,
-          pointBorderColor: "#249ebf",
-          backgroundColor: "red",
+          pointBorderColor: '#249ebf',
+          backgroundColor: 'red',
           data: [2, 3, 4]
-        };
-        elementos.push(elemento);
+        }
+        elementos.push(elemento)
       }
-      return elementos;
+      return elementos
     }
   }
-};
+}
 </script>
 
 <style scoped>

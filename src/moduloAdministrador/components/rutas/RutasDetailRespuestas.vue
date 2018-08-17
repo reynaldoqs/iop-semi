@@ -18,7 +18,7 @@
             label="Código HTTP"
             outline
             :rules="[rules.req, rules.integer]"
-            :disabled="!hasId"  
+            :disabled="!hasId"
           ></v-text-field>
         </v-flex>
         <v-flex xs6 md2 class="iop-left-spacer iop-right-spacer">
@@ -74,15 +74,15 @@
   </div>
 </template>
 <script>
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
-import SteepersChips from "@/moduloAdministrador/components/rutas/SteepersChips";
-import rules from "@/config/formRules";
-import rutasApi from "@/services/rutasService";
-import RutasDetailRespuestasParametros from "@/moduloAdministrador/components/rutas/RutasDetailRespuestasParametros";
-import answersModule from "@/utils/responseManager";
-import checkModule from "@/utils/checkChanges";
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
+import SteepersChips from '@/moduloAdministrador/components/rutas/SteepersChips'
+import rules from '@/config/formRules'
+import rutasApi from '@/services/rutasService'
+import RutasDetailRespuestasParametros from '@/moduloAdministrador/components/rutas/RutasDetailRespuestasParametros'
+import answersModule from '@/utils/responseManager'
+import checkModule from '@/utils/checkChanges'
 export default {
-  data() {
+  data () {
     return {
       idRuta: null,
       isMain: true,
@@ -92,108 +92,106 @@ export default {
       model: {
         descripcion: null,
         codigoHttp: null,
-        tipoContenido: "aplication/json"
+        tipoContenido: 'aplication/json'
       },
       oldModel: null,
       items: [],
       selectedCodigo: -1,
       selectedRespId: -1
-    };
+    }
   },
   methods: {
-    cleanForm() {
-      this.selectedId = null;
-      this.resetForm();
+    cleanForm () {
+      this.selectedId = null
+      this.resetForm()
     },
-    editItem(id) {
-      this.selectedId = id;
-      let indexSelected = this.items.findIndex(data => data.id === id);
-      this.oldModel = Object.assign({}, this.items[indexSelected]);
-      this.model = Object.assign({}, this.items[indexSelected]);
+    editItem (id) {
+      this.selectedId = id
+      let indexSelected = this.items.findIndex(data => data.id === id)
+      this.oldModel = Object.assign({}, this.items[indexSelected])
+      this.model = Object.assign({}, this.items[indexSelected])
     },
-    async deleteItem(id) {
-      let indexSelected = this.items.findIndex(data => data.id === id);
+    async deleteItem (id) {
+      let indexSelected = this.items.findIndex(data => data.id === id)
       if (indexSelected !== -1) {
-        let respuesta = await rutasApi.deleteCodRespuesta(this.idRuta, id);
-        if (answersModule.verifyPetition(respuesta).isOk)
-          this.items.splice(indexSelected, 1);
+        let respuesta = await rutasApi.deleteCodRespuesta(this.idRuta, id)
+        if (answersModule.verifyPetition(respuesta).isOk) { this.items.splice(indexSelected, 1) }
       }
     },
-    async actualizar() {
+    async actualizar () {
       try {
-        this.loading = true;
-        let fromForm = checkModule.checkIt(this.oldModel, this.model);
+        this.loading = true
+        let fromForm = checkModule.checkIt(this.oldModel, this.model)
         let respuesta = await rutasApi.patchCodRespuesta(
           this.idRuta,
           this.selectedId,
           fromForm
-        );
+        )
         if (answersModule.verifyPetition(respuesta).isOk) {
-          //updateAMD: mejorar para que no haga get para actualizar la lista
-          this.resetForm();
-          this.loadCodsRespuestas();
-          this.selectedId = null;
+          // updateAMD: mejorar para que no haga get para actualizar la lista
+          this.resetForm()
+          this.loadCodsRespuestas()
+          this.selectedId = null
         }
 
-        this.loading = false;
+        this.loading = false
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
     },
-    async agregar() {
+    async agregar () {
       try {
-        this.loading = true;
-        let fromForm = Object.assign({}, this.model);
-        let respuesta = await rutasApi.postCodRespuesta(this.idRuta, fromForm);
+        this.loading = true
+        let fromForm = Object.assign({}, this.model)
+        let respuesta = await rutasApi.postCodRespuesta(this.idRuta, fromForm)
         if (answersModule.verifyPetition(respuesta).isOk) {
-          let nuevoCodigo = answersModule.verifyPetition(respuesta).answer;
-          this.items.push(nuevoCodigo);
-          this.resetForm();
+          let nuevoCodigo = answersModule.verifyPetition(respuesta).answer
+          this.items.push(nuevoCodigo)
+          this.resetForm()
         }
-        this.loading = false;
+        this.loading = false
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
     },
-    addParametros(val) {
+    addParametros (val) {
       if (val) {
-        this.selectedCodigo = val.codigoHttp;
-        this.selectedRespId = val.idRespuesta;
-        this.isMain = false;
+        this.selectedCodigo = val.codigoHttp
+        this.selectedRespId = val.idRespuesta
+        this.isMain = false
       } else {
-        this.selectedCodigo = -1;
-        this.selectedRespId = -1;
+        this.selectedCodigo = -1
+        this.selectedRespId = -1
       }
     },
-    async loadCodsRespuestas() {
-      let respuesta = await rutasApi.getCodsRespuestas(this.idRuta);
-      if (answersModule.verifyPetition(respuesta).isOk)
-        this.items = answersModule.verifyPetition(respuesta).answer.respuestas;
+    async loadCodsRespuestas () {
+      let respuesta = await rutasApi.getCodsRespuestas(this.idRuta)
+      if (answersModule.verifyPetition(respuesta).isOk) { this.items = answersModule.verifyPetition(respuesta).answer.respuestas }
     },
-    resetForm() {
-      this.$refs.formRespuestas.reset();
-      this.model.tipoContenido = "aplication/json";
+    resetForm () {
+      this.$refs.formRespuestas.reset()
+      this.model.tipoContenido = 'aplication/json'
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     },
-    hasId() {
-      return this.idRuta ? true : false;
+    hasId () {
+      return !!this.idRuta
     }
   },
-  mounted() {
-    this.idRuta = this.$route.params.id;
-    this.loadCodsRespuestas();
-    this.selectedCodigo = -1;
+  mounted () {
+    this.idRuta = this.$route.params.id
+    this.loadCodsRespuestas()
+    this.selectedCodigo = -1
   },
   components: {
     SteepersChips,
     RutasDetailRespuestasParametros,
     formInformation
   }
-};
+}
 </script>
 <style scoped>
 .s-chips-container {

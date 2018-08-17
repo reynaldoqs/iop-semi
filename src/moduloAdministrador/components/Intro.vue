@@ -13,19 +13,19 @@
 </template>
 <script>
 export default {
-  name: "Intro",
-  data() {
-    return {};
+  name: 'Intro',
+  data () {
+    return {}
   },
   methods: {
-    getIn() {
-      const aniDuration = 2500;
+    getIn () {
+      const aniDuration = 2500
       window.setTimeout(() => {
-        this.$emit("next");
-      }, aniDuration);
+        this.$emit('next')
+      }, aniDuration)
     }
   },
-  mounted() {
+  mounted () {
     /* const compo = this.$el;
     const btn = compo.querySelector("g#getinbtn");
 
@@ -34,8 +34,8 @@ export default {
 
     svg1Setting(); */
   },
-  destroyed() {}
-};
+  destroyed () {}
+}
 </script>
 <style>
 .loader-container {

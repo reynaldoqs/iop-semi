@@ -15,7 +15,7 @@
             <v-flex xs8>
               <v-text-field :rules="[rules.req]" :disabled="!editable" v-model="entidadModel.siglaEntidad"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -27,7 +27,7 @@
             <v-flex xs8>
               <v-text-field :rules="[rules.req, rules.max150]" :disabled="!editable" v-model="entidadModel.desEntidad"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -39,7 +39,7 @@
             <v-flex xs8>
               <v-text-field :disabled="editable" v-model.number="entidadModel.entidadTuicion"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -49,14 +49,14 @@
               </v-subheader>
             </v-flex>
             <v-flex xs8>
-              <picture-input 
+              <picture-input
               crop
               ref="pictureInput"
-              width="600" 
-              height="400" 
-              margin="20" 
-              accept="image/png" 
-              :size="1" 
+              width="600"
+              height="400"
+              margin="20"
+              accept="image/png"
+              :size="1"
               button-class="btn"
               :custom-strings="{
                 upload: '<h1>Imagen entidad</h1>',
@@ -65,7 +65,6 @@
               @change="onChange">
             </picture-input>
             </v-flex>
-
 
             <v-flex xs12 style="text-align: right; padding:20px 16px 0 0;">
               <v-btn :disabled="!valid" :loading="loading" @click="guardar" flat round outline>Guardar <v-icon right small>save</v-icon></v-btn>
@@ -77,14 +76,14 @@
 </template>
 
 <script>
-import rules from "@/config/formRules";
-import entidadesApi from "@/services/entidadesService";
-import PictureInput from "vue-picture-input";
-import EventBus from "@/utils/eventBus";
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
+import rules from '@/config/formRules'
+import entidadesApi from '@/services/entidadesService'
+import PictureInput from 'vue-picture-input'
+import EventBus from '@/utils/eventBus'
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
 export default {
-  name: "create-ambiente",
-  data() {
+  name: 'create-ambiente',
+  data () {
     return {
       valid: true,
       editable: true,
@@ -95,38 +94,38 @@ export default {
         entidadTuicion: 0,
         urlImagen: null
       }
-    };
+    }
   },
   methods: {
-    guardar() {
-      this.editable = false;
-      this.loading = true;
+    guardar () {
+      this.editable = false
+      this.loading = true
       entidadesApi.postEntidad(this.entidadModel).then(resp => {
         if (resp !== undefined) {
-          this.loading = false;
-          this.editable = true;
+          this.loading = false
+          this.editable = true
         } else {
-          this.loading = false;
-          this.editable = true;
+          this.loading = false
+          this.editable = true
         }
-      });
+      })
     },
-    onChange(image) {
+    onChange (image) {
       if (image) {
-        this.entidadModel.urlImagen = image;
+        this.entidadModel.urlImagen = image
       } else {
-        console.error("FileReader API not supported: use the <form>, Luke!");
+        console.error('FileReader API not supported: use the <form>, Luke!')
       }
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     }
   },
   components: {
     PictureInput,
     formInformation
   }
-};
+}
 </script>

@@ -8,11 +8,11 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       switch1: true,
       switch2: false
-    };
+    }
   }
-};
+}
 </script>

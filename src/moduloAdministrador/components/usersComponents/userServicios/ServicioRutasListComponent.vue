@@ -12,55 +12,55 @@
 </template>
 
 <script>
-import dataTable from "@/moduloAdministrador/components/usersComponents/userRutas/UserRutasDataTableView";
-import serviciosApi from "@/services/serviciosService";
-import { mapGetters } from "vuex";
+import dataTable from '@/moduloAdministrador/components/usersComponents/userRutas/UserRutasDataTableView'
+import serviciosApi from '@/services/serviciosService'
+import { mapGetters } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
       notifications: false,
       spinner: false,
       rutas: [],
       headers: [
         {
-          title: "Datos de la ruta"
+          title: 'Datos de la ruta'
         },
         {
-          title: "Url base"
+          title: 'Url base'
         },
         {
-          title: "Estado"
+          title: 'Estado'
         },
         {
-          title: "Respuestas"
+          title: 'Respuestas'
         },
         {
-          title: "Acciones"
+          title: 'Acciones'
         }
       ],
-      errorMessage: "",
+      errorMessage: '',
       showError: false
-    };
+    }
   },
-  mounted() {
-    this.spinner = true;
+  mounted () {
+    this.spinner = true
     if (this.user.id) {
       serviciosApi.getRutas(this.$route.params.id).then(data => {
-        this.rutas = data.rutas;
-        this.spinner = false;
-      });
+        this.rutas = data.rutas
+        this.spinner = false
+      })
     } else {
-      this.$store.dispatch("notification", {
-        message: "Error con el usuario",
+      this.$store.dispatch('notification', {
+        message: 'Error con el usuario',
         dangerous: true
-      });
+      })
     }
   },
   components: {
     dataTable
   },
   computed: {
-    ...mapGetters(["user"])
+    ...mapGetters(['user'])
   }
-};
+}
 </script>

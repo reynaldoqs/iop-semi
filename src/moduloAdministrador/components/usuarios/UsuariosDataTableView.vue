@@ -32,7 +32,7 @@
         <td>
           <div class="cell-item-iop">
             <div class="ci-container">
-              {{user.numeroCarnetIdentidad}} 
+              {{user.numeroCarnetIdentidad}}
               <span>
                   {{user.complementoCarnetIdentidad}}
                 </span>
@@ -68,8 +68,8 @@
 </template>
 
 <script>
-import EventBus from "@/utils/eventBus";
-import colors from "@/utils/getColors";
+import EventBus from '@/utils/eventBus'
+import colors from '@/utils/getColors'
 export default {
   props: {
     headers: {
@@ -80,24 +80,24 @@ export default {
     }
   },
   methods: {
-    giveColor(name) {
-      return colors.getRgba(name, 1);
+    giveColor (name) {
+      return colors.getRgba(name, 1)
     },
-    adicionarAmbientes(val) {
-      EventBus.$emit("open-modal");
+    adicionarAmbientes (val) {
+      EventBus.$emit('open-modal')
       EventBus.$emit(
-        "set-modal-data",
+        'set-modal-data',
         {
-          icon: "view_comfy",
-          description: "Habilite o deshabilite ambientes",
+          icon: 'view_comfy',
+          description: 'Habilite o deshabilite ambientes',
           userId: val
         },
-        "Habilitar ambiente",
+        'Habilitar ambiente',
         400
-      );
+      )
     }
   }
-};
+}
 </script>
 
 <style scoped>

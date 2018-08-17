@@ -11,67 +11,67 @@
   </div>
 </template>
 <script>
-import EventBus from "@/utils/eventBus";
-import modalsHeader from "@/moduloAdministrador/components/modals/modalsHeader";
-import AmbientesCreate from "@/moduloAdministrador/components/ambientes/AmbientesCreateComponent";
-import ServiciosCreate from "@/moduloAdministrador/components/servicios/ServiciosCreateComponent";
-import EntidadesCreate from "@/moduloAdministrador/components/entidades/EntidadesCreateComponent";
-import UserAddRuta from "@/moduloAdministrador/components/modals/UserAddRuta";
-import RutasSteepersController from "@/moduloAdministrador/components/rutas/RutasSteepersController";
-import CreateUser from "@/moduloAdministrador/components/accountSettings/createUser";
-import addAmbiente from "@/moduloAdministrador/components/accountSettings/addAmbiente";
+import EventBus from '@/utils/eventBus'
+import modalsHeader from '@/moduloAdministrador/components/modals/modalsHeader'
+import AmbientesCreate from '@/moduloAdministrador/components/ambientes/AmbientesCreateComponent'
+import ServiciosCreate from '@/moduloAdministrador/components/servicios/ServiciosCreateComponent'
+import EntidadesCreate from '@/moduloAdministrador/components/entidades/EntidadesCreateComponent'
+import UserAddRuta from '@/moduloAdministrador/components/modals/UserAddRuta'
+import RutasSteepersController from '@/moduloAdministrador/components/rutas/RutasSteepersController'
+import CreateUser from '@/moduloAdministrador/components/accountSettings/createUser'
+import addAmbiente from '@/moduloAdministrador/components/accountSettings/addAmbiente'
 export default {
-  name: "large-modal",
-  data() {
+  name: 'large-modal',
+  data () {
     return {
       width: null,
       active: false,
       data: {},
       title: null,
       currentComponent: null
-    };
+    }
   },
   components: {
     modalsHeader,
-    "select-ruta-user": UserAddRuta,
-    "registrar-ambiente": AmbientesCreate,
-    "registrar-servicio": ServiciosCreate,
-    "registrar-entidad": EntidadesCreate,
-    //new style
-    "crear-ruta": RutasSteepersController,
-    "registrar-usuario": CreateUser,
-    "habilitar-ambiente": addAmbiente
+    'select-ruta-user': UserAddRuta,
+    'registrar-ambiente': AmbientesCreate,
+    'registrar-servicio': ServiciosCreate,
+    'registrar-entidad': EntidadesCreate,
+    // new style
+    'crear-ruta': RutasSteepersController,
+    'registrar-usuario': CreateUser,
+    'habilitar-ambiente': addAmbiente
   },
   methods: {
-    close() {
-      this.active = false;
-      EventBus.$emit("refresh-from-modal");
-      this.currentComponent = null;
+    close () {
+      this.active = false
+      EventBus.$emit('refresh-from-modal')
+      this.currentComponent = null
     },
-    open() {
-      this.active = true;
+    open () {
+      this.active = true
     },
-    set(data, title, width = 900) {
-      this.data = data;
-      this.title = title;
-      this.width = width;
+    set (data, title, width = 900) {
+      this.data = data
+      this.title = title
+      this.width = width
       this.currentComponent = title
-        .split(" ")
-        .join("-")
-        .toLowerCase();
+        .split(' ')
+        .join('-')
+        .toLowerCase()
     }
   },
-  mounted() {
+  mounted () {
     this.$nextTick(
-      function() {
-        EventBus.$on("set-modal-data", this.set);
-        EventBus.$on("open-modal", this.open);
+      function () {
+        EventBus.$on('set-modal-data', this.set)
+        EventBus.$on('open-modal', this.open)
       }.bind(this)
-    );
+    )
   },
-  destroyed() {
-    EventBus.$off("set-modal-data", this.set);
-    EventBus.$off("open-modal", this.open);
+  destroyed () {
+    EventBus.$off('set-modal-data', this.set)
+    EventBus.$off('open-modal', this.open)
   }
-};
+}
 </script>

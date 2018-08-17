@@ -12,7 +12,7 @@
             label="Nombre del parámetro"
             outline
             :rules="[rules.req, rules.noSpace]"
-            :disabled="!hasId" 
+            :disabled="!hasId"
           ></v-text-field>
         </v-flex>
 
@@ -24,7 +24,7 @@
             outline
             @change="changeFormato"
             :rules="[rules.req]"
-            :disabled="!hasId" 
+            :disabled="!hasId"
           ></v-select>
         </v-flex>
 
@@ -125,14 +125,14 @@
   </div>
 </template>
 <script>
-import SteepersEditableList from "@/moduloAdministrador/components/rutas/SteepersEditableList";
-import rules from "@/config/formRules";
-import rutasApi from "@/services/rutasService";
-import answersModule from "@/utils/responseManager";
-import EventBus from "@/utils/eventBus";
-import checkModule from "@/utils/checkChanges";
+import SteepersEditableList from '@/moduloAdministrador/components/rutas/SteepersEditableList'
+import rules from '@/config/formRules'
+import rutasApi from '@/services/rutasService'
+import answersModule from '@/utils/responseManager'
+import EventBus from '@/utils/eventBus'
+import checkModule from '@/utils/checkChanges'
 export default {
-  data() {
+  data () {
     return {
       valid: true,
       loading: false,
@@ -147,19 +147,19 @@ export default {
       },
       oldModel: null,
       tipos: [
-        "string",
-        "boolean",
-        "array",
-        "object",
-        "integer",
-        "number",
-        "date",
-        "datetime"
+        'string',
+        'boolean',
+        'array',
+        'object',
+        'integer',
+        'number',
+        'date',
+        'datetime'
       ],
-      ubicaciones: ["query", "header", "path", "body", "cookie"],
-      headers: ["nombre", "tipo", "formato", "Acciones"],
+      ubicaciones: ['query', 'header', 'path', 'body', 'cookie'],
+      headers: ['nombre', 'tipo', 'formato', 'Acciones'],
       items: []
-    };
+    }
   },
   props: {
     idRespuesta: {
@@ -172,138 +172,137 @@ export default {
     }
   },
   methods: {
-    async actualizar() {
+    async actualizar () {
       try {
-        this.loading = true;
+        this.loading = true
         this.respModel.idParametroRespuestaPadre =
-          typeof this.respModel.idParametroRespuestaPadre === "undefined"
+          typeof this.respModel.idParametroRespuestaPadre === 'undefined'
             ? null
-            : this.respModel.idParametroRespuestaPadre;
-        let fromForm = checkModule.checkIt(this.oldModel, this.respModel);
+            : this.respModel.idParametroRespuestaPadre
+        let fromForm = checkModule.checkIt(this.oldModel, this.respModel)
         let respuesta = await rutasApi.patchRespuesta(
           this.idRespuesta,
           this.selectedId,
           fromForm
-        );
+        )
         if (answersModule.verifyPetition(respuesta).isOk) {
-          this.resetForm();
-          this.loadRespuestas();
+          this.resetForm()
+          this.loadRespuestas()
         }
-        this.loading = false;
+        this.loading = false
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
     },
-    async agregar() {
+    async agregar () {
       try {
-        this.loading = true;
+        this.loading = true
         this.respModel.idParametroRespuestaPadre =
-          typeof this.respModel.idParametroRespuestaPadre === "undefined"
+          typeof this.respModel.idParametroRespuestaPadre === 'undefined'
             ? null
-            : this.respModel.idParametroRespuestaPadre;
-        let fromForm = Object.assign({}, this.respModel);
+            : this.respModel.idParametroRespuestaPadre
+        let fromForm = Object.assign({}, this.respModel)
 
         let respuesta = await rutasApi.postRespuesta(
           this.idRespuesta,
           Object.assign(fromForm, { idRespuesta: this.idRespuesta })
-        );
+        )
         if (answersModule.verifyPetition(respuesta).isOk) {
-          let nuevoParametro = answersModule.verifyPetition(respuesta).answer;
-          this.items.push(nuevoParametro);
-          this.resetForm();
+          let nuevoParametro = answersModule.verifyPetition(respuesta).answer
+          this.items.push(nuevoParametro)
+          this.resetForm()
         }
-        this.loading = false;
+        this.loading = false
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
     },
-    changeFormato() {
+    changeFormato () {
       if (this.respModel.tipo) {
-        this.respModel.formato = this.formato(this.respModel.tipo);
+        this.respModel.formato = this.formato(this.respModel.tipo)
       }
     },
-    resetForm() {
-      this.$refs.formRespParametros.reset();
-      //fix AMD: hacer la mejor manera de quitar los parametros adiconales al hacer reset
-      //temp
-      if (this.respModel.id) delete this.respModel.id;
-      if (this.respModel.fechaModificacion)
-        delete this.respModel.fechaModificacion;
-      if (this.respModel.fechaRegistro) delete this.respModel.fechaRegistro;
-      //end temp
-      if (this.respModel.requerido) this.respModel.requerido = false;
-      this.respModel.valorEjemplo = null;
-      this.selectedId = null;
+    resetForm () {
+      this.$refs.formRespParametros.reset()
+      // fix AMD: hacer la mejor manera de quitar los parametros adiconales al hacer reset
+      // temp
+      if (this.respModel.id) delete this.respModel.id
+      if (this.respModel.fechaModificacion) { delete this.respModel.fechaModificacion }
+      if (this.respModel.fechaRegistro) delete this.respModel.fechaRegistro
+      // end temp
+      if (this.respModel.requerido) this.respModel.requerido = false
+      this.respModel.valorEjemplo = null
+      this.selectedId = null
     },
-    loadRespuesta(data) {
-      this.selectedId = data.id;
-      this.respModel = Object.assign({}, data);
-      this.oldModel = Object.assign({}, data);
+    loadRespuesta (data) {
+      this.selectedId = data.id
+      this.respModel = Object.assign({}, data)
+      this.oldModel = Object.assign({}, data)
     },
-    async loadRespuestas() {
-      let respuesta = await rutasApi.getRespuestas(this.idRespuesta);
-      if (answersModule.verifyPetition(respuesta).isOk)
+    async loadRespuestas () {
+      let respuesta = await rutasApi.getRespuestas(this.idRespuesta)
+      if (answersModule.verifyPetition(respuesta).isOk) {
         this.items = answersModule.verifyPetition(
           respuesta
-        ).answer.parametroRespuesta;
+        ).answer.parametroRespuesta
+      }
     },
-    async deleteRespuestaDB(id) {
-      let respuesta = await rutasApi.deleteRespuesta(this.idRuta, id);
-      if (answersModule.verifyPetition(respuesta).isOk) this.loadRespuestas();
+    async deleteRespuestaDB (id) {
+      let respuesta = await rutasApi.deleteRespuesta(this.idRuta, id)
+      if (answersModule.verifyPetition(respuesta).isOk) this.loadRespuestas()
     },
-    async loadRespuestaDB(id) {
-      let respuesta = await rutasApi.getRespuesta(this.idRuta, id);
-      if (answersModule.verifyPetition(respuesta).isOk)
-        this.loadRespuesta(answersModule.verifyPetition(respuesta).answer);
+    async loadRespuestaDB (id) {
+      let respuesta = await rutasApi.getRespuesta(this.idRuta, id)
+      if (answersModule.verifyPetition(respuesta).isOk) { this.loadRespuesta(answersModule.verifyPetition(respuesta).answer) }
     },
-    formato(tipo) {
+    formato (tipo) {
       switch (tipo) {
-        case "string":
-          return "UFT-8";
-        case "boolean":
-          return "true/false";
-        case "array":
-          return "any";
-        case "object":
-          return "any";
-        case "integer":
-          return "int-32";
-        case "number":
-          return "int-32";
-        case "date":
-          return "DD/MM/YYYY";
-        case "datetime":
-          return "00:00";
+        case 'string':
+          return 'UFT-8'
+        case 'boolean':
+          return 'true/false'
+        case 'array':
+          return 'any'
+        case 'object':
+          return 'any'
+        case 'integer':
+          return 'int-32'
+        case 'number':
+          return 'int-32'
+        case 'date':
+          return 'DD/MM/YYYY'
+        case 'datetime':
+          return '00:00'
         default:
-          return "";
+          return ''
       }
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     },
-    hasId() {
-      return this.idRespuesta ? true : false;
+    hasId () {
+      return !!this.idRespuesta
     }
   },
   components: {
     SteepersEditableList
   },
-  mounted() {
-    this.loadRespuestas();
-    EventBus.$on("deleteParametro", id => {
-      this.deleteRespuestaDB(id);
-    });
-    EventBus.$on("editParametro", id => {
-      this.loadRespuestaDB(id);
-    });
+  mounted () {
+    this.loadRespuestas()
+    EventBus.$on('deleteParametro', id => {
+      this.deleteRespuestaDB(id)
+    })
+    EventBus.$on('editParametro', id => {
+      this.loadRespuestaDB(id)
+    })
   },
-  beforeDestroy() {
-    EventBus.$off("deleteParametro");
-    EventBus.$off("editParametro");
+  beforeDestroy () {
+    EventBus.$off('deleteParametro')
+    EventBus.$off('editParametro')
   }
-};
+}
 </script>
 <style scoped>
 .list-container {

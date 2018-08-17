@@ -2,12 +2,12 @@
   <div>
     <v-list subheader two-line light>
       <v-subheader light>Rutas asociadas</v-subheader>
-  
+
       <v-list-tile @click.stop="selectRuta(index)" v-for="(ruta,index) in arrayRutas" :key="index">
         <v-list-tile-action light>
           <v-checkbox v-model="ruta.active"></v-checkbox>
         </v-list-tile-action>
-  
+
         <v-list-tile-content>
           <v-list-tile-title>{{ruta.nombre}} <span style="color:var(--inter-primary); font-size:.7rem; font-weight:700; position:relative; top:-8px">{{ruta.metodo}}</span></v-list-tile-title>
           <v-list-tile-sub-title style="line-height:0.9rem; font-size:1rem">{{ruta.descripcion}}</v-list-tile-sub-title>
@@ -20,10 +20,10 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       arrayRutas: []
-    };
+    }
   },
   props: {
     rutasServicio: Array,
@@ -31,21 +31,21 @@ export default {
     rutasUsuario: Array
   },
   methods: {
-    selectRuta(index) {
-      this.arrayRutas[index].active = !this.arrayRutas[index].active;
-      this.$emit("onSelect", this.arrayRutas);
-      //Revisar, en algunos casos se bugea aqui al momento de cambiar el estado de check
+    selectRuta (index) {
+      this.arrayRutas[index].active = !this.arrayRutas[index].active
+      this.$emit('onSelect', this.arrayRutas)
+      // Revisar, en algunos casos se bugea aqui al momento de cambiar el estado de check
     },
-    checkIfIsActive(rutaId) {
+    checkIfIsActive (rutaId) {
       if (this.idAmbiente) {
         let result = this.rutasUsuario.some(
           ruta => ruta.idRuta === rutaId && ruta.idAmbiente === this.idAmbiente
-        );
-        return result;
+        )
+        return result
       }
     }
   },
-  mounted() {
+  mounted () {
     this.arrayRutas = this.rutasServicio.map(ruta => {
       let rutaFormada = {
         nombre: ruta.nombre,
@@ -54,9 +54,9 @@ export default {
         metodo: ruta.metodo,
         idRuta: ruta.id,
         active: this.checkIfIsActive(ruta.id)
-      };
-      return rutaFormada;
-    });
+      }
+      return rutaFormada
+    })
   }
-};
+}
 </script>

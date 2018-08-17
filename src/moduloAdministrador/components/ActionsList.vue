@@ -8,27 +8,27 @@
           <span class="list-links">Recuperar contraseña</span>
         </li>
       </ul>
-    </div>  
+    </div>
 </template>
 <script>
-import EventBus from "@/utils/eventBus";
+import EventBus from '@/utils/eventBus'
 export default {
-  name: "list-links",
+  name: 'list-links',
   methods: {
-    modalCreateUser() {
-      EventBus.$emit("open-modal");
+    modalCreateUser () {
+      EventBus.$emit('open-modal')
       EventBus.$emit(
-        "set-modal-data",
+        'set-modal-data',
         {
-          icon: "person_add",
-          description: "Formulario para crear un nuevo usuario"
+          icon: 'person_add',
+          description: 'Formulario para crear un nuevo usuario'
         },
-        "Registrar usuario",
+        'Registrar usuario',
         600
-      );
+      )
     }
   }
-};
+}
 </script>
 
 <style scoped>

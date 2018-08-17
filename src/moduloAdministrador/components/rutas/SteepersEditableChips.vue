@@ -1,5 +1,5 @@
 <template>
-  <div>    
+  <div>
     <div class="rutas-chip-container">
       <v-chip
       close
@@ -14,10 +14,10 @@
 </template>
 <script>
 export default {
-  name: "steepers-chips",
+  name: 'steepers-chips',
   methods: {
-    remove(key) {
-      this.items.splice(key, 1);
+    remove (key) {
+      this.items.splice(key, 1)
     }
   },
   props: {
@@ -30,5 +30,5 @@ export default {
       default: true
     }
   }
-};
+}
 </script>

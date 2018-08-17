@@ -35,11 +35,11 @@ export default {
     },
     description: {
       type: String,
-      default: ""
+      default: ''
     },
     typeCode: {
       type: String,
-      default: "aplication/json"
+      default: 'aplication/json'
     },
     idRespuesta: {
       type: String,
@@ -51,20 +51,20 @@ export default {
     }
   },
   methods: {
-    addRespuestas() {
-      this.$emit("addRespuestas", {
+    addRespuestas () {
+      this.$emit('addRespuestas', {
         idRespuesta: this.idRespuesta,
         codigoHttp: this.title
-      });
+      })
     },
-    editItem() {
-      this.$emit("editItem", this.idRespuesta);
+    editItem () {
+      this.$emit('editItem', this.idRespuesta)
     },
-    deleteItem() {
-      this.$emit("deleteItem", this.idRespuesta);
+    deleteItem () {
+      this.$emit('deleteItem', this.idRespuesta)
     }
   }
-};
+}
 </script>
 <style scoped>
 div[code^="2"] {

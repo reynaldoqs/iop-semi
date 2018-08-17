@@ -21,12 +21,12 @@
     </v-snackbar>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 export default {
   computed: {
-    ...mapGetters(["isOn", "dangerous", "time", "message"])
+    ...mapGetters(['isOn', 'dangerous', 'time', 'message'])
   }
-};
+}
 </script>
 <style scoped>
 .inter-snack-bar {

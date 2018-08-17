@@ -13,7 +13,7 @@
         <v-form @submit.prevent="guardarUno" class="iop-form-container" ref="formUno" v-model="validUno" v-else>
           <div>
             <v-layout row wrap>
-  
+
               <v-flex xs4>
                 <v-subheader>
                   <div class="inter-subheader">
@@ -25,7 +25,7 @@
               <v-flex xs8>
                 <v-text-field :disabled="!editable" :rules="[rules.req, rules.max50]" v-model="rutasModel.nombre" box></v-text-field>
               </v-flex>
-  
+
               <v-flex xs4>
                 <v-subheader>
                   <div class="inter-subheader">
@@ -37,7 +37,7 @@
               <v-flex xs8>
                 <v-text-field :disabled="!editable" :rules="[rules.req, rules.max150]" v-model="rutasModel.descripcion" box></v-text-field>
               </v-flex>
-  
+
               <v-flex xs4>
                 <v-subheader>
                   <div class="inter-subheader">
@@ -49,7 +49,7 @@
               <v-flex xs8>
                 <v-text-field :disabled="!editable" :rules="[rules.req, rules.max9]" v-model="rutasModel.version" box></v-text-field>
               </v-flex>
-  
+
               <v-flex xs4>
                 <v-subheader>
                   <div class="inter-subheader">
@@ -61,7 +61,7 @@
               <v-flex xs8>
                 <v-text-field disabled v-model="rutasModel.numeroCatalogo" box></v-text-field>
               </v-flex>
-  
+
               <v-flex xs4>
                 <v-subheader>
                   <div class="inter-subheader">
@@ -73,7 +73,7 @@
               <v-flex xs8>
                 <v-text-field :disabled="!editable" :rules="[rules.req, rules.noSpace]" v-model="rutasModel.baseUrl" box></v-text-field>
               </v-flex>
-  
+
               <v-flex xs4>
                 <v-subheader>
                   <div class="inter-subheader">
@@ -85,7 +85,7 @@
               <v-flex xs8>
                 <v-text-field :disabled="!editable" :rules="[rules.req, rules.max20]" v-model="rutasModel.prefijoOperacion" box></v-text-field>
               </v-flex>
-  
+
               <v-flex xs4>
                 <v-subheader>
                   <div class="inter-subheader">
@@ -97,7 +97,7 @@
               <v-flex xs8>
                 <v-select disabled :rules="[rules.req]" :items="metodosOtp" v-model="rutasModel.metodo" box></v-select>
               </v-flex>
-  
+
               <v-flex xs4>
                 <v-subheader>
                   <div class="inter-subheader">
@@ -119,7 +119,7 @@
               </v-icon>
             </v-btn>
           </div>
-  
+
         </v-form>
       </v-flex>
     </v-layout>
@@ -127,14 +127,14 @@
 </template>
 
 <script>
-import ServiciosComboBox from "@/moduloAdministrador/components/shared/ServiciosComboBox";
-import rutasApi from "@/services/rutasService";
-import rules from "@/config/formRules";
-import check from "@/utils/checkChanges";
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
+import ServiciosComboBox from '@/moduloAdministrador/components/shared/ServiciosComboBox'
+import rutasApi from '@/services/rutasService'
+import rules from '@/config/formRules'
+import check from '@/utils/checkChanges'
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
 export default {
-  name: "ruta-detail-one",
-  data() {
+  name: 'ruta-detail-one',
+  data () {
     return {
       spinner: false,
       loading: false,
@@ -153,13 +153,13 @@ export default {
         idServicio: null
       },
       rutasOldModel: {},
-      metodosOtp: ["GET", "POST", "PATCH", "DELETE", "OPTIONS", "PUT"]
-    };
+      metodosOtp: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS', 'PUT']
+    }
   },
   methods: {
-    guardarUno() {
-      this.editable = false;
-      this.loading = true;
+    guardarUno () {
+      this.editable = false
+      this.loading = true
       rutasApi
         .patchRuta(
           this.$route.params.id,
@@ -167,39 +167,39 @@ export default {
         )
         .then(resp => {
           if (resp !== undefined) {
-            this.ambientesModel = resp;
-            this.loading = false;
-            this.editable = false;
+            this.ambientesModel = resp
+            this.loading = false
+            this.editable = false
           } else {
-            this.loading = false;
-            this.editable = true;
+            this.loading = false
+            this.editable = true
           }
-        });
+        })
     },
-    updateIdServicio(valor) {
-      this.rutasModel.idServicio = valor;
+    updateIdServicio (valor) {
+      this.rutasModel.idServicio = valor
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     }
   },
   components: {
     ServiciosComboBox,
     formInformation
   },
-  mounted() {
-    this.spinner = true;
+  mounted () {
+    this.spinner = true
     rutasApi.getRuta(this.$route.params.id).then(ruta => {
-      this.rutasModel = ruta;
-      this.spinner = false;
-      this.rutasOldModel = JSON.parse(JSON.stringify(ruta));
-      this.$emit("selectedComp", {
+      this.rutasModel = ruta
+      this.spinner = false
+      this.rutasOldModel = JSON.parse(JSON.stringify(ruta))
+      this.$emit('selectedComp', {
         titulo: ruta.nombre,
         subtitulo: ruta.descripcion
-      });
-    });
+      })
+    })
   }
-};
+}
 </script>

@@ -28,18 +28,18 @@ export default {
     },
     operation: {
       type: String,
-      default: "Verificar"
+      default: 'Verificar'
     },
     icon: {
       type: String,
-      default: "add"
+      default: 'add'
     },
     color: {
       type: String,
-      default: "white"
+      default: 'white'
     }
   }
-};
+}
 </script>
 <style scoped>
 .operation {

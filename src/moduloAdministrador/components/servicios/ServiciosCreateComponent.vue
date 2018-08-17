@@ -15,7 +15,7 @@
             <v-flex xs8>
               <v-text-field :rules="[rules.req]" :disabled="!editable" v-model="servicioModel.nombre"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -27,7 +27,7 @@
             <v-flex xs8>
               <v-text-field :rules="[rules.req, rules.noSpace]" :disabled="!editable" v-model="servicioModel.codigo"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -71,7 +71,7 @@
                 <v-date-picker v-model="servicioModel.fechaInicioDisponibilidad" @input="$refs.menu1.save(servicioModel.fechaInicioDisponibilidad)"></v-date-picker>
               </v-menu>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -115,7 +115,7 @@
             <v-flex xs8>
               <v-text-field :disabled="!editable" :rules="[rules.req]" v-model="servicioModel.descripcion"></v-text-field>
             </v-flex>
-  
+
             <v-flex xs4>
               <v-subheader>
                 <div class="inter-subheader">
@@ -129,7 +129,7 @@
                   <div class="iop-chips-form-container">
                     <v-chip v-for="(palabra, index) in servicioModel.palabrasClave" :key="index" close @input="eliminarPalabra(index)">
                       {{palabra}}</v-chip>
-                  </div> 
+                  </div>
             </v-flex>
 
             <v-flex xs4>
@@ -156,29 +156,28 @@
               <v-btn  @click.stop="modal = true" flat>Agregar ambiente<v-icon right dark>add</v-icon></v-btn>
             </v-flex>
 
-
             <v-flex xs12 style="text-align: right; padding:20px 16px 0 0;">
               <v-btn :disabled="!valid" :loading="loading" @click="guardar" flat round outline>Guardar <v-icon right small>save</v-icon></v-btn>
             </v-flex>
 
           </v-layout>
         </v-form>
-         <modal-component :dialog="modal"></modal-component> 
+         <modal-component :dialog="modal"></modal-component>
   </div>
 </template>
 
 <script>
-import rules from "@/config/formRules";
+import rules from '@/config/formRules'
 
-import EntidadesComboBox from "@/moduloAdministrador/components/shared/EntidadesComboBox";
-import serviciosApi from "@/services/serviciosService";
-import addPalabras from "@/moduloAdministrador/components/shared/formComponents/addPalabras";
-import EventBus from "@/utils/eventBus";
-import modalComponent from "@/moduloAdministrador/components/servicios/ServiciosCreateModalComponent";
-import formInformation from "@/moduloAdministrador/components/shared/formComponents/formInformationBar";
+import EntidadesComboBox from '@/moduloAdministrador/components/shared/EntidadesComboBox'
+import serviciosApi from '@/services/serviciosService'
+import addPalabras from '@/moduloAdministrador/components/shared/formComponents/addPalabras'
+import EventBus from '@/utils/eventBus'
+import modalComponent from '@/moduloAdministrador/components/servicios/ServiciosCreateModalComponent'
+import formInformation from '@/moduloAdministrador/components/shared/formComponents/formInformationBar'
 
 export default {
-  data() {
+  data () {
     return {
       valid: true,
       editable: true,
@@ -195,79 +194,79 @@ export default {
         ambientes: [],
         datosEntidad: {}
       },
-      menu1: "",
-      menu2: ""
-    };
+      menu1: '',
+      menu2: ''
+    }
   },
   methods: {
-    guardar() {
-      this.editable = false;
-      this.loading = true;
+    guardar () {
+      this.editable = false
+      this.loading = true
       serviciosApi.postServicio(this.servicioModel).then(resp => {
         if (resp !== undefined) {
-          this.closeCreateModal();
-          this.loading = false;
-          this.editable = true;
+          this.closeCreateModal()
+          this.loading = false
+          this.editable = true
         } else {
-          this.loading = false;
-          this.editable = true;
+          this.loading = false
+          this.editable = true
         }
-      });
+      })
     },
-    addPalabra(palabra) {
-      this.servicioModel.palabrasClave.push(palabra);
+    addPalabra (palabra) {
+      this.servicioModel.palabrasClave.push(palabra)
     },
-    eliminarPalabra(key) {
-      this.servicioModel.palabrasClave.splice(key, 1);
+    eliminarPalabra (key) {
+      this.servicioModel.palabrasClave.splice(key, 1)
     },
-    saveAmbiente(ambiente) {
-      //siguiente codigo,solo porque el emitter de vue emite 2 veces
-      if (!Object.values(ambiente).some(val => typeof val === "object")) {
-        this.servicioModel.ambientes.push(ambiente);
+    saveAmbiente (ambiente) {
+      // siguiente codigo,solo porque el emitter de vue emite 2 veces
+      if (!Object.values(ambiente).some(val => typeof val === 'object')) {
+        this.servicioModel.ambientes.push(ambiente)
       }
     },
-    cambioEntidad(entidad) {
+    cambioEntidad (entidad) {
       this.servicioModel.datosEntidad = {
         id: entidad.idEntidad,
         numeroEntidad: entidad.numeroEntidad,
         descripcionEntidad: entidad.descripcionEntidad,
         siglaEntidad: entidad.siglaEntidad
-      };
+      }
     },
-    isAmbienteValid(obj = {}) {
-      let flag = 0;
+    isAmbienteValid (obj = {}) {
+      let flag = 0
       Object.values(obj).map(obj => {
-        obj === null || obj === undefined ? flag++ : "";
-        return obj;
-      });
-      return flag > 0 ? false : true;
+        obj === null || obj === undefined ? flag++ : ''
+        return obj
+      })
+      return !(flag > 0)
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     }
   },
   components: {
-    "add-palabra": addPalabras,
+    'add-palabra': addPalabras,
     EntidadesComboBox,
     modalComponent,
     formInformation
   },
-  mounted() {
-    EventBus.$on("saveServiceModal", ambiente => {
+  mounted () {
+    EventBus.$on('saveServiceModal', ambiente => {
       // arreglado chuscamente, el evento se emite dos vences...
       this.isAmbienteValid(ambiente)
         ? this.servicioModel.ambientes.push(ambiente)
-        : "";
-    });
-    EventBus.$on("cancelServiceModal", () => {
-      this.modal = false;
-    });
+        : ''
+    })
+    EventBus.$on('cancelServiceModal', () => {
+      this.modal = false
+    })
   },
-  beforeDestroy() {
-    EventBus.$off("saveServiceModal");
-    EventBus.$off("cancelServiceModal");
+  beforeDestroy () {
+    EventBus.$off('saveServiceModal')
+    EventBus.$off('cancelServiceModal')
   }
-};
+}
 </script>

@@ -37,21 +37,21 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
-      busqueda: "",
+      busqueda: '',
       sizeResults: null,
       items: [5, 10, 15, 50, 100]
-    };
+    }
   },
   methods: {
-    onSearch() {
-      this.$emit("onSearch", this.busqueda);
+    onSearch () {
+      this.$emit('onSearch', this.busqueda)
     },
-    changeSize(value) {
+    changeSize (value) {
       if (this.sizeResults !== value) {
-        this.sizeResults = value;
-        this.$emit("changeSize", this.sizeResults);
+        this.sizeResults = value
+        this.$emit('changeSize', this.sizeResults)
       }
     }
   },
@@ -67,7 +67,7 @@ export default {
       default: false
     }
   }
-};
+}
 </script>
 
 <style scoped>

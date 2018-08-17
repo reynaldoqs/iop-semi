@@ -1,6 +1,5 @@
 export default {
-  statusCode(value) {
-
+  statusCode (value) {
     return 'todo bien'
   }
 }

@@ -10,7 +10,7 @@
             editable
             edit-icon="check"
             color="teal"
-          > 
+          >
            <small style="text-align: center;font-weight:700; color:white">{{ step.title }}</small>
            <small style="text-align: center">{{step.description}}</small>
           </v-stepper-step>
@@ -49,81 +49,81 @@
   </div>
 </template>
 <script>
-import SteepDetalles from "@/moduloAdministrador/components/rutas/SteepDetalles";
-import SteepParametros from "@/moduloAdministrador/components/rutas/SteepParametros";
-import SteepRespuestas from "@/moduloAdministrador/components/rutas/SteepRespuestas";
-import EventBus from "@/utils/eventBus";
-import rutasApi from "@/services/rutasService";
-import answersModule from "@/utils/responseManager";
+import SteepDetalles from '@/moduloAdministrador/components/rutas/SteepDetalles'
+import SteepParametros from '@/moduloAdministrador/components/rutas/SteepParametros'
+import SteepRespuestas from '@/moduloAdministrador/components/rutas/SteepRespuestas'
+import EventBus from '@/utils/eventBus'
+import rutasApi from '@/services/rutasService'
+import answersModule from '@/utils/responseManager'
 export default {
-  data() {
+  data () {
     return {
       btnLoading: false,
       globalIdRuta: null,
       e1: 1,
-      errorMessage: "ruta sin registrar",
+      errorMessage: 'ruta sin registrar',
       iopSteps: [
         {
-          title: "Detalles",
-          description: "Datos generales de la ruta.",
-          component: "SteepDetalles",
+          title: 'Detalles',
+          description: 'Datos generales de la ruta.',
+          component: 'SteepDetalles',
           isCompleted: false,
           isValid: false
         },
         {
-          title: "Parámetros",
-          description: "Parámetros de la ruta",
-          component: "SteepParametros",
+          title: 'Parámetros',
+          description: 'Parámetros de la ruta',
+          component: 'SteepParametros',
           isCompleted: false,
           isValid: false
         },
         {
-          title: "Respuestas",
-          description: "Las respuestas de la ruta",
-          component: "SteepRespuestas",
+          title: 'Respuestas',
+          description: 'Las respuestas de la ruta',
+          component: 'SteepRespuestas',
           isCompleted: false,
           isValid: false
         }
       ]
-    };
+    }
   },
 
   methods: {
-    async saveDetalles(detallesModel) {
+    async saveDetalles (detallesModel) {
       if (Object.values(detallesModel).some(data => data === null)) {
-        this.errorMessage = "datos erroneos al registrar la ruta";
+        this.errorMessage = 'datos erroneos al registrar la ruta'
       } else {
         try {
           let dataToSave = Object.assign(detallesModel, {
             idServicio: this.$route.params.id
-          });
+          })
 
-          let respuesta = await rutasApi.postRuta(detallesModel);
+          let respuesta = await rutasApi.postRuta(detallesModel)
           if (answersModule.verifyPetition(respuesta).isOk) {
             this.globalIdRuta = answersModule.verifyPetition(
               respuesta
-            ).answer.id;
-            this.detallesValid = true;
+            ).answer.id
+            this.detallesValid = true
           }
         } catch (err) {
-          console.error(err);
+          console.error(err)
         }
       }
     },
-    askDetalles() {
-      EventBus.$emit("askDetalles");
+    askDetalles () {
+      EventBus.$emit('askDetalles')
     },
-    nextStep(n) {
-      this.btnLoading = true;
+    nextStep (n) {
+      this.btnLoading = true
       if (n === 1 && this.globalIdRuta === null) {
-        this.askDetalles();
+        this.askDetalles()
       }
       if (n === this.iopSteps.length) {
-        this.$emit("closeModal");
-        this.btnLoading = false;
+        this.$emit('closeModal')
+        this.btnLoading = false
       } else {
-        this.e1 = n + 1;
-        this.btnLoading = false;
+        this.e1 = n + 1
+        this.btnLoading = false
       }
     }
   },
@@ -132,7 +132,7 @@ export default {
     SteepParametros,
     SteepRespuestas
   }
-};
+}
 </script>
 <style scoped>
 .component-fade-enter-active,

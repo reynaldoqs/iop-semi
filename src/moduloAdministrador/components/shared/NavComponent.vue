@@ -9,29 +9,28 @@
 </div>
 </template>
 
-
 <script>
-import NavView from "./NavView";
-import { mapGetters } from "vuex";
+import NavView from './NavView'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     NavView
   },
   methods: {
-    changeDrawer() {
-      this.$emit("changeDrawer");
+    changeDrawer () {
+      this.$emit('changeDrawer')
     },
-    logout() {
-      this.$store.dispatch("logout");
-      this.$router.push("/login");
+    logout () {
+      this.$store.dispatch('logout')
+      this.$router.push('/login')
     },
-    toLogin() {
-      this.$router.push("/login");
+    toLogin () {
+      this.$router.push('/login')
     }
   },
   computed: {
-    ...mapGetters(["isUserAuthenticated"])
+    ...mapGetters(['isUserAuthenticated'])
   }
-};
+}
 </script>

@@ -14,18 +14,18 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
-import definicionesApi from "@/services/definicionesService";
+import _ from 'lodash'
+import definicionesApi from '@/services/definicionesService'
 export default {
-  data() {
+  data () {
     return {
-      servicio: "definiciones",
+      servicio: 'definiciones',
       messages: [],
       text: null,
       loading: false,
       error: false,
-      icon: "cached"
-    };
+      icon: 'cached'
+    }
   },
   props: {
     disabled: Boolean,
@@ -35,47 +35,47 @@ export default {
     value: String
   },
   methods: {
-    apiRequest(value) {
-      if (value === "" || value === null || value === undefined) {
-        this.messages = [];
-        this.messages.push("Campo requerido.");
-        this.error = true;
-        this.loading = false;
-        return;
+    apiRequest (value) {
+      if (value === '' || value === null || value === undefined) {
+        this.messages = []
+        this.messages.push('Campo requerido.')
+        this.error = true
+        this.loading = false
+        return
       }
       definicionesApi.searchDefinicion(value).then(data => {
-        this.messages = [];
+        this.messages = []
         if (data) {
           if (data.definiciones.length > 0) {
-            this.messages.push("El nombre ya se encuentra registrado.");
-            this.error = true;
+            this.messages.push('El nombre ya se encuentra registrado.')
+            this.error = true
           } else {
-            this.messages.push("El nombre es válido");
+            this.messages.push('El nombre es válido')
           }
         } else {
-          console.error("Error interno.");
+          console.error('Error interno.')
         }
-        this.loading = false;
-      });
+        this.loading = false
+      })
     },
-    valid: _.debounce(function() {
-      this.apiRequest(this.text);
+    valid: _.debounce(function () {
+      this.apiRequest(this.text)
     }, 800)
   },
   watch: {
-    text() {
-      this.error = false;
-      this.loading = true;
-      this.messages = [];
-      this.messages.push("Verificando datos...");
-      this.valid();
-      this.$emit("input", this.text);
+    text () {
+      this.error = false
+      this.loading = true
+      this.messages = []
+      this.messages.push('Verificando datos...')
+      this.valid()
+      this.$emit('input', this.text)
     },
-    value() {
-      this.text = this.value;
+    value () {
+      this.text = this.value
     }
   }
-};
+}
 </script>
 <style>
 /* #input-usage .v-input__prepend-outer,

@@ -15,7 +15,7 @@
           </v-list>
         </nav>
       </v-flex>
-  
+
       <v-flex xs12 md9>
         <transition name="component-fade" mode="out-in">
           <slot>
@@ -23,21 +23,21 @@
         </transition>
       </v-flex>
     </v-layout>
-  
+
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
-      selectedItem: "Servicios"
-    };
+      selectedItem: 'Servicios'
+    }
   },
   methods: {
-    selectItem(value) {
-      this.selectedItem = value;
-      this.$emit("selectTab", value);
+    selectItem (value) {
+      this.selectedItem = value
+      this.$emit('selectTab', value)
     }
   },
   props: {
@@ -46,10 +46,10 @@ export default {
       required: true
     }
   },
-  created() {
-    this.selectedItem = this.items[0].title;
+  created () {
+    this.selectedItem = this.items[0].title
   }
-};
+}
 </script>
 
 <style scoped>

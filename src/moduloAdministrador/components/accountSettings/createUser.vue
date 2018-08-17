@@ -23,12 +23,12 @@
   </div>
 </template>
 <script>
-import createUserpart1 from "@/moduloAdministrador/components/accountSettings/createUserFormPersonal";
-import createUserpart2 from "@/moduloAdministrador/components/accountSettings/createUserFormInstitucional";
-import EventBus from "@/utils/eventBus";
-import usuariosApi from "@/services/usuariosService";
+import createUserpart1 from '@/moduloAdministrador/components/accountSettings/createUserFormPersonal'
+import createUserpart2 from '@/moduloAdministrador/components/accountSettings/createUserFormInstitucional'
+import EventBus from '@/utils/eventBus'
+import usuariosApi from '@/services/usuariosService'
 export default {
-  data() {
+  data () {
     return {
       userModel: {
         nombres: null,
@@ -42,69 +42,69 @@ export default {
         clave: null,
         usuario: null,
         datosEntidad: {
-          idEntidad: "5b2113880eca37e257fd4f9f",
+          idEntidad: '5b2113880eca37e257fd4f9f',
           numeroEntidad: 374,
           descripcionEntidad:
-            "Agencia de Gobierno Electrónico y Tecnologías de Información y Comunicación",
-          siglaEntidad: "AGETIC"
+            'Agencia de Gobierno Electrónico y Tecnologías de Información y Comunicación',
+          siglaEntidad: 'AGETIC'
         }
       },
       editable1: true,
       editable2: false,
       tab: 0,
-      tabItems: ["Datos personales"],
+      tabItems: ['Datos personales'],
       valid1: false,
       valid2: false
-    };
+    }
   },
   methods: {
-    next() {
-      this.tab = 1;
+    next () {
+      this.tab = 1
     },
-    save() {
-      usuariosApi.postUsuario(this.userModel);
+    save () {
+      usuariosApi.postUsuario(this.userModel)
     },
-    validar() {
-      this.editable1 = false;
+    validar () {
+      this.editable1 = false
       let datosPersonales = {
         primerApellido: this.userModel.primerApellido,
         segundoApellido: this.userModel.segundoApellido,
         nombres: this.userModel.nombres,
         numeroCarnetIdentidad: this.userModel.numeroCarnetIdentidad,
         complementoCarnetIdentidad: this.userModel.complementoCarnetIdentidad
-      };
+      }
       setTimeout(() => {
         usuariosApi.validarUsuario(datosPersonales).then(data => {
           if (data) {
-            this.tabItems.push("Datos adicionales");
-            //para el tema de que carge correctamente el tab
-            this.next();
-            this.editable2 = true;
+            this.tabItems.push('Datos adicionales')
+            // para el tema de que carge correctamente el tab
+            this.next()
+            this.editable2 = true
           } else {
-            this.editable1 = true;
+            this.editable1 = true
           }
-        });
-      }, 500);
+        })
+      }, 500)
     }
   },
-  mounted() {
-    EventBus.$on("personalValid", valid => {
-      this.valid1 = valid;
-    });
+  mounted () {
+    EventBus.$on('personalValid', valid => {
+      this.valid1 = valid
+    })
 
-    EventBus.$on("InstitucionalValid", valid => {
-      this.valid2 = valid;
-    });
+    EventBus.$on('InstitucionalValid', valid => {
+      this.valid2 = valid
+    })
   },
   components: {
     createUserpart1,
     createUserpart2
   },
-  beforeDestroy() {
-    EventBus.$off("InstitucionalValid");
-    EventBus.$off("personalValid");
+  beforeDestroy () {
+    EventBus.$off('InstitucionalValid')
+    EventBus.$off('personalValid')
   }
-};
+}
 </script>
 
 <style>

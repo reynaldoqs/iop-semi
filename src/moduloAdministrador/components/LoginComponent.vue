@@ -19,44 +19,44 @@
       </div>
     </v-form>
     <div class="login-links">
-      <ActionsList/> 
+      <ActionsList/>
     </div>
   </div>
 </template>
 
 <script>
-import rules from "@/config/formRules";
-import EventBus from "@/utils/eventBus";
-import ActionsList from "@/moduloAdministrador/components/ActionsList";
+import rules from '@/config/formRules'
+import EventBus from '@/utils/eventBus'
+import ActionsList from '@/moduloAdministrador/components/ActionsList'
 export default {
-  data() {
+  data () {
     return {
       valid: true,
-      username: "jarriaza",
-      password: "123456"
-    };
+      username: 'jarriaza',
+      password: '123456'
+    }
   },
-  props: ["isLoggedIn", "status"],
+  props: ['isLoggedIn', 'status'],
   methods: {
-    componentLogin() {
-      this.$emit("onLogin", {
+    componentLogin () {
+      this.$emit('onLogin', {
         usuario: this.username,
         clave: this.password
-      });
+      })
     },
-    componentLogout() {
-      this.$emit("onLogout");
+    componentLogout () {
+      this.$emit('onLogout')
     }
   },
   computed: {
-    rules() {
-      return rules;
+    rules () {
+      return rules
     }
   },
   components: {
     ActionsList
   }
-};
+}
 </script>
 
 <style scoped>
