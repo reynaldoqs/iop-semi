@@ -1,72 +1,69 @@
 <template>
   <div>
+  <div @click="isCollapse = !isCollapse" class="iop-aside-header">
+  
+  </div>
+  <el-menu class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="!isCollapse">
+    <el-submenu index="1">
+      <template slot="title">
+        <i class="el-icon-upload"></i>
+        <span slot="title" class="iop-aside-title">Servicios</span>
+      </template>
 
-<div class="iop-aside-header">
-</div>
-<el-menu class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
-  <el-submenu index="1">
-    <template slot="title">
-      <i class="el-icon-upload"></i>
-      <span slot="title">Servicios</span>
-    </template>
-
-    <el-menu-item-group>
-      <span slot="title">Servicios de la plataforma</span>
-
-    <el-submenu  v-for="(servicio, mainIndex) in servicios" :key="mainIndex" :index="`1-${mainIndex}`">
-        <span class="max-letters" slot="title">{{servicio.nombre}}</span>
-        <el-menu-item v-if="servicio.rutas.length > 0" v-for="(ruta,index) in servicio.rutas" :key="ruta.id" :index="`1-${mainIndex}-${index}`">{{ruta.nombre}}</el-menu-item>
-
+      <el-menu-item-group>
+        <span slot="title" class="iop-aside-title">Servicios de la plataforma</span>
+        <el-submenu  v-for="(servicio, mainIndex) in servicios" :key="mainIndex" :index="`1-${mainIndex}`">
+            <span class="max-letters" slot="title">{{servicio.nombre}}</span>
+            <el-menu-item v-if="servicio.rutas.length > 0" v-for="(ruta,index) in servicio.rutas" :key="ruta.id" :index="`1-${mainIndex}-${index}`"><span class="max-letters" style="margin-right:0">{{ruta.nombre}}</span></el-menu-item>
+        </el-submenu>
+      </el-menu-item-group>
     </el-submenu>
 
-    </el-menu-item-group>
+    <el-menu-item index="2">
+      <i class="el-icon-menu"></i>
+      <span slot="title">Navigator Two</span>
+    </el-menu-item>
+
+    <el-menu-item index="3" disabled>
+      <i class="el-icon-document"></i>
+      <span slot="title">Navigator Three</span>
+    </el-menu-item>
+
+    <el-menu-item index="4">
+      <i class="el-icon-setting"></i>
+      <span slot="title">Navigator Four</span>
+    </el-menu-item>
     
-
-
-    <el-menu-item-group title="Group Two">
-      <el-menu-item index="1-3">item three</el-menu-item>
-    </el-menu-item-group>
-    <el-submenu index="1-4">
-      <span slot="title">item four</span>
-      <el-menu-item index="1-4-1">item one</el-menu-item>
-    </el-submenu>
-  </el-submenu>
-  <el-menu-item index="2">
-    <i class="el-icon-menu"></i>
-    <span slot="title">Navigator Two</span>
-  </el-menu-item>
-  <el-menu-item index="3" disabled>
-    <i class="el-icon-document"></i>
-    <span slot="title">Navigator Three</span>
-  </el-menu-item>
-  <el-menu-item index="4">
-    <i class="el-icon-setting"></i>
-    <span slot="title">Navigator Four</span>
-  </el-menu-item>
-</el-menu>
+  </el-menu>
   </div>
 </template>
 <style>
 .iop-aside-header {
   width: 100%;
-  height: 80px;
-  background-color: black;
-  margin-bottom: 100px;
+  height: 65px;
+  padding: 10px;
+  text-align: right;
+  background-color: gray;
+  margin-bottom: 5px;
 }
 .el-menu-vertical-demo {
   max-height: 100%;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 260px;
+  width: 230px;
   min-height: 500px;
+}
+.iop-aside-title {
+  font-weight: 700;
 }
 .max-letters {
   margin-right: 15px;
   display: block;
-  max-width: 230px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 12px;
+  color: gray;
 }
 </style>
 

@@ -1,31 +1,35 @@
 <template>
 <div id="cliente-app">
 <el-container>
-  <el-aside width="auto"><SideBar/></el-aside>
+  <el-aside width="auto"><side-bar/></el-aside>
   <el-container>
-    <el-header height="75px">
-      <ToolBar/>
+    <el-header height="auto">
+      <tool-bar/>
     </el-header>
-    <el-main>Principal</el-main>
+    <el-main>
+      <section class="main-container">
+       <pre>
+         {{isAuthenticated}}
+       </pre>
+      </section>
+      <notifications-bar/>
+    </el-main>
     <el-footer>Pie de página</el-footer>
   </el-container>
 </el-container>
 </div>
-
-  <!--       
-        <SideBar/>
-        <h1>
-            Cliente template
-            <button @click.stop="notificar">Hacer notificacion</button>
-        </h1> -->
 </template>
 <script>
 import ToolBar from "@/app/components/ToolBar";
 import SideBar from "@/moduloCliente/components/SideBar";
+import NotificationsBar from "@/app/components/NotificationsBar";
+import { mapGetters } from "vuex";
+
 export default {
   components: {
     ToolBar,
-    SideBar
+    SideBar,
+    NotificationsBar
   },
   methods: {
     notificar() {
@@ -36,6 +40,12 @@ export default {
         offset: 60
       });
     }
+  },
+  computed: {
+    ...mapGetters([
+      "isAuthenticated"
+      // ...
+    ])
   }
 };
 </script>
@@ -46,15 +56,10 @@ export default {
 .el-header,
 .el-footer {
   background-color: #191919;
-  text-align: center;
-  display: flex;
-  align-items: center;
   width: 100%;
-  padding: 0 50px;
 }
 
 .el-aside {
-  background-color: #d3dce6;
   text-align: center;
   line-height: 200px;
   overflow-y: auto;
@@ -63,9 +68,9 @@ export default {
 
 .el-main {
   background-color: #e9eef3;
-  color: #333;
   text-align: center;
-  line-height: 160px;
+  display: inline-flex;
+  justify-content: flex-end;
 }
 </style>
 

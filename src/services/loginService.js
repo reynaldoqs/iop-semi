@@ -1,19 +1,20 @@
 import axios from 'axios'
 import notificationApi from '@/utils/showNotification'
 export default {
-  serviceLogin (creds) {
+  serviceLogin(creds) {
+    console.log(creds)
     return axios
       .post('/auth', creds)
       .then(data => {
-        notificationApi.showSuccessful('Usuario loageado')
+        console.log(data)
         return data.data
       })
       .catch(err => {
-        notificationApi.showError('Error en el login')
+        console.log(err.response)
         return err.response.data.error
       })
   },
-  serviceRestPassword (idChange, data) {
+  serviceRestPassword(idChange, data) {
     return axios
       .post(`/auth/${idChange}/cambiarClave`, data, {
         'Content-type': 'application/x-www-form-urlencoded'

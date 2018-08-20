@@ -33,20 +33,28 @@ export default {
     async onLogin() {
       this.editable = false;
       this.loading = true;
-      let respuesta = await loginService.serviceLogin({
+      /* let respuesta = await loginService.serviceLogin({
         usuario: this.usuario,
         clave: this.clave
       });
       if (_r.verifyResponse(respuesta).isOk) {
         this.$router.push("/cliente");
-      }
+      }*/
       this.editable = false;
+      this.$store.dispatch("login", {
+        usuario: this.usuario,
+        clave: this.clave
+      });
       this.loading = true;
     }
   }
 };
 </script>
 <style scoped>
+.el-input {
+  border: none;
+  border-radius: 50%;
+}
 .iop-login-input {
   margin: 15px 0;
 }

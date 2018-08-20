@@ -14,9 +14,11 @@ const state = {
 }
 
 const getters = {
-  isUserAuthenticated: state => !!state.user,
+  isAuthenticated: state => {
+    return state.user === '' || state.user === undefined ? false : true
+  },
   authStatus: state => state.status,
-  user: state => state.user || 'not found'
+  currentUser: state => state.user || 'not found'
 }
 const mutations = {
   [AUTH_REQUEST]: state => {

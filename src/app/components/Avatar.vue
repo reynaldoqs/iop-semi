@@ -1,8 +1,10 @@
 <template>
   <div>
-    <div class="avatar">
+    <div class="iop-avatar">
       <el-dropdown>
-      <img src="../../assets/user.jpg" alt="">
+      <div class="iop-avatar-container">
+        <img src="https://png.icons8.com/metro/40/424343/administrator-male.png">
+      </div>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item>Action 1</el-dropdown-item>
         <el-dropdown-item>Action 2</el-dropdown-item>
@@ -15,11 +17,16 @@
   </div>
 </template>
 <style scoped>
-.avatar img {
-  width: 52px;
-  height: 52px;
+.iop-avatar img {
+  width: 40px;
+  height: 40px;
+  padding: 5px;
   border-radius: 50%;
+  background-color: var(--ds-bg-1);
   cursor: pointer;
+}
+.iop-avatar {
+  margin: 0 10px;
 }
 </style>
 
