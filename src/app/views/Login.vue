@@ -1,53 +1,65 @@
 <template>
     <div>
         <particlesBG >
-              <el-card class="iop-card" shadow="always">
-                <el-tabs stretch class="iop-tabs" v-model="activeName" @tab-click="handleClick">
-                  <el-tab-pane name="ingreso" label="Ingresar">
-                     <login-form/>
-                  </el-tab-pane>
-                  <el-tab-pane name="registro">
-                      <span slot="label"><i class="el-icon-tickets" style="margin-right:13px;"></i>Registrarse</span>
-                      Registro
-                  </el-tab-pane>
-                </el-tabs>
-              </el-card>
+          <div slot="header">
+            <img src="../../assets/logoWhite.svg" width="70px" alt="">
+          </div>
+          <div>
+              <main-page-view/>
+          </div>
+          <div slot="footer">
+            <div class="btn-scroll">
+              <i class="el-icon-arrow-down" />
+            </div>
+          </div>
         </particlesBG> 
     </div>
 </template>
 <script>
 import particlesBG from "@/app/components/ParticlesBG";
-import LoginForm from "@/app/components/LoginForm";
+import MainPageView from "@/app/components/MainPageView";
 export default {
   data: () => ({
     activeName: "ingreso"
   }),
   components: {
     particlesBG,
-    LoginForm
-  },
-  methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
-    }
+    MainPageView
   }
 };
 </script>
 <style scoped>
-.iop-card {
-  background-color: transparent;
-  border: none;
-  width: 450px;
-  max-width: 100%;
-  /*   background: linear-gradient(
-    45deg,
-    rgba(49, 27, 146, 0.8),
-    rgba(41, 7, 82, 0.8)
-  ); */
-  background-color: white;
-
-  padding: 20px 16px;
+.btn-scroll {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: solid 1px #f1f1f1;
+  margin: 0 auto;
+  animation: float 3s ease-in-out infinite;
+  cursor: pointer;
+  padding: 10px 7px;
+  transition: 0.3s background-color ease;
 }
-.iop-tabs {
+.btn-scroll:hover {
+  background-color: #f1f1f1;
+}
+.btn-scroll:hover > i {
+  color: #6039aa;
+}
+.btn-scroll > i {
+  color: #f1f1f1;
+  font-size: 22px;
+  font-weight: 900;
+}
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 </style>

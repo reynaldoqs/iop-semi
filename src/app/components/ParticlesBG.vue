@@ -1,18 +1,19 @@
 <template>
-  <div>
     <div class="particles-container">
+      <transition name="fade">
       <vue-particles
+          v-if="particlesAnimation"
           class="particles"
-          color="#dedede"
-          :particleOpacity="0.3"
-          :particlesNumber="90"
+          color="#ffffff"
+          :particleOpacity="0.4"
+          :particlesNumber="70"
           shapeType="circle"
-          :particleSize="8"
-          linesColor="#dedede"
-          :linesWidth="2"
+          :particleSize="3"
+          linesColor="#ffffff"
+          :linesWidth="1"
           :lineLinked="true"
-          :lineOpacity="0.1"
-          :linesDistance="150"
+          :lineOpacity="0.3"
+          :linesDistance="180"
           :moveSpeed="2"
           :hoverEffect="false"
           hoverMode="grab"
@@ -20,42 +21,86 @@
           clickMode="repulse"
       >
       </vue-particles>
-      <div class="particles-slot">
-        <slot/>
+      </transition>
+      <div class="container">
+      <header>
+        <div class="items-container">
+          <slot name="header"></slot>
+        </div>
+      </header>
+      <main>
+        <slot></slot>
+      </main>
+      <footer>
+        <slot name="footer"></slot>
+      </footer>
       </div>
     </div>
-  </div>
 </template>
 <script>
-export default {};
+export default {
+  data: () => ({
+    particlesAnimation: false
+  }),
+  mounted() {
+    setTimeout(() => {
+      console.log("mostrando");
+      this.particlesAnimation = true;
+    }, 1000);
+  }
+};
 </script>
-<style>
+<style scoped>
 .particles-container {
   width: 100%;
-  height: 100%;
-  background-color: black;
+  height: 100vh;
+  background-color: #6039aa;
+  background-image: linear-gradient(115deg, #6039aa, #1c1e33);
+  /*background: #3A1C71;  /* fallback for old browsers */
+  /*background: -webkit-linear-gradient(to bottom, #FFAF7B, #D76D77, #3A1C71);  /* Chrome 10-25, Safari 5.1-6 */
+  /*background: linear-gradient(to bottom, #FFAF7B, #D76D77, #3A1C71); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-.particles {
-  background: linear-gradient(
-    10deg,
-    var(--inter-secondary),
-    var(--inter-primary)
-  );
-  z-index: 1;
+.container {
   width: 100%;
   height: 100vh;
-  max-height: 100%;
-  overflow: hidden;
-}
-.particles-slot {
-  width: 100%;
-  height: 100%;
   position: absolute;
-  left: 0;
   top: 0;
-  z-index: 2;
+  left: 0;
+  padding-top: 45px;
+  padding-bottom: 120px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+}
+header {
+  width: 100%;
+  height: 45px;
+}
+.items-container {
+  width: 100%;
+  max-width: 105px;
+  margin: 0 auto;
+}
+main {
+  width: 100%;
+  flex: 1 0 auto;
+}
+footer {
+  width: 100%;
+  height: 70px;
+  padding-top: 20px;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 2s ease-out;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+@media (max-width: 768px) {
+  .container {
+    padding-top: 15px;
+    padding-bottom: 20px;
+  }
 }
 </style>
